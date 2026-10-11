@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="高配当狙いの競馬予想を発走前に公開し、結果と実績を積み上げるPWA。">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>高配当競馬Bot</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">FREE BETA</p>
+      <h1>高配当競馬Bot</h1>
+      <p class="sub">的中率より、少点数で大きい配当を狙う。</p>
+    </div>
+    <button id="installButton" class="button ghost" hidden>ホーム画面に追加</button>
+  </header>
+
+  <main>
+    <section class="hero panel">
+      <div>
+        <span id="liveBadge" class="badge">更新待ち</span>
+        <h2>今日の勝負レース</h2>
+        <p id="updatedAt" class="muted">データを読み込み中...</p>
+      </div>
+      <button id="refreshButton" class="button">更新</button>
+    </section>
+
+    <section class="stats" aria-label="本日の集計">
+      <article class="stat panel"><span>選抜</span><strong id="selectedCount">-</strong><small>R</small></article>
+      <article class="stat panel"><span>JRA</span><strong id="jraCount">-</strong><small>R</small></article>
+      <article class="stat panel"><span>地方</span><strong id="narCount">-</strong><small>R</small></article>
+      <article class="stat panel"><span>最高スコア</span><strong id="maxScore">-</strong><small>/100</small></article>
+    </section>
+
+    <section class="section-head">
+      <div>
+        <p class="eyebrow">PICKS</p>
+        <h2>発走前予想</h2>
+      </div>
+      <p class="muted">◉ 妙味軸 / ◎ 安定 / ☆ 穴 / () 大穴</p>
+    </section>
+
+    <section id="raceList" class="race-list" aria-live="polite"></section>
+
+    <section class="panel trust-box">
+      <p class="eyebrow">POLICY</p>
+      <h2>無料期間は実績を全部残す</h2>
+      <p>発走前の予想、外れ、的中、回収率を隠さず積み上げます。高配当狙いなので的中率は低くなります。</p>
+      <p class="muted">※「四桁狙い」は配当保証ではなく、荒れる余地と穴馬の買い材料から攻める価値が高いと判定したレースです。</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>高配当競馬Bot β — まずは無料公開で検証中</p>
+  </footer>
+
+  <template id="raceTemplate">
+    <article class="race-card panel">
+      <div class="race-head">
+        <div>
+          <span class="source-pill"></span>
+          <span class="tier-pill"></span>
+          <h3 class="race-title"></h3>
+          <p class="race-time muted"></p>
+        </div>
+        <div class="score-box"><span>高配当</span><strong class="score"></strong></div>
+      </div>
+      <div class="marks"></div>
+      <div class="bet-box">
+        <p class="bet-title">買い目</p>
+        <p class="bet"></p>
+      </div>
+      <div class="card-actions">
+        <a class="button x-share" target="_blank" rel="noopener">X投稿画面</a>
+        <button class="button ghost copy-bet">買い目コピー</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
