@@ -1,0 +1,19 @@
+{
+  "name": "高配当競馬Bot",
+  "short_name": "高配当競馬",
+  "description": "高配当狙いの競馬予想を発走前に公開する無料ベータ版。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07101f",
+  "theme_color": "#0b1220",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
