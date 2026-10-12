@@ -71,8 +71,27 @@ function formatOdds(value) {
   return n.toLocaleString('ja-JP', { maximumFractionDigits: 1 }) + '倍';
 }
 
+function predictionRange(race) {
+  const range = race.trifecta_odds_range;
+  if (Array.isArray(range) && range.length === 2 && range[0] != null && range[1] != null) {
+    return `${formatOdds(range[0])}〜${formatOdds(range[1])}`;
+  }
+  if (race.odds_snapshot?.status === 'unavailable') return '取得できず';
+  if (race.odds_low != null || race.odds_high != null) {
+    const low = race.odds_low == null ? '-' : formatOdds(race.odds_low);
+    const high = race.odds_high == null ? '-' : formatOdds(race.odds_high);
+    return `${low}〜${high}`;
+  }
+  return '—';
+}
+
 function buildXText(race) {
-  const marks = (race.marks || []).map((m) => `${m.label}${circledNumber(m.number)}${m.name}`).join('\n');
+  const marks = (race.marks || []).map((m) => {
+    const market = [];
+    if (m.popularity) market.push(`${m.popularity}番人気`);
+    if (Number(m.odds || 0) > 0) market.push(formatOdds(m.odds));
+    return `${m.label}${circledNumber(m.number)}${m.name}${market.length ? ` ${market.join('・')}` : ''}`;
+  }).join('\n');
   let result = '';
   if (race.result?.settled) {
     const details = race.result.trifecta_combo && race.result.trifecta_odds
@@ -80,7 +99,7 @@ function buildXText(race) {
       : '';
     result = `\n結果 ${race.result.hit ? '的中🎯' : '不的中'}｜払戻 ${formatYen(race.result.payout)}｜回収率 ${race.result.roi}%${details}`;
   }
-  return `${race.track}${race.race} ${race.time} ${race.tier || ''}\n${marks}\n3連単12点｜高配当狙い${result}`;
+  return `${race.track}${race.race} ${race.time} ${race.tier || ''}\n${marks}\n3連単12点｜予想時 ${predictionRange(race)}${result}`;
 }
 
 function renderRace(race) {
@@ -102,11 +121,9 @@ function renderRace(race) {
   if (bet) bet.textContent = race.bet || '買い目準備中';
 
   const betOdds = tpl.querySelector('.bet-odds');
-  if (betOdds && (race.odds_low != null || race.odds_high != null)) {
+  if (betOdds) {
     betOdds.hidden = false;
-    const low = race.odds_low == null ? '-' : formatOdds(race.odds_low);
-    const high = race.odds_high == null ? '-' : formatOdds(race.odds_high);
-    betOdds.textContent = `予想時オッズ：下限 ${low} / 上限 ${high}`;
+    betOdds.textContent = `予想時3連単オッズ：${predictionRange(race)}`;
   }
 
   const marks = tpl.querySelector('.marks');
@@ -114,8 +131,11 @@ function renderRace(race) {
     for (const mark of race.marks || []) {
       const div = document.createElement('div');
       div.className = 'mark' + (mark.label === '()' ? ' bomb' : '');
-      const odds = Number(mark.odds || 0) > 0 ? `<small>${escapeHtml(formatOdds(mark.odds))}</small>` : '';
-      div.innerHTML = `<b>${escapeHtml(mark.label)}</b>${escapeHtml(circledNumber(mark.number))} ${escapeHtml(mark.name)}${odds}`;
+      const market = [];
+      if (mark.popularity) market.push(`${Number(mark.popularity)}番人気`);
+      if (Number(mark.odds || 0) > 0) market.push(formatOdds(mark.odds));
+      const marketHtml = market.length ? `<small>${escapeHtml(market.join('・'))}</small>` : '';
+      div.innerHTML = `<b>${escapeHtml(mark.label)}</b>${escapeHtml(circledNumber(mark.number))} ${escapeHtml(mark.name)}${marketHtml}`;
       marks.appendChild(div);
     }
   }
