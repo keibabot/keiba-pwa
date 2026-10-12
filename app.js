@@ -1,4 +1,5 @@
 const $ = (id) => document.getElementById(id);
+const BUILD_VERSION = document.querySelector('meta[name="build-version"]')?.content || 'dev';
 
 let deferredInstallPrompt = null;
 
@@ -21,7 +22,7 @@ if (installButton) {
 }
 
 const refreshButton = $('refreshButton');
-if (refreshButton) refreshButton.addEventListener('click', () => loadData(true));
+if (refreshButton) refreshButton.addEventListener('click', () => loadData());
 
 function escapeHtml(value = '') {
   return String(value)
@@ -38,13 +39,26 @@ function circledNumber(value) {
   return table[n] || String(value || '');
 }
 
+function relativeAge(iso) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const minutes = Math.max(0, Math.floor((Date.now() - d.getTime()) / 60000));
+  if (minutes < 1) return 'たった今';
+  if (minutes < 60) return `${minutes}分前`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}時間前`;
+  return `${Math.floor(hours / 24)}日前`;
+}
+
 function formatUpdatedAt(iso) {
   if (!iso) return '更新時刻不明';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return new Intl.DateTimeFormat('ja-JP', {
+  const absolute = new Intl.DateTimeFormat('ja-JP', {
     month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'
-  }).format(d) + ' 更新';
+  }).format(d);
+  const age = relativeAge(iso);
+  return `${absolute} 更新${age ? `（${age}）` : ''}`;
 }
 
 function formatYen(value) {
@@ -174,7 +188,8 @@ function renderRace(race) {
 }
 
 function render(data) {
-  const races = data.races || [];
+  if (!data || typeof data !== 'object') throw new Error('invalid data');
+  const races = Array.isArray(data.races) ? data.races : [];
   const summary = data.summary || {};
 
   if ($('updatedAt')) $('updatedAt').textContent = formatUpdatedAt(data.generated_at);
@@ -215,7 +230,8 @@ async function loadData() {
     if (refreshButton) refreshButton.disabled = true;
     const response = await fetch(`./data/latest.json?t=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    render(await response.json());
+    const data = await response.json();
+    render(data);
   } catch (error) {
     const list = $('raceList');
     if (list) list.innerHTML = `<div class="panel empty"><strong>データを読み込めませんでした</strong><span class="muted">${escapeHtml(error.message)}</span></div>`;
@@ -228,7 +244,7 @@ async function loadData() {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
-      const reg = await navigator.serviceWorker.register('./sw.js?v=4');
+      const reg = await navigator.serviceWorker.register(`./sw.js?v=${encodeURIComponent(BUILD_VERSION)}`);
       await reg.update();
     } catch {}
   });
