@@ -92,7 +92,7 @@ function renderRace(race) {
     betOdds.hidden = false;
     const low = race.odds_low == null ? '-' : formatOdds(race.odds_low);
     const high = race.odds_high == null ? '-' : formatOdds(race.odds_high);
-    betOdds.textContent = `予想時オッズ目安：下限 ${low} / 上限 ${high}`;
+    betOdds.textContent = `予想時オッズ：下限 ${low} / 上限 ${high}`;
   }
 
   const marks = tpl.querySelector('.marks');
