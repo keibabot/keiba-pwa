@@ -1,4 +1,4 @@
-const CACHE = 'keiba-pwa-v1';
+const CACHE = 'keiba-pwa-v2';
 const CORE = [
   './',
   './index.html',
@@ -33,6 +33,19 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => caches.match('./data/latest.json'))
+    );
+    return;
+  }
+
+  if (url.pathname.endsWith('/app.js') || url.pathname.endsWith('/styles.css') || url.pathname.endsWith('/index.html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const copy = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
     );
     return;
   }
