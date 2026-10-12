@@ -5,18 +5,23 @@ let deferredInstallPrompt = null;
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
   deferredInstallPrompt = event;
-  $('installButton').hidden = false;
+  const install = $('installButton');
+  if (install) install.hidden = false;
 });
 
-$('installButton').addEventListener('click', async () => {
-  if (!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt = null;
-  $('installButton').hidden = true;
-});
+const installButton = $('installButton');
+if (installButton) {
+  installButton.addEventListener('click', async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installButton.hidden = true;
+  });
+}
 
-$('refreshButton').addEventListener('click', () => loadData(true));
+const refreshButton = $('refreshButton');
+if (refreshButton) refreshButton.addEventListener('click', () => loadData(true));
 
 function escapeHtml(value = '') {
   return String(value)
@@ -65,80 +70,105 @@ function buildXText(race) {
 }
 
 function renderRace(race) {
-  const tpl = $('raceTemplate').content.cloneNode(true);
-  tpl.querySelector('.source-pill').textContent = race.source === 'JRA' ? 'JRA' : '地方';
-  tpl.querySelector('.tier-pill').textContent = race.tier || '高配当候補';
-  tpl.querySelector('.race-title').textContent = `${race.track}${race.race}`;
-  tpl.querySelector('.race-time').textContent = `${race.time} 発走`;
-  tpl.querySelector('.score').textContent = race.score ?? '-';
-  tpl.querySelector('.bet').textContent = race.bet || '買い目準備中';
+  const template = $('raceTemplate');
+  if (!template) return document.createDocumentFragment();
+  const tpl = template.content.cloneNode(true);
 
-  if (race.odds_low != null || race.odds_high != null) {
-    const odds = tpl.querySelector('.bet-odds');
-    odds.hidden = false;
+  const sourcePill = tpl.querySelector('.source-pill');
+  const tierPill = tpl.querySelector('.tier-pill');
+  const raceTitle = tpl.querySelector('.race-title');
+  const raceTime = tpl.querySelector('.race-time');
+  const score = tpl.querySelector('.score');
+  const bet = tpl.querySelector('.bet');
+  if (sourcePill) sourcePill.textContent = race.source === 'JRA' ? 'JRA' : '地方';
+  if (tierPill) tierPill.textContent = race.tier || '高配当候補';
+  if (raceTitle) raceTitle.textContent = `${race.track}${race.race}`;
+  if (raceTime) raceTime.textContent = `${race.time} 発走`;
+  if (score) score.textContent = race.score ?? '-';
+  if (bet) bet.textContent = race.bet || '買い目準備中';
+
+  const betOdds = tpl.querySelector('.bet-odds');
+  if (betOdds && (race.odds_low != null || race.odds_high != null)) {
+    betOdds.hidden = false;
     const low = race.odds_low == null ? '-' : formatOdds(race.odds_low);
     const high = race.odds_high == null ? '-' : formatOdds(race.odds_high);
-    odds.textContent = `予想時オッズ目安：下限 ${low} / 上限 ${high}`;
+    betOdds.textContent = `予想時オッズ目安：下限 ${low} / 上限 ${high}`;
   }
 
   const marks = tpl.querySelector('.marks');
-  for (const mark of race.marks || []) {
-    const div = document.createElement('div');
-    div.className = 'mark' + (mark.label === '()' ? ' bomb' : '');
-    const odds = Number(mark.odds || 0) > 0 ? `<small>${escapeHtml(formatOdds(mark.odds))}</small>` : '';
-    div.innerHTML = `<b>${escapeHtml(mark.label)}</b>${escapeHtml(circledNumber(mark.number))} ${escapeHtml(mark.name)}${odds}`;
-    marks.appendChild(div);
+  if (marks) {
+    for (const mark of race.marks || []) {
+      const div = document.createElement('div');
+      div.className = 'mark' + (mark.label === '()' ? ' bomb' : '');
+      const odds = Number(mark.odds || 0) > 0 ? `<small>${escapeHtml(formatOdds(mark.odds))}</small>` : '';
+      div.innerHTML = `<b>${escapeHtml(mark.label)}</b>${escapeHtml(circledNumber(mark.number))} ${escapeHtml(mark.name)}${odds}`;
+      marks.appendChild(div);
+    }
   }
 
   if (race.result?.settled) {
     const pill = tpl.querySelector('.result-pill');
-    pill.hidden = false;
-    pill.textContent = race.result.hit ? '的中' : '不的中';
-    pill.classList.add(race.result.hit ? 'hit' : 'miss');
+    if (pill) {
+      pill.hidden = false;
+      pill.textContent = race.result.hit ? '的中' : '不的中';
+      pill.classList.add(race.result.hit ? 'hit' : 'miss');
+    }
 
     const box = tpl.querySelector('.result-box');
-    box.hidden = false;
-    box.classList.add(race.result.hit ? 'hit' : 'miss');
-    box.querySelector('.result-status').textContent = race.result.hit ? '✅ 的中' : '❌ 不的中';
-    box.querySelector('.result-stake').textContent = formatYen(race.result.stake);
-    box.querySelector('.result-payout').textContent = formatYen(race.result.payout);
-    box.querySelector('.result-roi').textContent = `${Number(race.result.roi || 0).toLocaleString('ja-JP')}%`;
+    if (box) {
+      box.hidden = false;
+      box.classList.add(race.result.hit ? 'hit' : 'miss');
+      const status = box.querySelector('.result-status');
+      const stake = box.querySelector('.result-stake');
+      const payout = box.querySelector('.result-payout');
+      const roi = box.querySelector('.result-roi');
+      if (status) status.textContent = race.result.hit ? '✅ 的中' : '❌ 不的中';
+      if (stake) stake.textContent = formatYen(race.result.stake);
+      if (payout) payout.textContent = formatYen(race.result.payout);
+      if (roi) roi.textContent = `${Number(race.result.roi || 0).toLocaleString('ja-JP')}%`;
 
-    if (race.result.trifecta_combo) {
-      const row = box.querySelectorAll('.result-detail')[0];
-      row.hidden = false;
-      row.querySelector('.result-combo').textContent = race.result.trifecta_combo;
-    }
-    if (Number(race.result.trifecta_odds || 0) > 0) {
-      const row = box.querySelectorAll('.result-detail')[1];
-      row.hidden = false;
-      row.querySelector('.result-trifecta-odds').textContent = formatOdds(race.result.trifecta_odds);
-    }
-    if (Number(race.result.trifecta_payout || 0) > 0) {
-      const row = box.querySelectorAll('.result-detail')[2];
-      row.hidden = false;
-      row.querySelector('.result-trifecta-payout').textContent = formatYen(race.result.trifecta_payout);
-    }
+      const detailRows = box.querySelectorAll('.result-detail');
+      if (race.result.trifecta_combo && detailRows[0]) {
+        detailRows[0].hidden = false;
+        const el = detailRows[0].querySelector('.result-combo');
+        if (el) el.textContent = race.result.trifecta_combo;
+      }
+      if (Number(race.result.trifecta_odds || 0) > 0 && detailRows[1]) {
+        detailRows[1].hidden = false;
+        const el = detailRows[1].querySelector('.result-trifecta-odds');
+        if (el) el.textContent = formatOdds(race.result.trifecta_odds);
+      }
+      if (Number(race.result.trifecta_payout || 0) > 0 && detailRows[2]) {
+        detailRows[2].hidden = false;
+        const el = detailRows[2].querySelector('.result-trifecta-payout');
+        if (el) el.textContent = formatYen(race.result.trifecta_payout);
+      }
 
-    if (Number(race.result.best_odds || 0) > 0) {
-      const odds = box.querySelector('.result-odds');
-      odds.hidden = false;
-      odds.textContent = `最高的中オッズ ${Number(race.result.best_odds).toFixed(1)}倍`;
+      if (Number(race.result.best_odds || 0) > 0) {
+        const odds = box.querySelector('.result-odds');
+        if (odds) {
+          odds.hidden = false;
+          odds.textContent = `最高的中オッズ ${Number(race.result.best_odds).toFixed(1)}倍`;
+        }
+      }
     }
   }
 
   const x = tpl.querySelector('.x-share');
-  x.href = 'https://x.com/intent/tweet?text=' + encodeURIComponent(buildXText(race));
+  if (x) x.href = 'https://x.com/intent/tweet?text=' + encodeURIComponent(buildXText(race));
 
-  tpl.querySelector('.copy-bet').addEventListener('click', async (event) => {
-    try {
-      await navigator.clipboard.writeText(race.bet || '');
-      event.currentTarget.textContent = 'コピー済み';
-      setTimeout(() => event.currentTarget.textContent = '買い目コピー', 1400);
-    } catch {
-      event.currentTarget.textContent = 'コピー失敗';
-    }
-  });
+  const copyButton = tpl.querySelector('.copy-bet');
+  if (copyButton) {
+    copyButton.addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(race.bet || '');
+        event.currentTarget.textContent = 'コピー済み';
+        setTimeout(() => event.currentTarget.textContent = '買い目コピー', 1400);
+      } catch {
+        event.currentTarget.textContent = 'コピー失敗';
+      }
+    });
+  }
 
   return tpl;
 }
@@ -147,26 +177,29 @@ function render(data) {
   const races = data.races || [];
   const summary = data.summary || {};
 
-  $('updatedAt').textContent = formatUpdatedAt(data.generated_at);
-  $('selectedCount').textContent = summary.selected_count ?? races.length;
-  $('jraCount').textContent = summary.jra_count ?? races.filter((x) => x.source === 'JRA').length;
-  $('narCount').textContent = summary.nar_count ?? races.filter((x) => x.source === 'NAR').length;
-  $('maxScore').textContent = summary.max_score ?? (races.length ? Math.max(...races.map((x) => Number(x.score || 0))) : '-');
-  $('liveBadge').textContent = races.length ? '本日更新済み' : '本日の選抜待ち';
+  if ($('updatedAt')) $('updatedAt').textContent = formatUpdatedAt(data.generated_at);
+  if ($('selectedCount')) $('selectedCount').textContent = summary.selected_count ?? races.length;
+  if ($('jraCount')) $('jraCount').textContent = summary.jra_count ?? races.filter((x) => x.source === 'JRA').length;
+  if ($('narCount')) $('narCount').textContent = summary.nar_count ?? races.filter((x) => x.source === 'NAR').length;
+  if ($('maxScore')) $('maxScore').textContent = summary.max_score ?? (races.length ? Math.max(...races.map((x) => Number(x.score || 0))) : '-');
+  if ($('liveBadge')) $('liveBadge').textContent = races.length ? '本日更新済み' : '本日の選抜待ち';
 
   const settledCount = Number(summary.settled_count || 0);
   const resultSummary = $('resultSummary');
-  if (settledCount > 0) {
-    resultSummary.hidden = false;
-    $('settledCount').textContent = settledCount;
-    $('hitCount').textContent = Number(summary.hit_count || 0);
-    $('payoutTotal').textContent = Number(summary.payout || 0).toLocaleString('ja-JP');
-    $('roiTotal').textContent = summary.roi == null ? '-' : Number(summary.roi).toLocaleString('ja-JP');
-  } else {
-    resultSummary.hidden = true;
+  if (resultSummary) {
+    if (settledCount > 0) {
+      resultSummary.hidden = false;
+      if ($('settledCount')) $('settledCount').textContent = settledCount;
+      if ($('hitCount')) $('hitCount').textContent = Number(summary.hit_count || 0);
+      if ($('payoutTotal')) $('payoutTotal').textContent = Number(summary.payout || 0).toLocaleString('ja-JP');
+      if ($('roiTotal')) $('roiTotal').textContent = summary.roi == null ? '-' : Number(summary.roi).toLocaleString('ja-JP');
+    } else {
+      resultSummary.hidden = true;
+    }
   }
 
   const list = $('raceList');
+  if (!list) return;
   list.innerHTML = '';
 
   if (!races.length) {
@@ -179,16 +212,17 @@ function render(data) {
 
 async function loadData(force = false) {
   try {
-    $('refreshButton').disabled = true;
+    if (refreshButton) refreshButton.disabled = true;
     const suffix = `?t=${Date.now()}`;
     const response = await fetch(`./data/latest.json${suffix}`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     render(await response.json());
   } catch (error) {
-    $('raceList').innerHTML = `<div class="panel empty"><strong>データを読み込めませんでした</strong><span class="muted">オフラインか、まだ初回データが生成されていない可能性があります。</span></div>`;
-    $('updatedAt').textContent = `読み込みエラー: ${error.message}`;
+    const list = $('raceList');
+    if (list) list.innerHTML = `<div class="panel empty"><strong>データを読み込めませんでした</strong><span class="muted">オフラインか、キャッシュ更新待ちの可能性があります。</span></div>`;
+    if ($('updatedAt')) $('updatedAt').textContent = `読み込みエラー: ${error.message}`;
   } finally {
-    $('refreshButton').disabled = false;
+    if (refreshButton) refreshButton.disabled = false;
   }
 }
 
