@@ -156,6 +156,7 @@ h2 { margin-bottom: 8px; }
 }
 .mark b { color: var(--accent); margin-right: 6px; }
 .mark.bomb b { color: var(--accent-2); }
+.mark small { display: block; margin: 4px 0 0 24px; color: var(--muted); }
 
 .bet-box {
   background: var(--panel-2);
@@ -165,6 +166,7 @@ h2 { margin-bottom: 8px; }
 }
 .bet-title { margin-bottom: 5px; color: var(--muted); font-size: .75rem; }
 .bet { margin-bottom: 0; line-height: 1.6; overflow-wrap: anywhere; }
+.bet-odds { margin: 8px 0 0; font-size: .82rem; }
 
 .result-box {
   margin-top: 12px;
@@ -178,8 +180,10 @@ h2 { margin-bottom: 8px; }
 }
 .result-box.hit { border-color: rgba(73,209,125,.35); background: rgba(73,209,125,.07); }
 .result-box.miss { border-color: rgba(255,107,107,.25); background: rgba(255,107,107,.05); }
+.result-box div { background: rgba(255,255,255,.025); border-radius: 9px; padding: 8px; }
 .result-box div span { display: block; color: var(--muted); font-size: .72rem; margin-bottom: 4px; }
-.result-box div strong { font-size: .98rem; }
+.result-box div strong { font-size: .98rem; overflow-wrap: anywhere; }
+.result-box .result-detail { grid-column: 1 / -1; }
 .result-box .result-odds { grid-column: 1 / -1; margin: 4px 0 0; font-size: .82rem; }
 
 .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
@@ -208,4 +212,6 @@ footer { padding: 34px 0 46px; color: var(--muted); text-align: center; font-siz
   .topbar .button { width: 100%; max-width: none; }
   .hero { align-items: flex-start; }
   .card-actions { grid-template-columns: 1fr; }
+  .result-box { grid-template-columns: 1fr; }
+  .result-box .result-detail, .result-box .result-odds { grid-column: 1; }
 }
