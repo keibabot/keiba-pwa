@@ -1,12 +1,10 @@
-const CACHE = 'keiba-pwa-v4';
+const BUILD_VERSION = '__BUILD_VERSION__';
+const CACHE = `keiba-pwa-${BUILD_VERSION}`;
 const CORE = [
-  './',
-  './index.html',
-  './styles.css?v=4',
-  './app.js?v=4',
+  `./styles.css?v=${BUILD_VERSION}`,
+  `./app.js?v=${BUILD_VERSION}`,
   './manifest.webmanifest',
-  './icon.svg',
-  './data/latest.json'
+  './icon.svg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -16,41 +14,54 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))
+    caches.keys().then((keys) => Promise.all(
+      keys.filter((key) => key.startsWith('keiba-pwa-') && key !== CACHE).map((key) => caches.delete(key))
+    ))
   );
   self.clients.claim();
 });
 
+async function networkFirst(request) {
+  const cache = await caches.open(CACHE);
+  try {
+    const response = await fetch(request, { cache: 'no-store' });
+    if (response && response.ok) await cache.put(request, response.clone());
+    return response;
+  } catch (error) {
+    const cached = await cache.match(request, { ignoreSearch: false });
+    if (cached) return cached;
+    throw error;
+  }
+}
+
+async function cacheFirst(request) {
+  const cache = await caches.open(CACHE);
+  const cached = await cache.match(request, { ignoreSearch: false });
+  if (cached) return cached;
+  const response = await fetch(request);
+  if (response && response.ok) await cache.put(request, response.clone());
+  return response;
+}
+
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
 
-  if (url.pathname.endsWith('/data/latest.json') || url.pathname.endsWith('data/latest.json')) {
-    event.respondWith(
-      fetch(event.request, { cache: 'no-store' })
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE).then((cache) => cache.put('./data/latest.json', copy));
-          return response;
-        })
-        .catch(() => caches.match('./data/latest.json'))
-    );
+  const path = url.pathname;
+  const isHtml = event.request.mode === 'navigate' || path.endsWith('/index.html') || path.endsWith('/');
+  const isLatest = path.endsWith('/data/latest.json') || path.endsWith('data/latest.json');
+  const isVersionedAsset = path.endsWith('/app.js') || path.endsWith('/styles.css');
+
+  if (isHtml || isLatest) {
+    event.respondWith(networkFirst(event.request));
     return;
   }
 
-  if (url.pathname.endsWith('/app.js') || url.pathname.endsWith('/styles.css') || url.pathname.endsWith('/index.html') || url.pathname.endsWith('/')) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
+  if (isVersionedAsset) {
+    event.respondWith(cacheFirst(event.request));
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
-  );
+  event.respondWith(cacheFirst(event.request));
 });
