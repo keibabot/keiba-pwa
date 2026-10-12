@@ -25,6 +25,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Build versioned site
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '_site' ./ _site/
+          BUILD_VERSION="${GITHUB_SHA::12}"
+          sed -i "s/__BUILD_VERSION__/${BUILD_VERSION}/g" _site/index.html
+          sed -i "s/__BUILD_VERSION__/${BUILD_VERSION}/g" _site/sw.js
+          echo "Built PWA version ${BUILD_VERSION}"
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -33,7 +45,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
