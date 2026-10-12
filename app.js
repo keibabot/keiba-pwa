@@ -46,11 +46,21 @@ function formatYen(value) {
   return Number(value || 0).toLocaleString('ja-JP') + '円';
 }
 
+function formatOdds(value) {
+  const n = Number(value || 0);
+  if (!n) return '-';
+  return n.toLocaleString('ja-JP', { maximumFractionDigits: 1 }) + '倍';
+}
+
 function buildXText(race) {
   const marks = (race.marks || []).map((m) => `${m.label}${circledNumber(m.number)}${m.name}`).join('\n');
-  const result = race.result?.settled
-    ? `\n結果 ${race.result.hit ? '的中🎯' : '不的中'}｜払戻 ${formatYen(race.result.payout)}｜回収率 ${race.result.roi}%`
-    : '';
+  let result = '';
+  if (race.result?.settled) {
+    const details = race.result.trifecta_combo && race.result.trifecta_odds
+      ? `｜3連単 ${race.result.trifecta_combo} ${formatOdds(race.result.trifecta_odds)}`
+      : '';
+    result = `\n結果 ${race.result.hit ? '的中🎯' : '不的中'}｜払戻 ${formatYen(race.result.payout)}｜回収率 ${race.result.roi}%${details}`;
+  }
   return `${race.track}${race.race} ${race.time} ${race.tier || ''}\n${marks}\n3連単12点｜高配当狙い${result}`;
 }
 
@@ -63,11 +73,20 @@ function renderRace(race) {
   tpl.querySelector('.score').textContent = race.score ?? '-';
   tpl.querySelector('.bet').textContent = race.bet || '買い目準備中';
 
+  if (race.odds_low != null || race.odds_high != null) {
+    const odds = tpl.querySelector('.bet-odds');
+    odds.hidden = false;
+    const low = race.odds_low == null ? '-' : formatOdds(race.odds_low);
+    const high = race.odds_high == null ? '-' : formatOdds(race.odds_high);
+    odds.textContent = `予想時オッズ目安：下限 ${low} / 上限 ${high}`;
+  }
+
   const marks = tpl.querySelector('.marks');
   for (const mark of race.marks || []) {
     const div = document.createElement('div');
     div.className = 'mark' + (mark.label === '()' ? ' bomb' : '');
-    div.innerHTML = `<b>${escapeHtml(mark.label)}</b>${escapeHtml(circledNumber(mark.number))} ${escapeHtml(mark.name)}`;
+    const odds = Number(mark.odds || 0) > 0 ? `<small>${escapeHtml(formatOdds(mark.odds))}</small>` : '';
+    div.innerHTML = `<b>${escapeHtml(mark.label)}</b>${escapeHtml(circledNumber(mark.number))} ${escapeHtml(mark.name)}${odds}`;
     marks.appendChild(div);
   }
 
@@ -84,6 +103,22 @@ function renderRace(race) {
     box.querySelector('.result-stake').textContent = formatYen(race.result.stake);
     box.querySelector('.result-payout').textContent = formatYen(race.result.payout);
     box.querySelector('.result-roi').textContent = `${Number(race.result.roi || 0).toLocaleString('ja-JP')}%`;
+
+    if (race.result.trifecta_combo) {
+      const row = box.querySelectorAll('.result-detail')[0];
+      row.hidden = false;
+      row.querySelector('.result-combo').textContent = race.result.trifecta_combo;
+    }
+    if (Number(race.result.trifecta_odds || 0) > 0) {
+      const row = box.querySelectorAll('.result-detail')[1];
+      row.hidden = false;
+      row.querySelector('.result-trifecta-odds').textContent = formatOdds(race.result.trifecta_odds);
+    }
+    if (Number(race.result.trifecta_payout || 0) > 0) {
+      const row = box.querySelectorAll('.result-detail')[2];
+      row.hidden = false;
+      row.querySelector('.result-trifecta-payout').textContent = formatYen(race.result.trifecta_payout);
+    }
 
     if (Number(race.result.best_odds || 0) > 0) {
       const odds = box.querySelector('.result-odds');
