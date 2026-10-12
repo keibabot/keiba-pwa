@@ -42,9 +42,16 @@ function formatUpdatedAt(iso) {
   }).format(d) + ' 更新';
 }
 
+function formatYen(value) {
+  return Number(value || 0).toLocaleString('ja-JP') + '円';
+}
+
 function buildXText(race) {
   const marks = (race.marks || []).map((m) => `${m.label}${circledNumber(m.number)}${m.name}`).join('\n');
-  return `${race.track}${race.race} ${race.time} ${race.tier || ''}\n${marks}\n3連単12点｜高配当狙い`;
+  const result = race.result?.settled
+    ? `\n結果 ${race.result.hit ? '的中🎯' : '不的中'}｜払戻 ${formatYen(race.result.payout)}｜回収率 ${race.result.roi}%`
+    : '';
+  return `${race.track}${race.race} ${race.time} ${race.tier || ''}\n${marks}\n3連単12点｜高配当狙い${result}`;
 }
 
 function renderRace(race) {
@@ -62,6 +69,27 @@ function renderRace(race) {
     div.className = 'mark' + (mark.label === '()' ? ' bomb' : '');
     div.innerHTML = `<b>${escapeHtml(mark.label)}</b>${escapeHtml(circledNumber(mark.number))} ${escapeHtml(mark.name)}`;
     marks.appendChild(div);
+  }
+
+  if (race.result?.settled) {
+    const pill = tpl.querySelector('.result-pill');
+    pill.hidden = false;
+    pill.textContent = race.result.hit ? '的中' : '不的中';
+    pill.classList.add(race.result.hit ? 'hit' : 'miss');
+
+    const box = tpl.querySelector('.result-box');
+    box.hidden = false;
+    box.classList.add(race.result.hit ? 'hit' : 'miss');
+    box.querySelector('.result-status').textContent = race.result.hit ? '✅ 的中' : '❌ 不的中';
+    box.querySelector('.result-stake').textContent = formatYen(race.result.stake);
+    box.querySelector('.result-payout').textContent = formatYen(race.result.payout);
+    box.querySelector('.result-roi').textContent = `${Number(race.result.roi || 0).toLocaleString('ja-JP')}%`;
+
+    if (Number(race.result.best_odds || 0) > 0) {
+      const odds = box.querySelector('.result-odds');
+      odds.hidden = false;
+      odds.textContent = `最高的中オッズ ${Number(race.result.best_odds).toFixed(1)}倍`;
+    }
   }
 
   const x = tpl.querySelector('.x-share');
@@ -91,6 +119,18 @@ function render(data) {
   $('maxScore').textContent = summary.max_score ?? (races.length ? Math.max(...races.map((x) => Number(x.score || 0))) : '-');
   $('liveBadge').textContent = races.length ? '本日更新済み' : '本日の選抜待ち';
 
+  const settledCount = Number(summary.settled_count || 0);
+  const resultSummary = $('resultSummary');
+  if (settledCount > 0) {
+    resultSummary.hidden = false;
+    $('settledCount').textContent = settledCount;
+    $('hitCount').textContent = Number(summary.hit_count || 0);
+    $('payoutTotal').textContent = Number(summary.payout || 0).toLocaleString('ja-JP');
+    $('roiTotal').textContent = summary.roi == null ? '-' : Number(summary.roi).toLocaleString('ja-JP');
+  } else {
+    resultSummary.hidden = true;
+  }
+
   const list = $('raceList');
   list.innerHTML = '';
 
@@ -105,8 +145,8 @@ function render(data) {
 async function loadData(force = false) {
   try {
     $('refreshButton').disabled = true;
-    const suffix = force ? `?t=${Date.now()}` : '';
-    const response = await fetch(`./data/latest.json${suffix}`, { cache: force ? 'no-store' : 'default' });
+    const suffix = `?t=${Date.now()}`;
+    const response = await fetch(`./data/latest.json${suffix}`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     render(await response.json());
   } catch (error) {
