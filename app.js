@@ -71,7 +71,7 @@ function buildXText(race) {
 
 function renderRace(race) {
   const template = $('raceTemplate');
-  if (!template) return document.createDocumentFragment();
+  if (!template?.content) return document.createDocumentFragment();
   const tpl = template.content.cloneNode(true);
 
   const sourcePill = tpl.querySelector('.source-pill');
@@ -210,16 +210,15 @@ function render(data) {
   for (const race of races) list.appendChild(renderRace(race));
 }
 
-async function loadData(force = false) {
+async function loadData() {
   try {
     if (refreshButton) refreshButton.disabled = true;
-    const suffix = `?t=${Date.now()}`;
-    const response = await fetch(`./data/latest.json${suffix}`, { cache: 'no-store' });
+    const response = await fetch(`./data/latest.json?t=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     render(await response.json());
   } catch (error) {
     const list = $('raceList');
-    if (list) list.innerHTML = `<div class="panel empty"><strong>データを読み込めませんでした</strong><span class="muted">オフラインか、キャッシュ更新待ちの可能性があります。</span></div>`;
+    if (list) list.innerHTML = `<div class="panel empty"><strong>データを読み込めませんでした</strong><span class="muted">${escapeHtml(error.message)}</span></div>`;
     if ($('updatedAt')) $('updatedAt').textContent = `読み込みエラー: ${error.message}`;
   } finally {
     if (refreshButton) refreshButton.disabled = false;
@@ -227,7 +226,12 @@ async function loadData(force = false) {
 }
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('./sw.js?v=4');
+      await reg.update();
+    } catch {}
+  });
 }
 
 loadData();
