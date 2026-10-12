@@ -1,9 +1,9 @@
-const CACHE = 'keiba-pwa-v2';
+const CACHE = 'keiba-pwa-v4';
 const CORE = [
   './',
   './index.html',
-  './styles.css',
-  './app.js',
+  './styles.css?v=4',
+  './app.js?v=4',
   './manifest.webmanifest',
   './icon.svg',
   './data/latest.json'
@@ -26,7 +26,7 @@ self.addEventListener('fetch', (event) => {
 
   if (url.pathname.endsWith('/data/latest.json') || url.pathname.endsWith('data/latest.json')) {
     event.respondWith(
-      fetch(event.request)
+      fetch(event.request, { cache: 'no-store' })
         .then((response) => {
           const copy = response.clone();
           caches.open(CACHE).then((cache) => cache.put('./data/latest.json', copy));
@@ -37,7 +37,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (url.pathname.endsWith('/app.js') || url.pathname.endsWith('/styles.css') || url.pathname.endsWith('/index.html')) {
+  if (url.pathname.endsWith('/app.js') || url.pathname.endsWith('/styles.css') || url.pathname.endsWith('/index.html') || url.pathname.endsWith('/')) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
