@@ -37,6 +37,22 @@
       <article class="stat panel"><span>最高スコア</span><strong id="maxScore">-</strong><small>/100</small></article>
     </section>
 
+    <section id="resultSummary" hidden>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">RESULTS</p>
+          <h2>本日の途中成績</h2>
+        </div>
+        <p class="muted">確定済みレースだけで自動集計</p>
+      </div>
+      <section class="stats result-stats" aria-label="本日の結果集計">
+        <article class="stat panel"><span>結果確定</span><strong id="settledCount">-</strong><small>R</small></article>
+        <article class="stat panel"><span>的中</span><strong id="hitCount">-</strong><small>R</small></article>
+        <article class="stat panel"><span>払戻</span><strong id="payoutTotal">-</strong><small>円</small></article>
+        <article class="stat panel"><span>回収率</span><strong id="roiTotal">-</strong><small>%</small></article>
+      </section>
+    </section>
+
     <section class="section-head">
       <div>
         <p class="eyebrow">PICKS</p>
@@ -65,6 +81,7 @@
         <div>
           <span class="source-pill"></span>
           <span class="tier-pill"></span>
+          <span class="result-pill" hidden></span>
           <h3 class="race-title"></h3>
           <p class="race-time muted"></p>
         </div>
@@ -74,6 +91,13 @@
       <div class="bet-box">
         <p class="bet-title">買い目</p>
         <p class="bet"></p>
+      </div>
+      <div class="result-box" hidden>
+        <div><span>結果</span><strong class="result-status"></strong></div>
+        <div><span>投資</span><strong class="result-stake"></strong></div>
+        <div><span>払戻</span><strong class="result-payout"></strong></div>
+        <div><span>回収率</span><strong class="result-roi"></strong></div>
+        <p class="result-odds muted" hidden></p>
       </div>
       <div class="card-actions">
         <a class="button x-share" target="_blank" rel="noopener">X投稿画面</a>
