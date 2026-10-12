@@ -9,6 +9,7 @@
   --accent: #ffcc4d;
   --accent-2: #ff7a59;
   --good: #49d17d;
+  --bad: #ff6b6b;
   --radius: 20px;
 }
 
@@ -69,7 +70,7 @@ h2 { margin-bottom: 8px; }
   gap: 16px;
 }
 
-.badge, .source-pill, .tier-pill {
+.badge, .source-pill, .tier-pill, .result-pill {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
@@ -81,6 +82,8 @@ h2 { margin-bottom: 8px; }
 .badge { background: rgba(73,209,125,.14); color: var(--good); }
 .source-pill { background: rgba(255,255,255,.08); color: #dfe8f7; }
 .tier-pill { background: rgba(255,204,77,.13); color: var(--accent); }
+.result-pill.hit { background: rgba(73,209,125,.14); color: var(--good); }
+.result-pill.miss { background: rgba(255,107,107,.12); color: var(--bad); }
 
 .button {
   border: 0;
@@ -112,6 +115,7 @@ h2 { margin-bottom: 8px; }
 .stat span { color: var(--muted); font-size: .78rem; display: block; }
 .stat strong { font-size: 1.8rem; margin-right: 2px; }
 .stat small { color: var(--muted); }
+.result-stats { margin-top: 12px; }
 
 .section-head {
   display: flex;
@@ -162,6 +166,22 @@ h2 { margin-bottom: 8px; }
 .bet-title { margin-bottom: 5px; color: var(--muted); font-size: .75rem; }
 .bet { margin-bottom: 0; line-height: 1.6; overflow-wrap: anywhere; }
 
+.result-box {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 13px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.035);
+}
+.result-box.hit { border-color: rgba(73,209,125,.35); background: rgba(73,209,125,.07); }
+.result-box.miss { border-color: rgba(255,107,107,.25); background: rgba(255,107,107,.05); }
+.result-box div span { display: block; color: var(--muted); font-size: .72rem; margin-bottom: 4px; }
+.result-box div strong { font-size: .98rem; }
+.result-box .result-odds { grid-column: 1 / -1; margin: 4px 0 0; font-size: .82rem; }
+
 .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
 .trust-box { margin-top: 28px; padding: 20px; }
 .trust-box p:last-child { margin-bottom: 0; }
@@ -180,6 +200,7 @@ footer { padding: 34px 0 46px; color: var(--muted); text-align: center; font-siz
   .stats { grid-template-columns: repeat(2, 1fr); }
   .section-head { align-items: flex-start; flex-direction: column; gap: 2px; }
   .marks { grid-template-columns: 1fr; }
+  .result-box { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 460px) {
