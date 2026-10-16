@@ -1,18 +1,18 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-16T14:44:55+09:00",
+  "generated_at": "2026-10-16T19:09:42+09:00",
   "date": "2026-10-16",
   "summary": {
     "selected_count": 2,
     "jra_count": 0,
     "nar_count": 2,
     "max_score": 77,
-    "settled_count": 0,
-    "hit_count": 0,
-    "stake": 0,
-    "payout": 0,
-    "roi": null,
-    "best_odds": null
+    "settled_count": 2,
+    "hit_count": 1,
+    "stake": 2400,
+    "payout": 13920,
+    "roi": 580.0,
+    "best_odds": 139.2
   },
   "races": [
     {
@@ -79,8 +79,24 @@
       ],
       "bet": "3連単 7-3-4 / 7-4-3 / 3-7-4 / 7-3-8 / 7-8-3 / 3-7-8 / 7-4-8 / 4-7-8 / 8-7-3 / 7-3-6 / 3-7-6 / 6-7-3（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          3,
+          2,
+          8
+        ],
+        "trifecta_combo": "3→2→8",
+        "trifecta_payout": 2070,
+        "trifecta_odds": 20.7
+      },
       "odds_low": 1.9,
       "odds_high": 33.9,
       "odds_kind": "selected_win_odds",
@@ -319,8 +335,24 @@
       ],
       "bet": "3連単 5-8-2 / 5-2-8 / 8-5-2 / 5-8-6 / 5-6-8 / 8-5-6 / 5-2-6 / 2-5-6 / 6-5-8 / 5-8-12 / 8-5-12 / 12-5-8（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": true,
+        "status": "hit",
+        "stake": 1200,
+        "payout": 13920,
+        "roi": 1160.0,
+        "best_odds": 139.2,
+        "finish_numbers": [
+          8,
+          5,
+          6
+        ],
+        "trifecta_combo": "8→5→6",
+        "trifecta_payout": 13920,
+        "trifecta_odds": 139.2
+      },
       "odds_low": 1.9,
       "odds_high": 35.7,
       "odds_kind": "selected_win_odds",
@@ -496,7 +528,7 @@
           "popularity": null
         }
       ],
-      "hit_ticket_odds_at_prediction": null
+      "hit_ticket_odds_at_prediction": 120.6
     }
   ]
 }
