@@ -1,15 +1,15 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-17T18:38:33+09:00",
+  "generated_at": "2026-10-17T22:13:23+09:00",
   "date": "2026-10-17",
   "summary": {
     "selected_count": 4,
     "jra_count": 2,
     "nar_count": 2,
     "max_score": 100,
-    "settled_count": 2,
+    "settled_count": 3,
     "hit_count": 0,
-    "stake": 7200,
+    "stake": 8400,
     "payout": 0,
     "roi": 0.0,
     "best_odds": null
@@ -82,8 +82,8 @@
         "race_key": "JRA:202604040101",
         "source_race_id": "202604040101",
         "kind": "prediction",
-        "fetched_at": "2026-10-17T18:38:30+09:00",
-        "minutes_to_post": -533.5,
+        "fetched_at": "2026-10-17T22:13:19+09:00",
+        "minutes_to_post": -748.3,
         "source": "netkeiba",
         "status": "unavailable",
         "tickets": [
@@ -591,8 +591,8 @@
         "race_key": "JRA:202608040610",
         "source_race_id": "202608040610",
         "kind": "prediction",
-        "fetched_at": "2026-10-17T18:38:33+09:00",
-        "minutes_to_post": -228.6,
+        "fetched_at": "2026-10-17T22:13:23+09:00",
+        "minutes_to_post": -443.4,
         "source": "netkeiba",
         "status": "unavailable",
         "tickets": [
@@ -821,8 +821,24 @@
       ],
       "bet": "3連単 4-5-10 / 4-10-5 / 5-4-10 / 4-5-2 / 4-2-5 / 5-4-2 / 4-10-2 / 10-4-2 / 2-4-5 / 4-5-9 / 5-4-9 / 9-4-5（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          10,
+          7,
+          1
+        ],
+        "trifecta_combo": "10→7→1",
+        "trifecta_payout": 3230,
+        "trifecta_odds": 32.3
+      },
       "odds_low": 1.5,
       "odds_high": 59.2,
       "odds_kind": "selected_win_odds",
@@ -833,8 +849,8 @@
         "race_key": "NAR:nar:k_babaCode=31&k_raceDate=2026-10-17&k_raceNo=7",
         "source_race_id": "nar:k_babaCode=31&k_raceDate=2026-10-17&k_raceNo=7",
         "kind": "prediction",
-        "fetched_at": "2026-10-17T18:38:25+09:00",
-        "minutes_to_post": 6.6,
+        "fetched_at": "2026-10-17T22:13:16+09:00",
+        "minutes_to_post": -208.3,
         "source": "keiba.go.jp",
         "status": "unavailable",
         "tickets": [
