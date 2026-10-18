@@ -1,154 +1,154 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-17T22:13:23+09:00",
-  "date": "2026-10-17",
+  "generated_at": "2026-10-18T10:01:44+09:00",
+  "date": "2026-10-18",
   "summary": {
-    "selected_count": 4,
+    "selected_count": 2,
     "jra_count": 2,
-    "nar_count": 2,
-    "max_score": 100,
-    "settled_count": 3,
+    "nar_count": 0,
+    "max_score": 78,
+    "settled_count": 0,
     "hit_count": 0,
-    "stake": 8400,
+    "stake": 0,
     "payout": 0,
-    "roi": 0.0,
+    "roi": null,
     "best_odds": null
   },
   "races": [
     {
       "source": "JRA",
-      "date": "2026-10-17",
+      "date": "2026-10-18",
       "track": "新潟",
       "venue": "新潟",
-      "race": "1R",
-      "race_no": 1,
-      "time": "09:45",
+      "race": "2R",
+      "race_no": 2,
+      "time": "10:05",
       "score": 78,
       "tier": "高配当",
       "marks": [
         {
           "label": "◉",
-          "number": 3,
-          "name": "イザベル"
+          "number": 4,
+          "name": "ブレイヴアーサー"
         },
         {
           "label": "◎",
-          "number": 1,
-          "name": "ウメヒナタ"
+          "number": 7,
+          "name": "アルニタク"
         },
         {
           "label": "▲",
-          "number": 5,
-          "name": "サムワンユーラヴド"
+          "number": 6,
+          "name": "エルシオン"
         },
         {
           "label": "☆",
-          "number": 2,
-          "name": "ドラゴンドール"
+          "number": 1,
+          "name": "ドナビッグベン"
         },
         {
           "label": "△",
-          "number": 4,
-          "name": "ルージュラボルタ"
+          "number": 2,
+          "name": "セイリュウ"
         },
         {
           "label": "()",
-          "number": 6,
-          "name": "サノノファイター"
+          "number": 3,
+          "name": "ニシノハナカケル"
         }
       ],
       "tickets": [
-        "3-1-5",
-        "3-5-1",
-        "1-3-5",
-        "3-1-2",
-        "3-2-1",
-        "1-3-2",
-        "3-5-2",
-        "5-3-2",
-        "2-3-1",
-        "3-1-6",
-        "1-3-6",
-        "6-3-1"
+        "4-7-6",
+        "4-6-7",
+        "7-4-6",
+        "4-7-1",
+        "4-1-7",
+        "7-4-1",
+        "4-6-1",
+        "6-4-1",
+        "1-4-7",
+        "4-7-3",
+        "7-4-3",
+        "3-4-7"
       ],
-      "bet": "3連単 3-1-5 / 3-5-1 / 1-3-5 / 3-1-2 / 3-2-1 / 1-3-2 / 3-5-2 / 5-3-2 / 2-3-1 / 3-1-6 / 1-3-6 / 6-3-1（12点・各100円）",
+      "bet": "3連単 4-7-6 / 4-6-7 / 7-4-6 / 4-7-1 / 4-1-7 / 7-4-1 / 4-6-1 / 6-4-1 / 1-4-7 / 4-7-3 / 7-4-3 / 3-4-7（12点・各100円）",
       "invest": 1200,
-      "status": "started",
+      "status": "upcoming",
       "result": null,
-      "race_key": "JRA:202604040101",
-      "source_race_id": "202604040101",
+      "race_key": "JRA:202604040202",
+      "source_race_id": "202604040202",
       "odds_snapshot": {
         "schema_version": 1,
-        "race_key": "JRA:202604040101",
-        "source_race_id": "202604040101",
+        "race_key": "JRA:202604040202",
+        "source_race_id": "202604040202",
         "kind": "prediction",
-        "fetched_at": "2026-10-17T22:13:19+09:00",
-        "minutes_to_post": -748.3,
+        "fetched_at": "2026-10-18T10:01:41+09:00",
+        "minutes_to_post": 3.3,
         "source": "netkeiba",
         "status": "unavailable",
         "tickets": [
           {
-            "combo": "3-1-5",
+            "combo": "4-7-6",
             "odds": null
           },
           {
-            "combo": "3-5-1",
+            "combo": "4-6-7",
             "odds": null
           },
           {
-            "combo": "1-3-5",
+            "combo": "7-4-6",
             "odds": null
           },
           {
-            "combo": "3-1-2",
+            "combo": "4-7-1",
             "odds": null
           },
           {
-            "combo": "3-2-1",
+            "combo": "4-1-7",
             "odds": null
           },
           {
-            "combo": "1-3-2",
+            "combo": "7-4-1",
             "odds": null
           },
           {
-            "combo": "3-5-2",
+            "combo": "4-6-1",
             "odds": null
           },
           {
-            "combo": "5-3-2",
+            "combo": "6-4-1",
             "odds": null
           },
           {
-            "combo": "2-3-1",
+            "combo": "1-4-7",
             "odds": null
           },
           {
-            "combo": "3-1-6",
+            "combo": "4-7-3",
             "odds": null
           },
           {
-            "combo": "1-3-6",
+            "combo": "7-4-3",
             "odds": null
           },
           {
-            "combo": "6-3-1",
+            "combo": "3-4-7",
             "odds": null
           }
         ],
         "missing": [
-          "3-1-5",
-          "3-5-1",
-          "1-3-5",
-          "3-1-2",
-          "3-2-1",
-          "1-3-2",
-          "3-5-2",
-          "5-3-2",
-          "2-3-1",
-          "3-1-6",
-          "1-3-6",
-          "6-3-1"
+          "4-7-6",
+          "4-6-7",
+          "7-4-6",
+          "4-7-1",
+          "4-1-7",
+          "7-4-1",
+          "4-6-1",
+          "6-4-1",
+          "1-4-7",
+          "4-7-3",
+          "7-4-3",
+          "3-4-7"
         ],
         "odds_min": null,
         "odds_max": null,
@@ -156,43 +156,276 @@
         "horses": [
           {
             "mark": "◉",
+            "number": 4,
+            "name": "ブレイヴアーサー",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "◎",
+            "number": 7,
+            "name": "アルニタク",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "▲",
+            "number": 6,
+            "name": "エルシオン",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "☆",
+            "number": 1,
+            "name": "ドナビッグベン",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "△",
+            "number": 2,
+            "name": "セイリュウ",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "()",
             "number": 3,
-            "name": "イザベル",
+            "name": "ニシノハナカケル",
+            "win_odds": null,
+            "popularity": null
+          }
+        ],
+        "horses_status": "unavailable",
+        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+      },
+      "odds_snapshot_prepost": null,
+      "trifecta_odds_range": null,
+      "marks_market": [
+        {
+          "mark": "◉",
+          "number": 4,
+          "name": "ブレイヴアーサー",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "◎",
+          "number": 7,
+          "name": "アルニタク",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "▲",
+          "number": 6,
+          "name": "エルシオン",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "☆",
+          "number": 1,
+          "name": "ドナビッグベン",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "△",
+          "number": 2,
+          "name": "セイリュウ",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "()",
+          "number": 3,
+          "name": "ニシノハナカケル",
+          "win_odds": null,
+          "popularity": null
+        }
+      ],
+      "hit_ticket_odds_at_prediction": null
+    },
+    {
+      "source": "JRA",
+      "date": "2026-10-18",
+      "track": "東京",
+      "venue": "東京",
+      "race": "2R",
+      "race_no": 2,
+      "time": "10:15",
+      "score": 78,
+      "tier": "高配当",
+      "marks": [
+        {
+          "label": "◉",
+          "number": 2,
+          "name": "バーチディダーマ"
+        },
+        {
+          "label": "◎",
+          "number": 1,
+          "name": "ダンシングアワー"
+        },
+        {
+          "label": "▲",
+          "number": 3,
+          "name": "エピックジャーニー"
+        },
+        {
+          "label": "☆",
+          "number": 4,
+          "name": "トムキャット"
+        },
+        {
+          "label": "△",
+          "number": 5,
+          "name": "サヴィッジブロウ"
+        },
+        {
+          "label": "()",
+          "number": 6,
+          "name": "ハナミヤビ"
+        }
+      ],
+      "tickets": [
+        "2-1-3",
+        "2-3-1",
+        "1-2-3",
+        "2-1-4",
+        "2-4-1",
+        "1-2-4",
+        "2-3-4",
+        "3-2-4",
+        "4-2-1",
+        "2-1-6",
+        "1-2-6",
+        "6-2-1"
+      ],
+      "bet": "3連単 2-1-3 / 2-3-1 / 1-2-3 / 2-1-4 / 2-4-1 / 1-2-4 / 2-3-4 / 3-2-4 / 4-2-1 / 2-1-6 / 1-2-6 / 6-2-1（12点・各100円）",
+      "invest": 1200,
+      "status": "upcoming",
+      "result": null,
+      "race_key": "JRA:202605040702",
+      "source_race_id": "202605040702",
+      "odds_snapshot": {
+        "schema_version": 1,
+        "race_key": "JRA:202605040702",
+        "source_race_id": "202605040702",
+        "kind": "prediction",
+        "fetched_at": "2026-10-18T10:01:44+09:00",
+        "minutes_to_post": 13.3,
+        "source": "netkeiba",
+        "status": "unavailable",
+        "tickets": [
+          {
+            "combo": "2-1-3",
+            "odds": null
+          },
+          {
+            "combo": "2-3-1",
+            "odds": null
+          },
+          {
+            "combo": "1-2-3",
+            "odds": null
+          },
+          {
+            "combo": "2-1-4",
+            "odds": null
+          },
+          {
+            "combo": "2-4-1",
+            "odds": null
+          },
+          {
+            "combo": "1-2-4",
+            "odds": null
+          },
+          {
+            "combo": "2-3-4",
+            "odds": null
+          },
+          {
+            "combo": "3-2-4",
+            "odds": null
+          },
+          {
+            "combo": "4-2-1",
+            "odds": null
+          },
+          {
+            "combo": "2-1-6",
+            "odds": null
+          },
+          {
+            "combo": "1-2-6",
+            "odds": null
+          },
+          {
+            "combo": "6-2-1",
+            "odds": null
+          }
+        ],
+        "missing": [
+          "2-1-3",
+          "2-3-1",
+          "1-2-3",
+          "2-1-4",
+          "2-4-1",
+          "1-2-4",
+          "2-3-4",
+          "3-2-4",
+          "4-2-1",
+          "2-1-6",
+          "1-2-6",
+          "6-2-1"
+        ],
+        "odds_min": null,
+        "odds_max": null,
+        "market_prob_est": null,
+        "horses": [
+          {
+            "mark": "◉",
+            "number": 2,
+            "name": "バーチディダーマ",
             "win_odds": null,
             "popularity": null
           },
           {
             "mark": "◎",
             "number": 1,
-            "name": "ウメヒナタ",
+            "name": "ダンシングアワー",
             "win_odds": null,
             "popularity": null
           },
           {
             "mark": "▲",
-            "number": 5,
-            "name": "サムワンユーラヴド",
+            "number": 3,
+            "name": "エピックジャーニー",
             "win_odds": null,
             "popularity": null
           },
           {
             "mark": "☆",
-            "number": 2,
-            "name": "ドラゴンドール",
+            "number": 4,
+            "name": "トムキャット",
             "win_odds": null,
             "popularity": null
           },
           {
             "mark": "△",
-            "number": 4,
-            "name": "ルージュラボルタ",
+            "number": 5,
+            "name": "サヴィッジブロウ",
             "win_odds": null,
             "popularity": null
           },
           {
             "mark": "()",
             "number": 6,
-            "name": "サノノファイター",
+            "name": "ハナミヤビ",
             "win_odds": null,
             "popularity": null
           }
@@ -205,810 +438,43 @@
       "marks_market": [
         {
           "mark": "◉",
-          "number": 3,
-          "name": "イザベル",
+          "number": 2,
+          "name": "バーチディダーマ",
           "win_odds": null,
           "popularity": null
         },
         {
           "mark": "◎",
           "number": 1,
-          "name": "ウメヒナタ",
+          "name": "ダンシングアワー",
           "win_odds": null,
           "popularity": null
         },
         {
           "mark": "▲",
-          "number": 5,
-          "name": "サムワンユーラヴド",
+          "number": 3,
+          "name": "エピックジャーニー",
           "win_odds": null,
           "popularity": null
         },
         {
           "mark": "☆",
-          "number": 2,
-          "name": "ドラゴンドール",
+          "number": 4,
+          "name": "トムキャット",
           "win_odds": null,
           "popularity": null
         },
         {
           "mark": "△",
-          "number": 4,
-          "name": "ルージュラボルタ",
+          "number": 5,
+          "name": "サヴィッジブロウ",
           "win_odds": null,
           "popularity": null
         },
         {
           "mark": "()",
           "number": 6,
-          "name": "サノノファイター",
-          "win_odds": null,
-          "popularity": null
-        }
-      ],
-      "hit_ticket_odds_at_prediction": null
-    },
-    {
-      "source": "NAR",
-      "date": "2026-10-17",
-      "track": "帯広",
-      "venue": "帯広",
-      "race": "1R",
-      "race_no": 1,
-      "time": "14:35",
-      "score": 100,
-      "tier": "四桁狙い",
-      "marks": [
-        {
-          "label": "◉",
-          "number": 5,
-          "name": "キンノロナ",
-          "odds": 8.5
-        },
-        {
-          "label": "◎",
-          "number": 4,
-          "name": "サクセスドリーム",
-          "odds": 3.1
-        },
-        {
-          "label": "▲",
-          "number": 7,
-          "name": "マキシゴールド",
-          "odds": 7.0
-        },
-        {
-          "label": "☆",
-          "number": 2,
-          "name": "サクセストップ",
-          "odds": 15.1
-        },
-        {
-          "label": "△",
-          "number": 9,
-          "name": "レディームキムキ",
-          "odds": 6.0
-        },
-        {
-          "label": "()",
-          "number": 10,
-          "name": "ガシンショウタン",
-          "odds": 25.7
-        }
-      ],
-      "tickets": [
-        "5-4-7",
-        "5-7-4",
-        "4-5-7",
-        "5-4-2",
-        "5-2-4",
-        "4-5-2",
-        "5-7-2",
-        "7-5-2",
-        "2-5-4",
-        "5-4-10",
-        "4-5-10",
-        "10-5-4"
-      ],
-      "bet": "3連単 5-4-7 / 5-7-4 / 4-5-7 / 5-4-2 / 5-2-4 / 4-5-2 / 5-7-2 / 7-5-2 / 2-5-4 / 5-4-10 / 4-5-10 / 10-5-4（12点・各100円）",
-      "invest": 1200,
-      "status": "finished",
-      "result": {
-        "settled": true,
-        "hit": false,
-        "status": "miss",
-        "stake": 1200,
-        "payout": 0,
-        "roi": 0.0,
-        "best_odds": 0.0,
-        "finish_numbers": [
-          3,
-          7,
-          6
-        ],
-        "trifecta_combo": "3→7→6",
-        "trifecta_payout": 32110,
-        "trifecta_odds": 321.1
-      },
-      "odds_low": 3.1,
-      "odds_high": 25.7,
-      "odds_kind": "selected_win_odds",
-      "race_key": "NAR:nar:k_babaCode=3&k_raceDate=2026-10-17&k_raceNo=1",
-      "source_race_id": "nar:k_babaCode=3&k_raceDate=2026-10-17&k_raceNo=1",
-      "odds_snapshot": {
-        "schema_version": 1,
-        "race_key": "NAR:nar:k_babaCode=3&k_raceDate=2026-10-17&k_raceNo=1",
-        "source_race_id": "nar:k_babaCode=3&k_raceDate=2026-10-17&k_raceNo=1",
-        "kind": "prediction",
-        "fetched_at": "2026-10-17T14:30:11+09:00",
-        "minutes_to_post": 4.8,
-        "source": "keiba.go.jp",
-        "status": "partial",
-        "tickets": [
-          {
-            "combo": "5-4-7",
-            "odds": null
-          },
-          {
-            "combo": "5-7-4",
-            "odds": null
-          },
-          {
-            "combo": "4-5-7",
-            "odds": 141.7
-          },
-          {
-            "combo": "5-4-2",
-            "odds": null
-          },
-          {
-            "combo": "5-2-4",
-            "odds": null
-          },
-          {
-            "combo": "4-5-2",
-            "odds": null
-          },
-          {
-            "combo": "5-7-2",
-            "odds": null
-          },
-          {
-            "combo": "7-5-2",
-            "odds": null
-          },
-          {
-            "combo": "2-5-4",
-            "odds": null
-          },
-          {
-            "combo": "5-4-10",
-            "odds": null
-          },
-          {
-            "combo": "4-5-10",
-            "odds": null
-          },
-          {
-            "combo": "10-5-4",
-            "odds": null
-          }
-        ],
-        "missing": [
-          "5-4-7",
-          "5-7-4",
-          "5-4-2",
-          "5-2-4",
-          "4-5-2",
-          "5-7-2",
-          "7-5-2",
-          "2-5-4",
-          "5-4-10",
-          "4-5-10",
-          "10-5-4"
-        ],
-        "odds_min": 141.7,
-        "odds_max": 141.7,
-        "market_prob_est": 0.005293,
-        "horses": [
-          {
-            "mark": "◉",
-            "number": 5,
-            "name": "キンノロナ",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "◎",
-            "number": 4,
-            "name": "サクセスドリーム",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "▲",
-            "number": 7,
-            "name": "マキシゴールド",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "☆",
-            "number": 2,
-            "name": "サクセストップ",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "△",
-            "number": 9,
-            "name": "レディームキムキ",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "()",
-            "number": 10,
-            "name": "ガシンショウタン",
-            "win_odds": null,
-            "popularity": null
-          }
-        ],
-        "horses_status": "unavailable",
-        "error": "win: OddsUnavailable: win parser returned no usable odds"
-      },
-      "odds_snapshot_prepost": null,
-      "trifecta_odds_range": [
-        141.7,
-        141.7
-      ],
-      "marks_market": [
-        {
-          "mark": "◉",
-          "number": 5,
-          "name": "キンノロナ",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "◎",
-          "number": 4,
-          "name": "サクセスドリーム",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "▲",
-          "number": 7,
-          "name": "マキシゴールド",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "☆",
-          "number": 2,
-          "name": "サクセストップ",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "△",
-          "number": 9,
-          "name": "レディームキムキ",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "()",
-          "number": 10,
-          "name": "ガシンショウタン",
-          "win_odds": null,
-          "popularity": null
-        }
-      ],
-      "hit_ticket_odds_at_prediction": null
-    },
-    {
-      "source": "JRA",
-      "date": "2026-10-17",
-      "track": "京都",
-      "venue": "京都",
-      "race": "10R",
-      "race_no": 10,
-      "time": "14:50",
-      "score": 81,
-      "tier": "高配当",
-      "marks": [
-        {
-          "label": "◉",
-          "number": 2,
-          "name": "エイシンビーコン"
-        },
-        {
-          "label": "◎",
-          "number": 3,
-          "name": "メイショウナルカミ"
-        },
-        {
-          "label": "▲",
-          "number": 1,
-          "name": "アメジストブラック"
-        },
-        {
-          "label": "☆",
-          "number": 7,
-          "name": "トリニティ"
-        },
-        {
-          "label": "△",
-          "number": 4,
-          "name": "アルベリック"
-        },
-        {
-          "label": "()",
-          "number": 5,
-          "name": "アットアブラスト"
-        }
-      ],
-      "tickets": [
-        "2-3-1",
-        "2-1-3",
-        "3-2-1",
-        "2-3-7",
-        "2-7-3",
-        "3-2-7",
-        "2-1-7",
-        "1-2-7",
-        "7-2-3",
-        "2-3-5",
-        "3-2-5",
-        "5-2-3"
-      ],
-      "bet": "3連単 2-3-1 / 2-1-3 / 3-2-1 / 2-3-7 / 2-7-3 / 3-2-7 / 2-1-7 / 1-2-7 / 7-2-3 / 2-3-5 / 3-2-5 / 5-2-3（12点・各100円）",
-      "invest": 1200,
-      "status": "finished",
-      "result": {
-        "settled": true,
-        "hit": false,
-        "status": "miss",
-        "stake": 6000,
-        "payout": 0,
-        "roi": 0.0,
-        "best_odds": 0.0,
-        "finish_numbers": [
-          2,
-          6,
-          6
-        ],
-        "trifecta_combo": "2→6→6",
-        "trifecta_payout": 220,
-        "trifecta_odds": 2.2
-      },
-      "race_key": "JRA:202608040610",
-      "source_race_id": "202608040610",
-      "odds_snapshot": {
-        "schema_version": 1,
-        "race_key": "JRA:202608040610",
-        "source_race_id": "202608040610",
-        "kind": "prediction",
-        "fetched_at": "2026-10-17T22:13:23+09:00",
-        "minutes_to_post": -443.4,
-        "source": "netkeiba",
-        "status": "unavailable",
-        "tickets": [
-          {
-            "combo": "2-3-1",
-            "odds": null
-          },
-          {
-            "combo": "2-1-3",
-            "odds": null
-          },
-          {
-            "combo": "3-2-1",
-            "odds": null
-          },
-          {
-            "combo": "2-3-7",
-            "odds": null
-          },
-          {
-            "combo": "2-7-3",
-            "odds": null
-          },
-          {
-            "combo": "3-2-7",
-            "odds": null
-          },
-          {
-            "combo": "2-1-7",
-            "odds": null
-          },
-          {
-            "combo": "1-2-7",
-            "odds": null
-          },
-          {
-            "combo": "7-2-3",
-            "odds": null
-          },
-          {
-            "combo": "2-3-5",
-            "odds": null
-          },
-          {
-            "combo": "3-2-5",
-            "odds": null
-          },
-          {
-            "combo": "5-2-3",
-            "odds": null
-          }
-        ],
-        "missing": [
-          "2-3-1",
-          "2-1-3",
-          "3-2-1",
-          "2-3-7",
-          "2-7-3",
-          "3-2-7",
-          "2-1-7",
-          "1-2-7",
-          "7-2-3",
-          "2-3-5",
-          "3-2-5",
-          "5-2-3"
-        ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
-        "horses": [
-          {
-            "mark": "◉",
-            "number": 2,
-            "name": "エイシンビーコン",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "◎",
-            "number": 3,
-            "name": "メイショウナルカミ",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "▲",
-            "number": 1,
-            "name": "アメジストブラック",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "☆",
-            "number": 7,
-            "name": "トリニティ",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "△",
-            "number": 4,
-            "name": "アルベリック",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "()",
-            "number": 5,
-            "name": "アットアブラスト",
-            "win_odds": null,
-            "popularity": null
-          }
-        ],
-        "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
-      },
-      "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
-      "marks_market": [
-        {
-          "mark": "◉",
-          "number": 2,
-          "name": "エイシンビーコン",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "◎",
-          "number": 3,
-          "name": "メイショウナルカミ",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "▲",
-          "number": 1,
-          "name": "アメジストブラック",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "☆",
-          "number": 7,
-          "name": "トリニティ",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "△",
-          "number": 4,
-          "name": "アルベリック",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "()",
-          "number": 5,
-          "name": "アットアブラスト",
-          "win_odds": null,
-          "popularity": null
-        }
-      ],
-      "hit_ticket_odds_at_prediction": null
-    },
-    {
-      "source": "NAR",
-      "date": "2026-10-17",
-      "track": "高知",
-      "venue": "高知",
-      "race": "7R",
-      "race_no": 7,
-      "time": "18:45",
-      "score": 72,
-      "tier": "高配当",
-      "marks": [
-        {
-          "label": "◉",
-          "number": 4,
-          "name": "ファストフィール",
-          "odds": 11.2
-        },
-        {
-          "label": "◎",
-          "number": 5,
-          "name": "ペタルビジュー",
-          "odds": 9.9
-        },
-        {
-          "label": "▲",
-          "number": 10,
-          "name": "ドンアチェカ",
-          "odds": 1.5
-        },
-        {
-          "label": "☆",
-          "number": 2,
-          "name": "ベルヴィオレット",
-          "odds": 59.2
-        },
-        {
-          "label": "△",
-          "number": 7,
-          "name": "ハルノインパクト",
-          "odds": 10.7
-        },
-        {
-          "label": "()",
-          "number": 9,
-          "name": "グラティアスミノル",
-          "odds": 24.5
-        }
-      ],
-      "tickets": [
-        "4-5-10",
-        "4-10-5",
-        "5-4-10",
-        "4-5-2",
-        "4-2-5",
-        "5-4-2",
-        "4-10-2",
-        "10-4-2",
-        "2-4-5",
-        "4-5-9",
-        "5-4-9",
-        "9-4-5"
-      ],
-      "bet": "3連単 4-5-10 / 4-10-5 / 5-4-10 / 4-5-2 / 4-2-5 / 5-4-2 / 4-10-2 / 10-4-2 / 2-4-5 / 4-5-9 / 5-4-9 / 9-4-5（12点・各100円）",
-      "invest": 1200,
-      "status": "finished",
-      "result": {
-        "settled": true,
-        "hit": false,
-        "status": "miss",
-        "stake": 1200,
-        "payout": 0,
-        "roi": 0.0,
-        "best_odds": 0.0,
-        "finish_numbers": [
-          10,
-          7,
-          1
-        ],
-        "trifecta_combo": "10→7→1",
-        "trifecta_payout": 3230,
-        "trifecta_odds": 32.3
-      },
-      "odds_low": 1.5,
-      "odds_high": 59.2,
-      "odds_kind": "selected_win_odds",
-      "race_key": "NAR:nar:k_babaCode=31&k_raceDate=2026-10-17&k_raceNo=7",
-      "source_race_id": "nar:k_babaCode=31&k_raceDate=2026-10-17&k_raceNo=7",
-      "odds_snapshot": {
-        "schema_version": 1,
-        "race_key": "NAR:nar:k_babaCode=31&k_raceDate=2026-10-17&k_raceNo=7",
-        "source_race_id": "nar:k_babaCode=31&k_raceDate=2026-10-17&k_raceNo=7",
-        "kind": "prediction",
-        "fetched_at": "2026-10-17T22:13:16+09:00",
-        "minutes_to_post": -208.3,
-        "source": "keiba.go.jp",
-        "status": "unavailable",
-        "tickets": [
-          {
-            "combo": "4-5-10",
-            "odds": null
-          },
-          {
-            "combo": "4-10-5",
-            "odds": null
-          },
-          {
-            "combo": "5-4-10",
-            "odds": null
-          },
-          {
-            "combo": "4-5-2",
-            "odds": null
-          },
-          {
-            "combo": "4-2-5",
-            "odds": null
-          },
-          {
-            "combo": "5-4-2",
-            "odds": null
-          },
-          {
-            "combo": "4-10-2",
-            "odds": null
-          },
-          {
-            "combo": "10-4-2",
-            "odds": null
-          },
-          {
-            "combo": "2-4-5",
-            "odds": null
-          },
-          {
-            "combo": "4-5-9",
-            "odds": null
-          },
-          {
-            "combo": "5-4-9",
-            "odds": null
-          },
-          {
-            "combo": "9-4-5",
-            "odds": null
-          }
-        ],
-        "missing": [
-          "4-5-10",
-          "4-10-5",
-          "5-4-10",
-          "4-5-2",
-          "4-2-5",
-          "5-4-2",
-          "4-10-2",
-          "10-4-2",
-          "2-4-5",
-          "4-5-9",
-          "5-4-9",
-          "9-4-5"
-        ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
-        "horses": [
-          {
-            "mark": "◉",
-            "number": 4,
-            "name": "ファストフィール",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "◎",
-            "number": 5,
-            "name": "ペタルビジュー",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "▲",
-            "number": 10,
-            "name": "ドンアチェカ",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "☆",
-            "number": 2,
-            "name": "ベルヴィオレット",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "△",
-            "number": 7,
-            "name": "ハルノインパクト",
-            "win_odds": null,
-            "popularity": null
-          },
-          {
-            "mark": "()",
-            "number": 9,
-            "name": "グラティアスミノル",
-            "win_odds": null,
-            "popularity": null
-          }
-        ],
-        "horses_status": "unavailable",
-        "error": "win: OddsUnavailable: win parser returned no usable odds"
-      },
-      "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
-      "marks_market": [
-        {
-          "mark": "◉",
-          "number": 4,
-          "name": "ファストフィール",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "◎",
-          "number": 5,
-          "name": "ペタルビジュー",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "▲",
-          "number": 10,
-          "name": "ドンアチェカ",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "☆",
-          "number": 2,
-          "name": "ベルヴィオレット",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "△",
-          "number": 7,
-          "name": "ハルノインパクト",
-          "win_odds": null,
-          "popularity": null
-        },
-        {
-          "mark": "()",
-          "number": 9,
-          "name": "グラティアスミノル",
+          "name": "ハナミヤビ",
           "win_odds": null,
           "popularity": null
         }
