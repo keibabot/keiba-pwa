@@ -1,15 +1,15 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-19T14:28:55+09:00",
+  "generated_at": "2026-10-19T20:00:27+09:00",
   "date": "2026-10-19",
   "summary": {
-    "selected_count": 4,
+    "selected_count": 5,
     "jra_count": 0,
-    "nar_count": 4,
+    "nar_count": 5,
     "max_score": 86,
-    "settled_count": 3,
+    "settled_count": 4,
     "hit_count": 0,
-    "stake": 3600,
+    "stake": 4800,
     "payout": 0,
     "roi": 0.0,
     "best_odds": null
@@ -851,8 +851,24 @@
       ],
       "bet": "3連単 9-6-8 / 9-8-6 / 6-9-8 / 9-6-7 / 9-7-6 / 6-9-7 / 9-8-7 / 8-9-7 / 7-9-6 / 9-6-12 / 6-9-12 / 12-9-6（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          6,
+          9,
+          11
+        ],
+        "trifecta_combo": "6→9→11",
+        "trifecta_payout": 5460,
+        "trifecta_odds": 54.6
+      },
       "odds_low": 1.8,
       "odds_high": 46.6,
       "odds_kind": "selected_win_odds",
@@ -1021,6 +1037,250 @@
           "mark": "()",
           "number": 12,
           "name": "キャピタルプレイン",
+          "win_odds": null,
+          "popularity": null
+        }
+      ],
+      "hit_ticket_odds_at_prediction": null
+    },
+    {
+      "source": "NAR",
+      "date": "2026-10-19",
+      "track": "名古屋",
+      "venue": "名古屋",
+      "race": "11R",
+      "race_no": 11,
+      "time": "20:15",
+      "score": 76,
+      "tier": "高配当",
+      "marks": [
+        {
+          "label": "◉",
+          "number": 10,
+          "name": "ザボドフスキー",
+          "odds": 10.9
+        },
+        {
+          "label": "◎",
+          "number": 2,
+          "name": "ガーニュ",
+          "odds": 2.5
+        },
+        {
+          "label": "▲",
+          "number": 4,
+          "name": "ダイゴセイリュウ",
+          "odds": 9.3
+        },
+        {
+          "label": "☆",
+          "number": 11,
+          "name": "ネオアリシア",
+          "odds": 28.1
+        },
+        {
+          "label": "△",
+          "number": 7,
+          "name": "マンデーロウリュウ",
+          "odds": 2.7
+        },
+        {
+          "label": "()",
+          "number": 1,
+          "name": "フローラビーナス",
+          "odds": 35.9
+        }
+      ],
+      "tickets": [
+        "10-2-4",
+        "10-4-2",
+        "2-10-4",
+        "10-2-11",
+        "10-11-2",
+        "2-10-11",
+        "10-4-11",
+        "4-10-11",
+        "11-10-2",
+        "10-2-1",
+        "2-10-1",
+        "1-10-2"
+      ],
+      "bet": "3連単 10-2-4 / 10-4-2 / 2-10-4 / 10-2-11 / 10-11-2 / 2-10-11 / 10-4-11 / 4-10-11 / 11-10-2 / 10-2-1 / 2-10-1 / 1-10-2（12点・各100円）",
+      "invest": 1200,
+      "status": "upcoming",
+      "result": null,
+      "odds_low": 2.5,
+      "odds_high": 35.9,
+      "odds_kind": "selected_win_odds",
+      "race_key": "NAR:nar:k_babaCode=24&k_raceDate=2026-10-19&k_raceNo=11",
+      "source_race_id": "nar:k_babaCode=24&k_raceDate=2026-10-19&k_raceNo=11",
+      "odds_snapshot": {
+        "schema_version": 1,
+        "race_key": "NAR:nar:k_babaCode=24&k_raceDate=2026-10-19&k_raceNo=11",
+        "source_race_id": "nar:k_babaCode=24&k_raceDate=2026-10-19&k_raceNo=11",
+        "kind": "prediction",
+        "fetched_at": "2026-10-19T20:00:22+09:00",
+        "minutes_to_post": 14.6,
+        "source": "keiba.go.jp",
+        "status": "partial",
+        "tickets": [
+          {
+            "combo": "10-2-4",
+            "odds": null
+          },
+          {
+            "combo": "10-4-2",
+            "odds": null
+          },
+          {
+            "combo": "2-10-4",
+            "odds": 148.8
+          },
+          {
+            "combo": "10-2-11",
+            "odds": null
+          },
+          {
+            "combo": "10-11-2",
+            "odds": null
+          },
+          {
+            "combo": "2-10-11",
+            "odds": null
+          },
+          {
+            "combo": "10-4-11",
+            "odds": null
+          },
+          {
+            "combo": "4-10-11",
+            "odds": null
+          },
+          {
+            "combo": "11-10-2",
+            "odds": null
+          },
+          {
+            "combo": "10-2-1",
+            "odds": null
+          },
+          {
+            "combo": "2-10-1",
+            "odds": null
+          },
+          {
+            "combo": "1-10-2",
+            "odds": null
+          }
+        ],
+        "missing": [
+          "10-2-4",
+          "10-4-2",
+          "10-2-11",
+          "10-11-2",
+          "2-10-11",
+          "10-4-11",
+          "4-10-11",
+          "11-10-2",
+          "10-2-1",
+          "2-10-1",
+          "1-10-2"
+        ],
+        "odds_min": 148.8,
+        "odds_max": 148.8,
+        "market_prob_est": 0.00504,
+        "horses": [
+          {
+            "mark": "◉",
+            "number": 10,
+            "name": "ザボドフスキー",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "◎",
+            "number": 2,
+            "name": "ガーニュ",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "▲",
+            "number": 4,
+            "name": "ダイゴセイリュウ",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "☆",
+            "number": 11,
+            "name": "ネオアリシア",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "△",
+            "number": 7,
+            "name": "マンデーロウリュウ",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "()",
+            "number": 1,
+            "name": "フローラビーナス",
+            "win_odds": null,
+            "popularity": null
+          }
+        ],
+        "horses_status": "unavailable",
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
+      },
+      "odds_snapshot_prepost": null,
+      "trifecta_odds_range": [
+        148.8,
+        148.8
+      ],
+      "marks_market": [
+        {
+          "mark": "◉",
+          "number": 10,
+          "name": "ザボドフスキー",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "◎",
+          "number": 2,
+          "name": "ガーニュ",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "▲",
+          "number": 4,
+          "name": "ダイゴセイリュウ",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "☆",
+          "number": 11,
+          "name": "ネオアリシア",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "△",
+          "number": 7,
+          "name": "マンデーロウリュウ",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "()",
+          "number": 1,
+          "name": "フローラビーナス",
           "win_odds": null,
           "popularity": null
         }
