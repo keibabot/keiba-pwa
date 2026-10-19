@@ -2,6 +2,7 @@ const $ = (id) => document.getElementById(id);
 const BUILD_VERSION = document.querySelector('meta[name="build-version"]')?.content || 'dev';
 
 let deferredInstallPrompt = null;
+let loadingData = false;
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
@@ -217,7 +218,11 @@ function render(data) {
   if ($('jraCount')) $('jraCount').textContent = summary.jra_count ?? races.filter((x) => x.source === 'JRA').length;
   if ($('narCount')) $('narCount').textContent = summary.nar_count ?? races.filter((x) => x.source === 'NAR').length;
   if ($('maxScore')) $('maxScore').textContent = summary.max_score ?? (races.length ? Math.max(...races.map((x) => Number(x.score || 0))) : '-');
-  if ($('liveBadge')) $('liveBadge').textContent = races.length ? '本日更新済み' : '本日の選抜待ち';
+  if ($('liveBadge')) {
+    const generated = Date.parse(data.generated_at || '');
+    const stale = !Number.isFinite(generated) || Date.now() - generated > 15 * 60 * 1000;
+    $('liveBadge').textContent = stale ? '更新が遅れています・更新時刻を確認' : (races.length ? '本日更新済み' : '本日の選抜待ち');
+  }
 
   const settledCount = Number(summary.settled_count || 0);
   const resultSummary = $('resultSummary');
@@ -246,6 +251,8 @@ function render(data) {
 }
 
 async function loadData() {
+  if (loadingData) return;
+  loadingData = true;
   try {
     if (refreshButton) refreshButton.disabled = true;
     const response = await fetch(`./data/latest.json?t=${Date.now()}`, { cache: 'no-store' });
@@ -257,6 +264,7 @@ async function loadData() {
     if (list) list.innerHTML = `<div class="panel empty"><strong>データを読み込めませんでした</strong><span class="muted">${escapeHtml(error.message)}</span></div>`;
     if ($('updatedAt')) $('updatedAt').textContent = `読み込みエラー: ${error.message}`;
   } finally {
+    loadingData = false;
     if (refreshButton) refreshButton.disabled = false;
   }
 }
@@ -271,3 +279,12 @@ if ('serviceWorker' in navigator) {
 }
 
 loadData();
+
+// Refresh an open PWA and immediately catch up after returning from the background.
+setInterval(() => {
+  if (document.visibilityState === 'visible') loadData();
+}, 60000);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') loadData();
+});
+window.addEventListener('online', () => loadData());
