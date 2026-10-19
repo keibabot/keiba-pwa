@@ -1,15 +1,15 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-19T14:20:31+09:00",
+  "generated_at": "2026-10-19T14:28:55+09:00",
   "date": "2026-10-19",
   "summary": {
     "selected_count": 4,
     "jra_count": 0,
     "nar_count": 4,
     "max_score": 86,
-    "settled_count": 2,
+    "settled_count": 3,
     "hit_count": 0,
-    "stake": 2400,
+    "stake": 3600,
     "payout": 0,
     "roi": 0.0,
     "best_odds": null
@@ -595,8 +595,24 @@
       ],
       "bet": "3連単 2-6-9 / 2-9-6 / 6-2-9 / 2-6-3 / 2-3-6 / 6-2-3 / 2-9-3 / 9-2-3 / 3-2-6 / 2-6-8 / 6-2-8 / 8-2-6（12点・各100円）",
       "invest": 1200,
-      "status": "started",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          2,
+          11,
+          5
+        ],
+        "trifecta_combo": "2→11→5",
+        "trifecta_payout": 688000,
+        "trifecta_odds": 6880.0
+      },
       "odds_low": 3.9,
       "odds_high": 22.6,
       "odds_kind": "selected_win_odds",
