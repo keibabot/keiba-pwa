@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-20T23:41:55+09:00",
+  "generated_at": "2026-10-20T23:51:19+09:00",
   "date": "2026-10-20",
   "summary": {
     "selected_count": 2,
@@ -107,8 +107,8 @@
         "race_key": "NAR:nar:k_babaCode=18&k_raceDate=2026-10-20&k_raceNo=6",
         "source_race_id": "nar:k_babaCode=18&k_raceDate=2026-10-20&k_raceNo=6",
         "kind": "prediction",
-        "fetched_at": "2026-10-20T23:41:54+09:00",
-        "minutes_to_post": -531.9,
+        "fetched_at": "2026-10-20T23:51:17+09:00",
+        "minutes_to_post": -541.3,
         "source": "keiba.go.jp",
         "status": "unavailable",
         "tickets": [
@@ -532,5 +532,20 @@
       ],
       "hit_ticket_odds_at_prediction": null
     }
-  ]
+  ],
+  "health": {
+    "checked_at": "2026-10-20T14:51:18.929236+00:00",
+    "sources": {
+      "NAR": {
+        "status": "ok",
+        "finished_at": "2026-10-20T14:51:17.593868+00:00",
+        "last_success_at": "2026-10-20T14:51:17.593868+00:00"
+      },
+      "JRA": {
+        "status": "error",
+        "finished_at": "2026-10-20T14:51:18.929236+00:00",
+        "last_success_at": null
+      }
+    }
+  }
 }
