@@ -208,6 +208,31 @@ function renderRace(race) {
   return tpl;
 }
 
+
+function renderHealth(data) {
+  let box = $('sourceHealth');
+  if (!box) {
+    box = document.createElement('p');
+    box.id = 'sourceHealth';
+    box.className = 'muted';
+    box.setAttribute('role', 'status');
+    $('updatedAt')?.after(box);
+  }
+  const health = data.health || {};
+  const checked = Date.parse(health.checked_at || '');
+  const stale = !Number.isFinite(checked) || Date.now() - checked > 15 * 60000;
+  let failed = false;
+  box.textContent = ['NAR', 'JRA'].map((name) => {
+    const item = health.sources?.[name] || {};
+    const ok = item.status === 'ok' && !stale;
+    if (!ok) failed = true;
+    const state = stale ? '確認が遅れています' : item.status === 'error' ? '取得失敗' : ok ? '取得成功' : '状態未確認';
+    const last = item.last_success_at ? formatUpdatedAt(item.last_success_at) : '記録なし';
+    return `${name === 'NAR' ? '地方' : name}：${state}／最終成功 ${last}`;
+  }).join(' ｜ ');
+  if (failed && $('liveBadge')) $('liveBadge').textContent = '取得状態に注意・一部の情報が更新されていません';
+}
+
 function render(data) {
   if (!data || typeof data !== 'object') throw new Error('invalid data');
   const races = Array.isArray(data.races) ? data.races : [];
@@ -224,6 +249,7 @@ function render(data) {
     $('liveBadge').textContent = stale ? '更新が遅れています・更新時刻を確認' : (races.length ? '本日更新済み' : '本日の選抜待ち');
   }
 
+  renderHealth(data);
   const settledCount = Number(summary.settled_count || 0);
   const resultSummary = $('resultSummary');
   if (resultSummary) {
