@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-21T19:14:47+09:00",
+  "generated_at": "2026-10-21T19:38:15+09:00",
   "date": "2026-10-21",
   "summary": {
     "selected_count": 8,
@@ -2135,16 +2135,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-21T10:14:47.229087+00:00",
+    "checked_at": "2026-10-21T10:38:15.148856+00:00",
     "sources": {
       "NAR": {
         "status": "ok",
-        "finished_at": "2026-10-21T10:14:45.958721+00:00",
-        "last_success_at": "2026-10-21T10:14:45.958721+00:00"
+        "finished_at": "2026-10-21T10:38:13.698182+00:00",
+        "last_success_at": "2026-10-21T10:38:13.698182+00:00"
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-21T10:14:47.229087+00:00",
+        "finished_at": "2026-10-21T10:38:15.148856+00:00",
         "last_success_at": null
       }
     }
