@@ -1,15 +1,15 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-21T18:12:51+09:00",
+  "generated_at": "2026-10-21T19:14:47+09:00",
   "date": "2026-10-21",
   "summary": {
     "selected_count": 8,
     "jra_count": 0,
     "nar_count": 8,
     "max_score": 99,
-    "settled_count": 7,
+    "settled_count": 8,
     "hit_count": 0,
-    "stake": 8400,
+    "stake": 9600,
     "payout": 0,
     "roi": 0.0,
     "best_odds": null
@@ -1935,8 +1935,24 @@
       ],
       "bet": "3連単 10-12-9 / 12-10-9 / 10-12-8 / 12-10-8 / 8-10-12 / 11-10-12 / 12-9-10 / 9-12-10 / 8-12-10 / 12-9-8 / 9-12-3 / 3-12-11（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          12,
+          11,
+          9
+        ],
+        "trifecta_combo": "12→11→9",
+        "trifecta_payout": 18440,
+        "trifecta_odds": 184.4
+      },
       "odds_low": 3.4,
       "odds_high": 23.1,
       "odds_kind": "selected_win_odds",
@@ -2119,16 +2135,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-21T09:12:51.442315+00:00",
+    "checked_at": "2026-10-21T10:14:47.229087+00:00",
     "sources": {
       "NAR": {
         "status": "ok",
-        "finished_at": "2026-10-21T09:12:50.159564+00:00",
-        "last_success_at": "2026-10-21T09:12:50.159564+00:00"
+        "finished_at": "2026-10-21T10:14:45.958721+00:00",
+        "last_success_at": "2026-10-21T10:14:45.958721+00:00"
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-21T09:12:51.442315+00:00",
+        "finished_at": "2026-10-21T10:14:47.229087+00:00",
         "last_success_at": null
       }
     }
