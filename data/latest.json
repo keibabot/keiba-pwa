@@ -1,17 +1,17 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-21T10:37:25+09:00",
+  "generated_at": "2026-10-21T14:47:30+09:00",
   "date": "2026-10-21",
   "summary": {
-    "selected_count": 1,
+    "selected_count": 2,
     "jra_count": 0,
-    "nar_count": 1,
-    "max_score": 76,
-    "settled_count": 0,
+    "nar_count": 2,
+    "max_score": 80,
+    "settled_count": 1,
     "hit_count": 0,
-    "stake": 0,
+    "stake": 1200,
     "payout": 0,
-    "roi": null,
+    "roi": 0.0,
     "best_odds": null
   },
   "races": [
@@ -79,8 +79,24 @@
       ],
       "bet": "3連単 6-7-1 / 7-6-1 / 6-7-8 / 7-6-8 / 8-6-7 / 9-6-7 / 7-1-6 / 1-7-6 / 8-7-6 / 7-1-8 / 1-7-4 / 4-7-9（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          4,
+          10,
+          8
+        ],
+        "trifecta_combo": "4→10→8",
+        "trifecta_payout": 68040,
+        "trifecta_odds": 680.4
+      },
       "odds_low": 2.1,
       "odds_high": 77.4,
       "odds_kind": "selected_win_odds",
@@ -252,19 +268,261 @@
         }
       ],
       "hit_ticket_odds_at_prediction": null
+    },
+    {
+      "source": "NAR",
+      "date": "2026-10-21",
+      "track": "浦和",
+      "venue": "浦和",
+      "race": "6R",
+      "race_no": 6,
+      "time": "14:50",
+      "score": 80,
+      "tier": "高配当",
+      "marks": [
+        {
+          "label": "◉",
+          "number": 1,
+          "name": "ニコニコニコル",
+          "odds": 45.5
+        },
+        {
+          "label": "◎",
+          "number": 11,
+          "name": "キョウエイセレッソ",
+          "odds": 2.5
+        },
+        {
+          "label": "▲",
+          "number": 10,
+          "name": "トニトゥルス",
+          "odds": 10.9
+        },
+        {
+          "label": "☆",
+          "number": 9,
+          "name": "アストラルフレア",
+          "odds": 21.2
+        },
+        {
+          "label": "△",
+          "number": 3,
+          "name": "ヴェントベローチェ",
+          "odds": 2.3
+        },
+        {
+          "label": "()",
+          "number": 6,
+          "name": "スピラヴィオ",
+          "odds": 25.3
+        }
+      ],
+      "tickets": [
+        "1-11-10",
+        "11-1-10",
+        "1-11-9",
+        "11-1-9",
+        "9-1-11",
+        "6-1-11",
+        "11-10-1",
+        "10-11-1",
+        "9-11-1",
+        "11-10-9",
+        "10-11-3",
+        "3-11-6"
+      ],
+      "bet": "3連単 1-11-10 / 11-1-10 / 1-11-9 / 11-1-9 / 9-1-11 / 6-1-11 / 11-10-1 / 10-11-1 / 9-11-1 / 11-10-9 / 10-11-3 / 3-11-6（12点・各100円）",
+      "invest": 1200,
+      "status": "upcoming",
+      "result": null,
+      "odds_low": 2.3,
+      "odds_high": 45.5,
+      "odds_kind": "selected_win_odds",
+      "race_key": "NAR:nar:k_babaCode=18&k_raceDate=2026-10-21&k_raceNo=6",
+      "source_race_id": "nar:k_babaCode=18&k_raceDate=2026-10-21&k_raceNo=6",
+      "odds_snapshot": {
+        "schema_version": 1,
+        "race_key": "NAR:nar:k_babaCode=18&k_raceDate=2026-10-21&k_raceNo=6",
+        "source_race_id": "nar:k_babaCode=18&k_raceDate=2026-10-21&k_raceNo=6",
+        "kind": "prediction",
+        "fetched_at": "2026-10-21T14:47:23+09:00",
+        "minutes_to_post": 2.6,
+        "source": "keiba.go.jp",
+        "status": "partial",
+        "tickets": [
+          {
+            "combo": "1-11-10",
+            "odds": null
+          },
+          {
+            "combo": "11-1-10",
+            "odds": null
+          },
+          {
+            "combo": "1-11-9",
+            "odds": null
+          },
+          {
+            "combo": "11-1-9",
+            "odds": null
+          },
+          {
+            "combo": "9-1-11",
+            "odds": null
+          },
+          {
+            "combo": "6-1-11",
+            "odds": null
+          },
+          {
+            "combo": "11-10-1",
+            "odds": null
+          },
+          {
+            "combo": "10-11-1",
+            "odds": null
+          },
+          {
+            "combo": "9-11-1",
+            "odds": null
+          },
+          {
+            "combo": "11-10-9",
+            "odds": 153.9
+          },
+          {
+            "combo": "10-11-3",
+            "odds": 98.0
+          },
+          {
+            "combo": "3-11-6",
+            "odds": 34.3
+          }
+        ],
+        "missing": [
+          "1-11-10",
+          "11-1-10",
+          "1-11-9",
+          "11-1-9",
+          "9-1-11",
+          "6-1-11",
+          "11-10-1",
+          "10-11-1",
+          "9-11-1"
+        ],
+        "odds_min": 34.3,
+        "odds_max": 153.9,
+        "market_prob_est": 0.034392,
+        "horses": [
+          {
+            "mark": "◉",
+            "number": 1,
+            "name": "ニコニコニコル",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "◎",
+            "number": 11,
+            "name": "キョウエイセレッソ",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "▲",
+            "number": 10,
+            "name": "トニトゥルス",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "☆",
+            "number": 9,
+            "name": "アストラルフレア",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "△",
+            "number": 3,
+            "name": "ヴェントベローチェ",
+            "win_odds": null,
+            "popularity": null
+          },
+          {
+            "mark": "()",
+            "number": 6,
+            "name": "スピラヴィオ",
+            "win_odds": null,
+            "popularity": null
+          }
+        ],
+        "horses_status": "unavailable",
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
+      },
+      "odds_snapshot_prepost": null,
+      "trifecta_odds_range": [
+        34.3,
+        153.9
+      ],
+      "marks_market": [
+        {
+          "mark": "◉",
+          "number": 1,
+          "name": "ニコニコニコル",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "◎",
+          "number": 11,
+          "name": "キョウエイセレッソ",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "▲",
+          "number": 10,
+          "name": "トニトゥルス",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "☆",
+          "number": 9,
+          "name": "アストラルフレア",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "△",
+          "number": 3,
+          "name": "ヴェントベローチェ",
+          "win_odds": null,
+          "popularity": null
+        },
+        {
+          "mark": "()",
+          "number": 6,
+          "name": "スピラヴィオ",
+          "win_odds": null,
+          "popularity": null
+        }
+      ],
+      "hit_ticket_odds_at_prediction": null
     }
   ],
   "health": {
-    "checked_at": "2026-10-21T01:37:25.067584+00:00",
+    "checked_at": "2026-10-21T05:47:30.414159+00:00",
     "sources": {
       "NAR": {
         "status": "ok",
-        "finished_at": "2026-10-21T01:37:23.789398+00:00",
-        "last_success_at": "2026-10-21T01:37:23.789398+00:00"
+        "finished_at": "2026-10-21T05:47:29.216765+00:00",
+        "last_success_at": "2026-10-21T05:47:29.216765+00:00"
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-21T01:37:25.067584+00:00",
+        "finished_at": "2026-10-21T05:47:30.414159+00:00",
         "last_success_at": null
       }
     }
