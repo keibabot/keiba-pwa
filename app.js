@@ -119,7 +119,7 @@ function renderRace(race) {
   if (raceTitle) raceTitle.textContent = `${race.track}${race.race}`;
   if (raceTime) raceTime.textContent = `${race.time} 発走`;
   if (score) score.textContent = race.score ?? '-';
-  if (bet) bet.textContent = race.bet || '買い目準備中';
+  if (bet) bet.textContent = (race.research_decision?.action === 'paper_only' ? '検証用・購入推奨は見送り\n' : '') + (race.bet || '買い目準備中');
 
   const betOdds = tpl.querySelector('.bet-odds');
   if (betOdds) {
