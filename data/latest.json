@@ -1,17 +1,17 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-22T16:08:24+09:00",
+  "generated_at": "2026-10-22T19:51:43+09:00",
   "date": "2026-10-22",
   "summary": {
     "selected_count": 15,
     "jra_count": 0,
     "nar_count": 15,
     "max_score": 100,
-    "settled_count": 7,
+    "settled_count": 15,
     "hit_count": 1,
-    "stake": 8400,
+    "stake": 18000,
     "payout": 2050,
-    "roi": 24.4,
+    "roi": 11.4,
     "best_odds": 20.5
   },
   "races": [
@@ -1934,8 +1934,24 @@
       ],
       "bet": "3連単 3-2-6 / 2-3-6 / 3-2-4 / 2-3-4 / 4-3-2 / 9-3-2 / 2-6-3 / 6-2-3 / 4-2-3 / 2-6-4 / 6-2-10 / 10-2-9（12点・各100円）",
       "invest": 1200,
-      "status": "started",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          5,
+          3,
+          2
+        ],
+        "trifecta_combo": "5→3→2",
+        "trifecta_payout": 92300,
+        "trifecta_odds": 923.0
+      },
       "odds_low": 2.5,
       "odds_high": 50.1,
       "odds_kind": "selected_win_odds",
@@ -2181,8 +2197,24 @@
       ],
       "bet": "3連単 5-11-1 / 11-5-1 / 5-11-6 / 11-5-6 / 6-5-11 / 7-5-11 / 11-1-5 / 1-11-5 / 6-11-5 / 11-1-6 / 1-11-9 / 9-11-7（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          11,
+          9,
+          1
+        ],
+        "trifecta_combo": "11→9→1",
+        "trifecta_payout": 4950,
+        "trifecta_odds": 49.5
+      },
       "odds_low": 3.3,
       "odds_high": 19.0,
       "odds_kind": "selected_win_odds",
@@ -2428,8 +2460,24 @@
       ],
       "bet": "3連単 10-9-7 / 9-10-7 / 10-9-1 / 9-10-1 / 1-10-9 / 2-10-9 / 9-7-10 / 7-9-10 / 1-9-10 / 9-7-1 / 7-9-5 / 5-9-2（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          1,
+          5,
+          10
+        ],
+        "trifecta_combo": "1→5→10",
+        "trifecta_payout": 49750,
+        "trifecta_odds": 497.5
+      },
       "odds_low": 2.9,
       "odds_high": 12.3,
       "odds_kind": "selected_win_odds",
@@ -2679,8 +2727,24 @@
       ],
       "bet": "3連単 1-6-12 / 6-1-12 / 1-6-3 / 6-1-3 / 3-1-6 / 11-1-6 / 6-12-1 / 12-6-1 / 3-6-1 / 6-12-3 / 12-6-8 / 8-6-11（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          12,
+          1,
+          8
+        ],
+        "trifecta_combo": "12→1→8",
+        "trifecta_payout": 4270,
+        "trifecta_odds": 42.7
+      },
       "odds_low": 3.9,
       "odds_high": 19.0,
       "odds_kind": "selected_win_odds",
@@ -2927,8 +2991,24 @@
       ],
       "bet": "3連単 8-4-2 / 4-8-2 / 8-4-7 / 4-8-7 / 7-8-4 / 9-8-4 / 4-2-8 / 2-4-8 / 7-4-8 / 4-2-7 / 2-4-1 / 1-4-9（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          1,
+          8,
+          9
+        ],
+        "trifecta_combo": "1→8→9",
+        "trifecta_payout": 40430,
+        "trifecta_odds": 404.3
+      },
       "odds_low": 2.4,
       "odds_high": 32.0,
       "odds_kind": "selected_win_odds",
@@ -3174,8 +3254,24 @@
       ],
       "bet": "3連単 3-4-6 / 4-3-6 / 3-4-5 / 4-3-5 / 5-3-4 / 10-3-4 / 4-6-3 / 6-4-3 / 5-4-3 / 4-6-5 / 6-4-7 / 7-4-10（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          7,
+          1,
+          2
+        ],
+        "trifecta_combo": "7→1→2",
+        "trifecta_payout": 47010,
+        "trifecta_odds": 470.1
+      },
       "odds_low": 2.6,
       "odds_high": 26.8,
       "odds_kind": "selected_win_odds",
@@ -3422,8 +3518,24 @@
       ],
       "bet": "3連単 6-10-1 / 10-6-1 / 6-10-3 / 10-6-3 / 3-6-10 / 7-6-10 / 10-1-6 / 1-10-6 / 3-10-6 / 10-1-3 / 1-10-8 / 8-10-7（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          3,
+          1,
+          8
+        ],
+        "trifecta_combo": "3→1→8",
+        "trifecta_payout": 396730,
+        "trifecta_odds": 3967.3
+      },
       "odds_low": 3.2,
       "odds_high": 54.2,
       "odds_kind": "selected_win_odds",
@@ -3674,8 +3786,24 @@
       ],
       "bet": "3連単 1-12-5 / 12-1-5 / 1-12-6 / 12-1-6 / 6-1-12 / 7-1-12 / 12-5-1 / 5-12-1 / 6-12-1 / 12-5-6 / 5-12-3 / 3-12-7（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          12,
+          7,
+          9
+        ],
+        "trifecta_combo": "12→7→9",
+        "trifecta_payout": 7080,
+        "trifecta_odds": 70.8
+      },
       "odds_low": 2.7,
       "odds_high": 17.9,
       "odds_kind": "selected_win_odds",
@@ -3859,16 +3987,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-22T07:08:24.852945+00:00",
+    "checked_at": "2026-10-22T10:51:43.378484+00:00",
     "sources": {
       "NAR": {
         "status": "ok",
-        "finished_at": "2026-10-22T07:08:23.295284+00:00",
-        "last_success_at": "2026-10-22T07:08:23.295284+00:00"
+        "finished_at": "2026-10-22T10:51:42.066749+00:00",
+        "last_success_at": "2026-10-22T10:51:42.066749+00:00"
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-22T07:08:24.852945+00:00",
+        "finished_at": "2026-10-22T10:51:43.378484+00:00",
         "last_success_at": null
       }
     }
