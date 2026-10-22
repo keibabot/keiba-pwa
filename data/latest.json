@@ -1,18 +1,18 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-22T14:51:06+09:00",
+  "generated_at": "2026-10-22T16:01:25+09:00",
   "date": "2026-10-22",
   "summary": {
     "selected_count": 15,
     "jra_count": 0,
     "nar_count": 15,
     "max_score": 100,
-    "settled_count": 1,
-    "hit_count": 0,
-    "stake": 1200,
-    "payout": 0,
-    "roi": 0.0,
-    "best_odds": null
+    "settled_count": 7,
+    "hit_count": 1,
+    "stake": 8400,
+    "payout": 2050,
+    "roi": 24.4,
+    "best_odds": 20.5
   },
   "races": [
     {
@@ -343,8 +343,24 @@
       ],
       "bet": "3連単 2-8-6 / 8-2-6 / 2-8-5 / 8-2-5 / 5-2-8 / 7-2-8 / 8-6-2 / 6-8-2 / 5-8-2 / 8-6-5 / 6-8-11 / 11-8-7（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": true,
+        "status": "hit",
+        "stake": 1200,
+        "payout": 2050,
+        "roi": 170.8,
+        "best_odds": 20.5,
+        "finish_numbers": [
+          6,
+          8,
+          11
+        ],
+        "trifecta_combo": "6→8→11",
+        "trifecta_payout": 2050,
+        "trifecta_odds": 20.5
+      },
       "odds_low": 1.3,
       "odds_high": 31.2,
       "odds_kind": "selected_win_odds",
@@ -518,7 +534,7 @@
           "popularity": null
         }
       ],
-      "hit_ticket_odds_at_prediction": null,
+      "hit_ticket_odds_at_prediction": 16.3,
       "research_decision": {
         "action": "paper_only",
         "reasons": [
@@ -592,8 +608,24 @@
       ],
       "bet": "3連単 10-2-9 / 2-10-9 / 10-2-3 / 2-10-3 / 3-10-2 / 7-10-2 / 2-9-10 / 9-2-10 / 3-2-10 / 2-9-3 / 9-2-5 / 5-2-7（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          5,
+          10,
+          6
+        ],
+        "trifecta_combo": "5→10→6",
+        "trifecta_payout": 4330,
+        "trifecta_odds": 43.3
+      },
       "odds_low": 1.6,
       "odds_high": 34.6,
       "odds_kind": "selected_win_odds",
@@ -843,8 +875,24 @@
       ],
       "bet": "3連単 7-4-10 / 4-7-10 / 7-4-8 / 4-7-8 / 8-7-4 / 9-7-4 / 4-10-7 / 10-4-7 / 8-4-7 / 4-10-8 / 10-4-5 / 5-4-9（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          4,
+          7,
+          3
+        ],
+        "trifecta_combo": "4→7→3",
+        "trifecta_payout": 16330,
+        "trifecta_odds": 163.3
+      },
       "odds_low": 2.2,
       "odds_high": 52.9,
       "odds_kind": "selected_win_odds",
@@ -1088,8 +1136,24 @@
       ],
       "bet": "3連単 3-8-2 / 8-3-2 / 3-8-6 / 8-3-6 / 6-3-8 / 5-3-8 / 8-2-3 / 2-8-3 / 6-8-3 / 8-2-6 / 2-8-1 / 1-8-5（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          8,
+          5,
+          9
+        ],
+        "trifecta_combo": "8→5→9",
+        "trifecta_payout": 123430,
+        "trifecta_odds": 1234.3
+      },
       "odds_low": 5.1,
       "odds_high": 26.5,
       "odds_kind": "selected_win_odds",
@@ -1336,8 +1400,24 @@
       ],
       "bet": "3連単 7-5-9 / 5-7-9 / 7-5-6 / 5-7-6 / 6-7-5 / 4-7-5 / 5-9-7 / 9-5-7 / 6-5-7 / 5-9-6 / 9-5-8 / 8-5-4（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          1,
+          2,
+          5
+        ],
+        "trifecta_combo": "1→2→5",
+        "trifecta_payout": 17500,
+        "trifecta_odds": 175.0
+      },
       "odds_low": 3.2,
       "odds_high": 49.2,
       "odds_kind": "selected_win_odds",
@@ -1586,8 +1666,24 @@
       ],
       "bet": "3連単 7-6-9 / 6-7-9 / 7-6-12 / 6-7-12 / 12-7-6 / 5-7-6 / 6-9-7 / 9-6-7 / 12-6-7 / 6-9-12 / 9-6-8 / 8-6-5（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
-      "result": null,
+      "status": "finished",
+      "result": {
+        "settled": true,
+        "hit": false,
+        "status": "miss",
+        "stake": 1200,
+        "payout": 0,
+        "roi": 0.0,
+        "best_odds": 0.0,
+        "finish_numbers": [
+          9,
+          3,
+          7
+        ],
+        "trifecta_combo": "9→3→7",
+        "trifecta_payout": 15360,
+        "trifecta_odds": 153.6
+      },
       "odds_low": 3.2,
       "odds_high": 31.6,
       "odds_kind": "selected_win_odds",
@@ -1838,7 +1934,7 @@
       ],
       "bet": "3連単 3-2-6 / 2-3-6 / 3-2-4 / 2-3-4 / 4-3-2 / 9-3-2 / 2-6-3 / 6-2-3 / 4-2-3 / 2-6-4 / 6-2-10 / 10-2-9（12点・各100円）",
       "invest": 1200,
-      "status": "upcoming",
+      "status": "started",
       "result": null,
       "odds_low": 2.5,
       "odds_high": 50.1,
@@ -2344,8 +2440,8 @@
         "race_key": "NAR:nar:k_babaCode=23&k_raceDate=2026-10-22&k_raceNo=12",
         "source_race_id": "nar:k_babaCode=23&k_raceDate=2026-10-22&k_raceNo=12",
         "kind": "prediction",
-        "fetched_at": "2026-10-22T14:31:23+09:00",
-        "minutes_to_post": 118.6,
+        "fetched_at": "2026-10-22T16:01:05+09:00",
+        "minutes_to_post": 28.9,
         "source": "keiba.go.jp",
         "status": "partial",
         "tickets": [
@@ -2379,7 +2475,7 @@
           },
           {
             "combo": "7-9-10",
-            "odds": null
+            "odds": 110.5
           },
           {
             "combo": "1-9-10",
@@ -2387,11 +2483,11 @@
           },
           {
             "combo": "9-7-1",
-            "odds": null
+            "odds": 149.8
           },
           {
             "combo": "7-9-5",
-            "odds": 120.6
+            "odds": null
           },
           {
             "combo": "5-9-2",
@@ -2406,14 +2502,13 @@
           "1-10-9",
           "2-10-9",
           "9-7-10",
-          "7-9-10",
           "1-9-10",
-          "9-7-1",
+          "7-9-5",
           "5-9-2"
         ],
-        "odds_min": 120.6,
-        "odds_max": 120.6,
-        "market_prob_est": 0.006219,
+        "odds_min": 110.5,
+        "odds_max": 149.8,
+        "market_prob_est": 0.011794,
         "horses": [
           {
             "mark": "◉",
@@ -2463,8 +2558,8 @@
       },
       "odds_snapshot_prepost": null,
       "trifecta_odds_range": [
-        120.6,
-        120.6
+        110.5,
+        149.8
       ],
       "marks_market": [
         {
@@ -3091,18 +3186,18 @@
         "race_key": "NAR:nar:k_babaCode=18&k_raceDate=2026-10-22&k_raceNo=10",
         "source_race_id": "nar:k_babaCode=18&k_raceDate=2026-10-22&k_raceNo=10",
         "kind": "prediction",
-        "fetched_at": "2026-10-22T14:31:01+09:00",
-        "minutes_to_post": 159.0,
+        "fetched_at": "2026-10-22T16:01:16+09:00",
+        "minutes_to_post": 68.7,
         "source": "keiba.go.jp",
         "status": "partial",
         "tickets": [
           {
             "combo": "3-4-6",
-            "odds": 108.5
+            "odds": 121.2
           },
           {
             "combo": "4-3-6",
-            "odds": 59.8
+            "odds": 65.9
           },
           {
             "combo": "3-4-5",
@@ -3122,11 +3217,11 @@
           },
           {
             "combo": "4-6-3",
-            "odds": 37.7
+            "odds": 40.2
           },
           {
             "combo": "6-4-3",
-            "odds": 73.1
+            "odds": 70.2
           },
           {
             "combo": "5-4-3",
@@ -3134,11 +3229,11 @@
           },
           {
             "combo": "4-6-5",
-            "odds": null
+            "odds": 134.4
           },
           {
             "combo": "6-4-7",
-            "odds": 61.1
+            "odds": 64.6
           },
           {
             "combo": "7-4-10",
@@ -3151,12 +3246,11 @@
           "5-3-4",
           "10-3-4",
           "5-4-3",
-          "4-6-5",
           "7-4-10"
         ],
-        "odds_min": 37.7,
-        "odds_max": 108.5,
-        "market_prob_est": 0.061883,
+        "odds_min": 40.2,
+        "odds_max": 134.4,
+        "market_prob_est": 0.0641,
         "horses": [
           {
             "mark": "◉",
@@ -3206,8 +3300,8 @@
       },
       "odds_snapshot_prepost": null,
       "trifecta_odds_range": [
-        37.7,
-        108.5
+        40.2,
+        134.4
       ],
       "marks_market": [
         {
@@ -3765,16 +3859,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-22T05:51:06.513381+00:00",
+    "checked_at": "2026-10-22T07:01:25.660420+00:00",
     "sources": {
       "NAR": {
         "status": "ok",
-        "finished_at": "2026-10-22T05:51:05.118816+00:00",
-        "last_success_at": "2026-10-22T05:51:05.118816+00:00"
+        "finished_at": "2026-10-22T07:01:24.040130+00:00",
+        "last_success_at": "2026-10-22T07:01:24.040130+00:00"
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-22T05:51:06.513381+00:00",
+        "finished_at": "2026-10-22T07:01:25.660420+00:00",
         "last_success_at": null
       }
     }
