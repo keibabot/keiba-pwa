@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-22T14:32:33+09:00",
+  "generated_at": "2026-10-22T14:51:06+09:00",
   "date": "2026-10-22",
   "summary": {
     "selected_count": 15,
@@ -355,8 +355,8 @@
         "race_key": "NAR:nar:k_babaCode=18&k_raceDate=2026-10-22&k_raceNo=6",
         "source_race_id": "nar:k_babaCode=18&k_raceDate=2026-10-22&k_raceNo=6",
         "kind": "prediction",
-        "fetched_at": "2026-10-22T14:30:45+09:00",
-        "minutes_to_post": 24.2,
+        "fetched_at": "2026-10-22T14:50:19+09:00",
+        "minutes_to_post": 4.7,
         "source": "keiba.go.jp",
         "status": "partial",
         "tickets": [
@@ -386,11 +386,11 @@
           },
           {
             "combo": "8-6-2",
-            "odds": 153.9
+            "odds": 137.8
           },
           {
             "combo": "6-8-2",
-            "odds": 39.1
+            "odds": 38.4
           },
           {
             "combo": "5-8-2",
@@ -398,11 +398,11 @@
           },
           {
             "combo": "8-6-5",
-            "odds": null
+            "odds": 207.8
           },
           {
             "combo": "6-8-11",
-            "odds": 15.7
+            "odds": 16.3
           },
           {
             "combo": "11-8-7",
@@ -417,12 +417,11 @@
           "5-2-8",
           "7-2-8",
           "5-8-2",
-          "8-6-5",
           "11-8-7"
         ],
-        "odds_min": 15.7,
-        "odds_max": 153.9,
-        "market_prob_est": 0.071826,
+        "odds_min": 16.3,
+        "odds_max": 207.8,
+        "market_prob_est": 0.074595,
         "horses": [
           {
             "mark": "◉",
@@ -472,8 +471,8 @@
       },
       "odds_snapshot_prepost": null,
       "trifecta_odds_range": [
-        15.7,
-        153.9
+        16.3,
+        207.8
       ],
       "marks_market": [
         {
@@ -1101,18 +1100,18 @@
         "race_key": "NAR:nar:k_babaCode=18&k_raceDate=2026-10-22&k_raceNo=7",
         "source_race_id": "nar:k_babaCode=18&k_raceDate=2026-10-22&k_raceNo=7",
         "kind": "prediction",
-        "fetched_at": "2026-10-22T14:30:49+09:00",
-        "minutes_to_post": 54.2,
+        "fetched_at": "2026-10-22T14:50:29+09:00",
+        "minutes_to_post": 34.5,
         "source": "keiba.go.jp",
         "status": "partial",
         "tickets": [
           {
             "combo": "3-8-2",
-            "odds": null
+            "odds": 191.4
           },
           {
             "combo": "8-3-2",
-            "odds": 118.6
+            "odds": 123.4
           },
           {
             "combo": "3-8-6",
@@ -1132,11 +1131,11 @@
           },
           {
             "combo": "8-2-3",
-            "odds": 96.7
+            "odds": 101.1
           },
           {
             "combo": "2-8-3",
-            "odds": 174.6
+            "odds": 177.4
           },
           {
             "combo": "6-8-3",
@@ -1148,7 +1147,7 @@
           },
           {
             "combo": "2-8-1",
-            "odds": 87.6
+            "odds": 93.0
           },
           {
             "combo": "1-8-5",
@@ -1156,7 +1155,6 @@
           }
         ],
         "missing": [
-          "3-8-2",
           "3-8-6",
           "8-3-6",
           "6-3-8",
@@ -1165,9 +1163,9 @@
           "8-2-6",
           "1-8-5"
         ],
-        "odds_min": 87.6,
-        "odds_max": 174.6,
-        "market_prob_est": 0.026937,
+        "odds_min": 93.0,
+        "odds_max": 191.4,
+        "market_prob_est": 0.029707,
         "horses": [
           {
             "mark": "◉",
@@ -1217,8 +1215,8 @@
       },
       "odds_snapshot_prepost": null,
       "trifecta_odds_range": [
-        87.6,
-        174.6
+        93.0,
+        191.4
       ],
       "marks_market": [
         {
@@ -3767,16 +3765,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-22T05:32:33.681238+00:00",
+    "checked_at": "2026-10-22T05:51:06.513381+00:00",
     "sources": {
       "NAR": {
         "status": "ok",
-        "finished_at": "2026-10-22T05:32:31.984279+00:00",
-        "last_success_at": "2026-10-22T05:32:31.984279+00:00"
+        "finished_at": "2026-10-22T05:51:05.118816+00:00",
+        "last_success_at": "2026-10-22T05:51:05.118816+00:00"
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-22T05:32:33.681238+00:00",
+        "finished_at": "2026-10-22T05:51:06.513381+00:00",
         "last_success_at": null
       }
     }
