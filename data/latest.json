@@ -6130,16 +6130,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-23T05:24:21.352020+00:00",
+    "checked_at": "2026-10-23T06:01:16.248810+00:00",
     "sources": {
       "NAR": {
-        "status": "ok",
-        "finished_at": "2026-10-23T05:24:19.700209+00:00",
-        "last_success_at": "2026-10-23T05:24:19.700209+00:00"
+        "status": null,
+        "finished_at": null,
+        "last_success_at": null
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-23T05:24:21.352020+00:00",
+        "finished_at": "2026-10-23T06:01:16.248810+00:00",
         "last_success_at": null
       }
     }
