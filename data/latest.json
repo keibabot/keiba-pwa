@@ -7210,16 +7210,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-23T01:34:57.660403+00:00",
+    "checked_at": "2026-10-23T03:29:36.316797+00:00",
     "sources": {
       "NAR": {
-        "status": "ok",
-        "finished_at": "2026-10-23T01:34:56.088594+00:00",
-        "last_success_at": "2026-10-23T01:34:56.088594+00:00"
+        "status": null,
+        "finished_at": null,
+        "last_success_at": null
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-23T01:34:57.660403+00:00",
+        "finished_at": "2026-10-23T03:29:36.316797+00:00",
         "last_success_at": null
       }
     }
