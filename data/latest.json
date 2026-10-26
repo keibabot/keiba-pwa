@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-26T09:26:28+09:00",
+  "generated_at": "2026-10-26T10:49:17+09:00",
   "date": "2026-10-26",
   "summary": {
     "selected_count": 27,
@@ -82,18 +82,18 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=1",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=1",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T02:42:53+09:00",
-        "minutes_to_post": 542.1,
+        "fetched_at": "2026-10-26T10:47:37+09:00",
+        "minutes_to_post": 57.4,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "1-4-5",
-            "odds": null
+            "odds": 107.6
           },
           {
             "combo": "4-1-5",
-            "odds": null
+            "odds": 137.7
           },
           {
             "combo": "1-4-8",
@@ -109,15 +109,15 @@
           },
           {
             "combo": "3-1-4",
-            "odds": null
+            "odds": 47.8
           },
           {
             "combo": "4-5-1",
-            "odds": null
+            "odds": 93.0
           },
           {
             "combo": "5-4-1",
-            "odds": null
+            "odds": 90.6
           },
           {
             "combo": "8-4-1",
@@ -129,7 +129,7 @@
           },
           {
             "combo": "5-4-7",
-            "odds": null
+            "odds": 113.5
           },
           {
             "combo": "7-4-3",
@@ -137,22 +137,16 @@
           }
         ],
         "missing": [
-          "1-4-5",
-          "4-1-5",
           "1-4-8",
           "4-1-8",
           "8-1-4",
-          "3-1-4",
-          "4-5-1",
-          "5-4-1",
           "8-4-1",
           "4-5-8",
-          "5-4-7",
           "7-4-3"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 47.8,
+        "odds_max": 137.7,
+        "market_prob_est": 0.051058,
         "horses": [
           {
             "mark": "◉",
@@ -198,10 +192,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        47.8,
+        137.7
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -564,18 +561,18 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=3",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=3",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T02:43:00+09:00",
-        "minutes_to_post": 612.0,
+        "fetched_at": "2026-10-26T10:47:44+09:00",
+        "minutes_to_post": 127.3,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "6-3-4",
-            "odds": null
+            "odds": 140.6
           },
           {
             "combo": "3-6-4",
-            "odds": null
+            "odds": 78.1
           },
           {
             "combo": "6-3-9",
@@ -583,7 +580,7 @@
           },
           {
             "combo": "3-6-9",
-            "odds": null
+            "odds": 100.4
           },
           {
             "combo": "9-6-3",
@@ -595,11 +592,11 @@
           },
           {
             "combo": "3-4-6",
-            "odds": null
+            "odds": 41.3
           },
           {
             "combo": "4-3-6",
-            "odds": null
+            "odds": 70.3
           },
           {
             "combo": "9-3-6",
@@ -607,11 +604,11 @@
           },
           {
             "combo": "3-4-9",
-            "odds": null
+            "odds": 46.8
           },
           {
             "combo": "4-3-1",
-            "odds": null
+            "odds": 117.2
           },
           {
             "combo": "1-3-8",
@@ -619,22 +616,15 @@
           }
         ],
         "missing": [
-          "6-3-4",
-          "3-6-4",
           "6-3-9",
-          "3-6-9",
           "9-6-3",
           "8-6-3",
-          "3-4-6",
-          "4-3-6",
           "9-3-6",
-          "3-4-9",
-          "4-3-1",
           "1-3-8"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 41.3,
+        "odds_max": 140.6,
+        "market_prob_est": 0.073661,
         "horses": [
           {
             "mark": "◉",
@@ -680,10 +670,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        41.3,
+        140.6
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -805,22 +798,22 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=4",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=4",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T02:43:04+09:00",
-        "minutes_to_post": 646.9,
+        "fetched_at": "2026-10-26T10:47:48+09:00",
+        "minutes_to_post": 162.2,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "4-10-1",
-            "odds": null
+            "odds": 40.8
           },
           {
             "combo": "10-4-1",
-            "odds": null
+            "odds": 71.4
           },
           {
             "combo": "4-10-9",
-            "odds": null
+            "odds": 81.6
           },
           {
             "combo": "10-4-9",
@@ -828,7 +821,7 @@
           },
           {
             "combo": "9-4-10",
-            "odds": null
+            "odds": 57.1
           },
           {
             "combo": "7-4-10",
@@ -836,15 +829,15 @@
           },
           {
             "combo": "10-1-4",
-            "odds": null
+            "odds": 114.2
           },
           {
             "combo": "1-10-4",
-            "odds": null
+            "odds": 81.6
           },
           {
             "combo": "9-10-4",
-            "odds": null
+            "odds": 114.2
           },
           {
             "combo": "10-1-9",
@@ -860,22 +853,15 @@
           }
         ],
         "missing": [
-          "4-10-1",
-          "10-4-1",
-          "4-10-9",
           "10-4-9",
-          "9-4-10",
           "7-4-10",
-          "10-1-4",
-          "1-10-4",
-          "9-10-4",
           "10-1-9",
           "1-10-2",
           "2-10-7"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 40.8,
+        "odds_max": 114.2,
+        "market_prob_est": 0.073539,
         "horses": [
           {
             "mark": "◉",
@@ -921,10 +907,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        40.8,
+        114.2
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -1287,10 +1276,10 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=6",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=6",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T02:43:11+09:00",
-        "minutes_to_post": 716.8,
+        "fetched_at": "2026-10-26T10:47:56+09:00",
+        "minutes_to_post": 232.1,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "6-9-4",
@@ -1302,7 +1291,7 @@
           },
           {
             "combo": "6-9-1",
-            "odds": null
+            "odds": 118.4
           },
           {
             "combo": "9-6-1",
@@ -1344,7 +1333,6 @@
         "missing": [
           "6-9-4",
           "9-6-4",
-          "6-9-1",
           "9-6-1",
           "1-6-9",
           "12-6-9",
@@ -1355,9 +1343,9 @@
           "4-9-8",
           "8-9-12"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 118.4,
+        "odds_max": 118.4,
+        "market_prob_est": 0.006334,
         "horses": [
           {
             "mark": "◉",
@@ -1403,10 +1391,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        118.4,
+        118.4
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -1528,10 +1519,10 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=7",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=7",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T03:25:14+09:00",
-        "minutes_to_post": 704.8,
+        "fetched_at": "2026-10-26T10:48:00+09:00",
+        "minutes_to_post": 262.0,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "4-12-1",
@@ -1555,7 +1546,7 @@
           },
           {
             "combo": "9-4-12",
-            "odds": null
+            "odds": 111.4
           },
           {
             "combo": "12-1-4",
@@ -1571,7 +1562,7 @@
           },
           {
             "combo": "12-1-5",
-            "odds": null
+            "odds": 83.5
           },
           {
             "combo": "1-12-8",
@@ -1588,17 +1579,15 @@
           "4-12-5",
           "12-4-5",
           "5-4-12",
-          "9-4-12",
           "12-1-4",
           "1-12-4",
           "5-12-4",
-          "12-1-5",
           "1-12-8",
           "8-12-9"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 83.5,
+        "odds_max": 111.4,
+        "market_prob_est": 0.015715,
         "horses": [
           {
             "mark": "◉",
@@ -1644,10 +1633,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        83.5,
+        111.4
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -2010,10 +2002,10 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=8",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=8",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T06:48:57+09:00",
-        "minutes_to_post": 536.0,
+        "fetched_at": "2026-10-26T10:48:07+09:00",
+        "minutes_to_post": 296.9,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "2-3-8",
@@ -2057,7 +2049,7 @@
           },
           {
             "combo": "8-3-1",
-            "odds": null
+            "odds": 55.3
           },
           {
             "combo": "1-3-6",
@@ -2075,12 +2067,11 @@
           "8-3-2",
           "12-3-2",
           "3-8-12",
-          "8-3-1",
           "1-3-6"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 55.3,
+        "odds_max": 55.3,
+        "market_prob_est": 0.013562,
         "horses": [
           {
             "mark": "◉",
@@ -2126,10 +2117,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        55.3,
+        55.3
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -2492,10 +2486,10 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=9",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=9",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T06:49:00+09:00",
-        "minutes_to_post": 571.0,
+        "fetched_at": "2026-10-26T10:48:15+09:00",
+        "minutes_to_post": 331.7,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "4-5-6",
@@ -2503,19 +2497,19 @@
           },
           {
             "combo": "5-4-6",
-            "odds": null
+            "odds": 40.8
           },
           {
             "combo": "4-5-2",
-            "odds": null
+            "odds": 95.2
           },
           {
             "combo": "5-4-2",
-            "odds": null
+            "odds": 15.0
           },
           {
             "combo": "2-4-5",
-            "odds": null
+            "odds": 71.4
           },
           {
             "combo": "3-4-5",
@@ -2523,7 +2517,7 @@
           },
           {
             "combo": "5-6-4",
-            "odds": null
+            "odds": 95.2
           },
           {
             "combo": "6-5-4",
@@ -2531,11 +2525,11 @@
           },
           {
             "combo": "2-5-4",
-            "odds": null
+            "odds": 28.5
           },
           {
             "combo": "5-6-2",
-            "odds": null
+            "odds": 71.4
           },
           {
             "combo": "6-5-1",
@@ -2548,21 +2542,14 @@
         ],
         "missing": [
           "4-5-6",
-          "5-4-6",
-          "4-5-2",
-          "5-4-2",
-          "2-4-5",
           "3-4-5",
-          "5-6-4",
           "6-5-4",
-          "2-5-4",
-          "5-6-2",
           "6-5-1",
           "1-5-3"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 15.0,
+        "odds_max": 95.2,
+        "market_prob_est": 0.131463,
         "horses": [
           {
             "mark": "◉",
@@ -2608,10 +2595,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        15.0,
+        95.2
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -2974,26 +2964,26 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=10",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=10",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T06:49:04+09:00",
-        "minutes_to_post": 605.9,
+        "fetched_at": "2026-10-26T10:48:23+09:00",
+        "minutes_to_post": 366.6,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "3-10-6",
-            "odds": null
+            "odds": 63.4
           },
           {
             "combo": "10-3-6",
-            "odds": null
+            "odds": 42.2
           },
           {
             "combo": "3-10-9",
-            "odds": null
+            "odds": 42.2
           },
           {
             "combo": "10-3-9",
-            "odds": null
+            "odds": 36.2
           },
           {
             "combo": "9-3-10",
@@ -3005,7 +2995,7 @@
           },
           {
             "combo": "10-6-3",
-            "odds": null
+            "odds": 84.5
           },
           {
             "combo": "6-10-3",
@@ -3029,22 +3019,17 @@
           }
         ],
         "missing": [
-          "3-10-6",
-          "10-3-6",
-          "3-10-9",
-          "10-3-9",
           "9-3-10",
           "8-3-10",
-          "10-6-3",
           "6-10-3",
           "9-10-3",
           "10-6-9",
           "6-10-1",
           "1-10-8"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 36.2,
+        "odds_max": 84.5,
+        "market_prob_est": 0.076969,
         "horses": [
           {
             "mark": "◉",
@@ -3090,10 +3075,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        36.2,
+        84.5
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -3697,10 +3685,10 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=11",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=11",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T06:49:07+09:00",
-        "minutes_to_post": 640.9,
+        "fetched_at": "2026-10-26T10:48:35+09:00",
+        "minutes_to_post": 401.4,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "9-8-1",
@@ -3740,11 +3728,11 @@
           },
           {
             "combo": "8-1-5",
-            "odds": null
+            "odds": 78.3
           },
           {
             "combo": "1-8-3",
-            "odds": null
+            "odds": 65.2
           },
           {
             "combo": "3-8-6",
@@ -3761,13 +3749,11 @@
           "8-1-9",
           "1-8-9",
           "5-8-9",
-          "8-1-5",
-          "1-8-3",
           "3-8-6"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 65.2,
+        "odds_max": 78.3,
+        "market_prob_est": 0.021082,
         "horses": [
           {
             "mark": "◉",
@@ -3813,10 +3799,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        65.2,
+        78.3
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -4420,26 +4409,26 @@
         "race_key": "NAR:nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=12",
         "source_race_id": "nar:k_babaCode=10&k_raceDate=2026-10-26&k_raceNo=12",
         "kind": "prediction",
-        "fetched_at": "2026-10-26T06:49:11+09:00",
-        "minutes_to_post": 675.8,
+        "fetched_at": "2026-10-26T10:48:46+09:00",
+        "minutes_to_post": 436.2,
         "source": "keiba.go.jp",
-        "status": "unavailable",
+        "status": "partial",
         "tickets": [
           {
             "combo": "2-8-10",
-            "odds": null
+            "odds": 43.4
           },
           {
             "combo": "8-2-10",
-            "odds": null
+            "odds": 36.9
           },
           {
             "combo": "2-8-4",
-            "odds": null
+            "odds": 21.0
           },
           {
             "combo": "8-2-4",
-            "odds": null
+            "odds": 19.4
           },
           {
             "combo": "4-2-8",
@@ -4451,11 +4440,11 @@
           },
           {
             "combo": "8-10-2",
-            "odds": null
+            "odds": 82.0
           },
           {
             "combo": "10-8-2",
-            "odds": null
+            "odds": 184.5
           },
           {
             "combo": "4-8-2",
@@ -4463,7 +4452,7 @@
           },
           {
             "combo": "8-10-4",
-            "odds": null
+            "odds": 184.5
           },
           {
             "combo": "10-8-12",
@@ -4475,22 +4464,15 @@
           }
         ],
         "missing": [
-          "2-8-10",
-          "8-2-10",
-          "2-8-4",
-          "8-2-4",
           "4-2-8",
           "6-2-8",
-          "8-10-2",
-          "10-8-2",
           "4-8-2",
-          "8-10-4",
           "10-8-12",
           "12-8-6"
         ],
-        "odds_min": null,
-        "odds_max": null,
-        "market_prob_est": null,
+        "odds_min": 19.4,
+        "odds_max": 184.5,
+        "market_prob_est": 0.129257,
         "horses": [
           {
             "mark": "◉",
@@ -4536,10 +4518,13 @@
           }
         ],
         "horses_status": "unavailable",
-        "error": "trifecta: OddsUnavailable: trifecta parser returned no usable odds | win: OddsUnavailable: win parser returned no usable odds"
+        "error": "win: OddsUnavailable: win parser returned no usable odds"
       },
       "odds_snapshot_prepost": null,
-      "trifecta_odds_range": null,
+      "trifecta_odds_range": [
+        19.4,
+        184.5
+      ],
       "marks_market": [
         {
           "mark": "◉",
@@ -6524,16 +6509,16 @@
     }
   ],
   "health": {
-    "checked_at": "2026-10-26T00:26:27.983233+00:00",
+    "checked_at": "2026-10-26T01:49:17.160652+00:00",
     "sources": {
       "NAR": {
         "status": "ok",
-        "finished_at": "2026-10-26T00:26:26.534930+00:00",
-        "last_success_at": "2026-10-26T00:26:26.534930+00:00"
+        "finished_at": "2026-10-26T01:49:15.693198+00:00",
+        "last_success_at": "2026-10-26T01:49:15.693198+00:00"
       },
       "JRA": {
         "status": "error",
-        "finished_at": "2026-10-26T00:26:27.983233+00:00",
+        "finished_at": "2026-10-26T01:49:17.160652+00:00",
         "last_success_at": "2026-10-25T14:21:41.343239+00:00"
       }
     }
