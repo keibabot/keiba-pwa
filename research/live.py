@@ -203,18 +203,24 @@ def backfill(state, now):
             url = f'https://www.keiba.go.jp/KeibaWeb/DataDownload/RaceDataDownload?k_month={int(month[4:])}&k_year={month[:4]}&type=monthly'
             with urllib.request.urlopen(url, timeout=45) as response:
                 raw = response.read(30_000_001)
+                disposition = response.headers.get('Content-Disposition', '')
             read_archive(raw)
+            stamp = re.search(r'(\d{6})_(\d{10})_race\.zip', disposition)
+            if not stamp or stamp[1] != month:
+                raise ValueError('月次公式ファイルの日付・配信時刻を確認できません')
             path.write_bytes(raw)
-            atomic_json(mp, {'attempt_day': day, 'ok': True, 'sha256': hashlib.sha256(raw).hexdigest()})
-        if not path.exists():
-            continue
+            info = {'attempt_day': day, 'ok': True, 'sha256': hashlib.sha256(raw).hexdigest(),
+                'fetched_at': now.isoformat(), 'source_at': datetime.fromtimestamp(int(stamp[2]), timezone.utc).isoformat()}
+            atomic_json(mp, info)
+        if not path.exists() or not info.get('ok'):
+            raise ValueError('月次補完の取得失敗。次の取得可能日まで照合保留')
         raw = path.read_bytes()
         _, horses, paybacks = indexed(read_archive(raw))
         for k, event in pending.items():
             if not k.startswith(month) or k not in horses:
                 continue
             result = settle(event['payload'], horses[k], paybacks.get(k, []))
-            result.update(source_sha256=hashlib.sha256(raw).hexdigest(), source_at=now.isoformat(), source_kind='monthly_backfill')
+            result.update(source_sha256=hashlib.sha256(raw).hexdigest(), source_at=info['source_at'], fetched_at=info['fetched_at'], source_kind='monthly_backfill')
             old = results.get(k, {}).get('payload', {})
             if result.get('status') == 'settled' or old.get('status') != result['status'] or old.get('reason') != result.get('reason'):
                 ledger.append('result', k, result, now)

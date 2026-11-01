@@ -1,0 +1,29 @@
+name: Verify published PWA
+on:
+  push:
+    branches: [main]
+    paths: ['tests/browser_smoke.py', '.github/workflows/browser-check.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - name: Verify public URL after Pages deployment
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: python tests/browser_smoke.py
+      - name: Preserve rendered screens and verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-pwa-browser-verification
+          path: browser-artifacts/

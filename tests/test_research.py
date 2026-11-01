@@ -2,11 +2,12 @@ import copy
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 import numpy as np
 from research.domain import Ledger, digest, settle, winners, indexed, read_archive, SCHEMA
-from research.live import process, snapshot_prediction, skip_reason, public_data
+from research.live import process, snapshot_prediction, skip_reason, public_data, fetch_daily, backfill
 import trio_model
 
 NOW=datetime(2026,11,1,4,0,tzinfo=timezone.utc)
@@ -25,6 +26,31 @@ def finished():
  for i,h in enumerate(hs,1):h['着順']=str(i)
  return hs
 class DomainTests(unittest.TestCase):
+ def test_daily_throttle_reuses_successful_private_download(self):
+  import time
+  with tempfile.TemporaryDirectory() as d:
+   s=Path(d);(s/'daily.zip').write_bytes(b'test fixture')
+   (s/'daily_meta.json').write_text(json.dumps({'attempt_epoch':time.time(),'ok':True}))
+   with patch('urllib.request.urlopen') as request:
+    raw,_=fetch_daily(s,NOW)
+    self.assertEqual(raw,b'test fixture');request.assert_not_called()
+ def test_daily_failed_attempt_is_throttled_and_saved(self):
+  with tempfile.TemporaryDirectory() as d:
+   s=Path(d)
+   with patch('urllib.request.urlopen',side_effect=TimeoutError):
+    with self.assertRaises(TimeoutError):fetch_daily(s,NOW)
+   self.assertFalse(json.loads((s/'daily_meta.json').read_text())['ok'])
+   with patch('urllib.request.urlopen') as request:
+    with self.assertRaises(RuntimeError):fetch_daily(s,NOW)
+    request.assert_not_called()
+ def test_monthly_backfill_does_not_fetch_for_current_day(self):
+  with tempfile.TemporaryDirectory() as d:
+   s=Path(d);Ledger(s/'ledger.jsonl').append('prediction','20261101|盛岡|2',frozen(),NOW)
+   with patch('urllib.request.urlopen') as request:
+    backfill(s,NOW);request.assert_not_called()
+ def test_duplicate_horse_number_rejected(self):
+  h=dict(horses()[0],**{k:RACE[k] for k in ['競走年月日','競馬場','レース番号']})
+  with self.assertRaises(ValueError):indexed({'racelist':[RACE],'horselist':[h,h],'payback':[]})
  def test_model_inputs_ignore_postrace_columns(self):
   a=trio_model.features(horses(),RACE)
   hs=horses()
