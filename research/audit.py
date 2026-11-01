@@ -125,6 +125,14 @@ def main():
                     conditions[(month,field,band)][1]+=int(y)
     sample_rows = list(csv.DictReader(args.predictions.open(encoding='utf-8-sig')))
     duplicates = len(sample_rows)-len({trio_engine.key(r) for r in sample_rows})
+    matched_keys={(r['date'].replace('-',''),r['track'],int(''.join(c for c in r['race'] if c.isdigit()))) for r in old_rows}
+    unmatched=[]
+    for row in sample_rows:
+        if row['track']=='門別' or trio_engine.key(row) in matched_keys:
+            continue
+        unmatched.append({'date':row['date'],'track':row['track'],'race':row['race'],
+            'marks':trio_engine.getmarks(row),'original_bet':row['bet'],'status':'unmatched',
+            'reason':'公式払戻なし、印の欠損、または取消・中止等の照合不能。外れや0円として確定しません。'})
     missing = {field:sum(not h.get(field,'').strip() for h in data['horselist']) for field in ['馬体重','馬体重増減',*trio_model.RECORDS,'着順']}
     unknown = Counter(h.get('着順','') for h in data['horselist'] if not h.get('着順','').isdigit())
     payout_duplicates=sum(len(v)-len({digest(p) for p in v}) for v in pay.values())
@@ -157,6 +165,7 @@ def main():
         'conditions':[{'month':m,'field':f,'condition':c,'n':n,'top3':t,'top3_rate_pct':t/n*100,'wilson95_pct':interval(t,n)} for (m,f,c),(n,t) in sorted(conditions.items())],
         'strategy_conditions':[{'month':m,'strategy':s,'dimension':d,'condition':c,**metrics(rows)} for (m,s,d,c),rows in sorted(slices.items())],
         'venue_uncertainty':venue_uncertainty,
+        'legacy_unmatched_predictions':unmatched,
         'condition_status':'9月・10月とも閲覧済みの探索的集計。穴馬採用・見送りの収益優位性は未検証。人気・確定オッズで選別しません。',
         'prospective':{'start':'研究パイプラインの初回配備後、発走5分より前に固定した予想のみ',
             'strategy':'軸6点と5頭BOX10点を各レース3,000円の同予算で記録。実購入なし。',

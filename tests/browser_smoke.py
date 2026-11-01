@@ -30,7 +30,7 @@ async def main():
                     acceptable=False
             if acceptable:
                 audit=await page.evaluate("fetch('audit_report.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json())")
-                if len(audit.get("strategy_conditions",[]))>0:
+                if len(audit.get("strategy_conditions",[]))>0 and len(audit.get("legacy_unmatched_predictions",[]))==16:
                     break
             await asyncio.sleep(15)
         else:
@@ -45,7 +45,7 @@ async def main():
         assert not await page.evaluate("document.documentElement.scrollWidth>innerWidth")
         await page.screenshot(path=str(out/"desktop.png"))
         await page.locator("#historyScope").select_option("legacy")
-        assert await page.locator("#historyRows details").count()==177
+        assert await page.locator("#historyRows details").count()==193
         await page.set_viewport_size({"width":390,"height":844})
         assert not await page.evaluate("document.documentElement.scrollWidth>innerWidth")
         await page.screenshot(path=str(out/"mobile.png"))
