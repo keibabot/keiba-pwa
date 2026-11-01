@@ -29,13 +29,18 @@ async def main():
                 except Exception:
                     acceptable=False
             if acceptable:
-                break
+                audit=await page.evaluate("fetch('audit_report.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json())")
+                if len(audit.get("strategy_conditions",[]))>0:
+                    break
             await asyncio.sleep(15)
         else:
             raise AssertionError("Expected Pages build not visible within 5 minutes")
         assert response.status==200
         await page.wait_for_function("document.querySelector('#modelRows').children.length===2")
         assert await page.locator("#commonRows tr").count()==7
+        await page.wait_for_function("document.querySelector('#conditionROIRows').children.length>=10")
+        assert audit["equal_budget_comparison"]["races"]==165
+        assert audit["quality"]["legacy_snapshot_audit"]["different_snapshot_bet"]==2
         assert await page.locator("#venueCards .card").count()>=10
         assert not await page.evaluate("document.documentElement.scrollWidth>innerWidth")
         await page.screenshot(path=str(out/"desktop.png"))
@@ -46,7 +51,7 @@ async def main():
         await page.screenshot(path=str(out/"mobile.png"))
         await page.locator("#historyScope").select_option("live")
         summary={"url":page.url,"status":response.status,"console_errors":errors,"pipeline_status":await page.locator("#pipelineStatus").inner_text(),
-            "live_predictions":await page.locator("#pickCards .pick").count(),"history_records":await page.locator("#historyRows details").count()}
+            "live_predictions":await page.locator("#pickCards .pick").count(),"history_records":await page.locator("#historyRows details").count(),"condition_rows":await page.locator("#conditionROIRows tr").count()}
         assert not errors,errors
         # Check actual service-worker registration and offline JSON policy.
         await page.wait_for_function("navigator.serviceWorker.controller!==null",timeout=30000)
