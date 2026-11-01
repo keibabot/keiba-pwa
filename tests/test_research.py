@@ -51,6 +51,32 @@ class DomainTests(unittest.TestCase):
  def test_duplicate_horse_number_rejected(self):
   h=dict(horses()[0],**{k:RACE[k] for k in ['競走年月日','競馬場','レース番号']})
   with self.assertRaises(ValueError):indexed({'racelist':[RACE],'horselist':[h,h],'payback':[]})
+ def test_monthly_correction_is_appended_once(self):
+  import csv,io,zipfile,hashlib
+  p=frozen();p['date']='2026-10-31';p['scheduled_start']='2026-10-31T13:30:00+09:00'
+  hs=finished();ps=payouts()
+  ps[0]['３連複払戻金（円）']='2000'
+  race=dict(RACE,競走年月日='20261031')
+  stream=io.BytesIO()
+  with zipfile.ZipFile(stream,'w') as z:
+   for kind,rows in [('horselist',hs),('racelist',[race]),('payback',ps)]:
+    keyed=[dict(r,競走年月日='20261031',競馬場='盛岡',レース番号='2') for r in rows]
+    out=io.StringIO();writer=csv.DictWriter(out,fieldnames=list(keyed[0]));writer.writeheader();writer.writerows(keyed)
+    z.writestr('202610_'+kind+'.csv',out.getvalue())
+  raw=stream.getvalue()
+  with tempfile.TemporaryDirectory() as d:
+   state=Path(d);(state/'monthly').mkdir()
+   (state/'monthly/202610.zip').write_bytes(raw)
+   meta={'attempt_day':'2026-11-01','ok':True,'sha256':hashlib.sha256(raw).hexdigest(),'source_at':NOW.isoformat(),'fetched_at':NOW.isoformat()}
+   (state/'monthly/202610.json').write_text(json.dumps(meta))
+   l=Ledger(state/'ledger.jsonl');l.append('prediction','20261031|盛岡|2',p,NOW-timedelta(days=1))
+   l.append('result','20261031|盛岡|2',settle(p,finished(),payouts()),NOW-timedelta(days=1))
+   backfill(state,NOW)
+   updated=Ledger(state/'ledger.jsonl')
+   self.assertEqual(updated.latest('result')['20261031|盛岡|2']['payload']['strategies']['axis6']['payout'],10000)
+   self.assertEqual(len(updated.events),3)
+   backfill(state,NOW)
+   self.assertEqual(len(Ledger(state/'ledger.jsonl').events),3)
  def test_model_inputs_ignore_postrace_columns(self):
   a=trio_model.features(horses(),RACE)
   hs=horses()
