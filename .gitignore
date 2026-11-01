@@ -1,0 +1,8 @@
+model_data/
+nar_*.zip
+__pycache__/
+.pytest_cache/
+_site/
+runtime/
+node_modules/
+test-results/

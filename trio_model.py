@@ -1,4 +1,4 @@
-"""NAR pre-race-only model, chronological validation and final October holdout.
+"""NAR pre-race-only model; October is an already-inspected retrospective period.
 No final popularity, final odds, finish, time or payout enters features.
 CLI: python trio_model.py. Inference: predict_entries(bundle, horses, race).
 """
@@ -13,6 +13,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import brier_score_loss,roc_auc_score
+from research.domain import allowlisted, SCHEMA
 ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'model_data'
 EXCLUDE={'門別','帯広ば'}
@@ -31,6 +32,7 @@ def read_zip(path):
  with zipfile.ZipFile(path) as z:
   return {kind:list(csv.DictReader(io.StringIO(z.read(next(n for n in z.namelist() if n.endswith('_'+kind+'.csv'))).decode('utf-8-sig')))) for kind in ['horselist','racelist','payback']}
 def features(horses,race):
+ horses,race=allowlisted(horses,race)
  rows=[]
  for h in horses:
   a=[num(h.get(k)) for k in ['齢','負担重量','馬体重','馬体重増減','枠番','馬番']]
@@ -50,7 +52,7 @@ def prepare(path):
  for h in data['horselist']:
   if h['競馬場'] not in EXCLUDE and h.get('着順') not in ['取消','除外']:groups[key(h)].append(h)
  result=[];skipped=defaultdict(int)
- for k,hs in sorted(groups.items()):
+ for k,hs in sorted(groups.items(),key=lambda item:(item[0][0],races.get(item[0],{}).get('発走時刻','9999'),item[0][1],int(item[0][2]))):
   if len(hs)<5 or k not in races:skipped['small_or_missing_race']+=1;continue
   # Need complete finish labels, allowing nonfinishers but not blank results.
   if any(not h.get('着順','').strip() for h in hs):skipped['unfinished']+=1;continue
@@ -94,7 +96,7 @@ def predict_entries(bundle,horses,race):
  if race.get('競馬場') in EXCLUDE:return {'status':'excluded','horses':[],'tickets':[]}
  if len(horses)<5:return {'status':'insufficient_runners','horses':[],'tickets':[]}
  scores=bundle['model'].predict_proba(features(horses,race))[:,1]
- ranked=sorted([{'number':int(h['馬番']),'name':h['馬名'],'model_score':round(float(p),5)} for h,p in zip(horses,scores)],key=lambda x:-x['model_score'])
+ ranked=sorted([{'number':int(h['馬番']),'name':h['馬名'],'model_score':float(p)} for h,p in zip(horses,scores)],key=lambda x:(-x['model_score'],x['number']))
  return {'status':'research_only','model_version':bundle['version'],'horses':ranked,'tickets':picks([int(h['馬番']) for h in horses],scores,bundle['strategy']),'calibrated_probability':False,'warning':'研究用スコア。三連複的中確率ではありません。回収率優位性は未確認。'}
 
 def main():
@@ -114,13 +116,15 @@ def main():
   m.fit(X,y);p=m.predict_proba(VX)[:,1]
   validation[name]={'brier':brier_score_loss(vy,p),'auc':roc_auc_score(vy,p),'strategies':{kind:evaluate(m,valid,kind)[0] for kind in ['axis6','box10']}}
  selected=min(validation,key=lambda name:validation[name]['brier'])
- # Select score model only on September Brier. Both ticket strategies fixed beforehand.
+ # September selects the score model. October was already inspected; never retune on it and call it untouched.
  m=candidates[selected];summary={'version':'trio-pre-race-v1','counts':counts,'sources':sources,'training':'2026-07-01..2026-08-31','selection':'2026-09-01..2026-09-30 Brier score','holdout':'2026-10-01..2026-10-31','excluded_tracks':sorted(EXCLUDE),'budget_each_race':3000,'validation':validation,'selected_model':selected,'holdout_results':{},'limitations':['Retrospective replay using official pre-race cumulative fields; not a prospective live trial.','Final popularity and odds excluded from model inputs. No value/EV claim.','October inspected once after model selection; later changes require a new untouched period.','No horse ID; this version uses provided cumulative fields, not name-joined histories.','Cancelled/excluded runners removed retrospectively; DNF retained as losses.','No profitability claim from individual track maxima.','All score models uncalibrated; probabilities are ranking scores, not ticket probabilities.']}
  allrows={}
  for name,model in [(selected,m),('historical_top3_baseline',None)]:
   for kind in ['axis6','box10']:
    label=name+'_'+kind;summary['holdout_results'][label],allrows[label]=evaluate(model,test,kind)
- bundle={'model':m,'strategy':'axis6','version':summary['version'],'features':'whitelisted pre-race numeric cumulative fields','trained_until':'20260831'}
+ summary['evaluation_status']='October already inspected; retrospective comparison, not an unused final test'
+ summary['feature_schema']=SCHEMA
+ bundle={'model':m,'strategy':'axis6','version':summary['version'],'feature_schema':SCHEMA,'features':'whitelisted pre-race numeric cumulative fields','trained_until':'20260831'}
  with (OUT/'trio_model.pkl').open('wb') as f:pickle.dump(bundle,f)
  (OUT/'model_report.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
  (OUT/'holdout_tickets.json').write_text(json.dumps(allrows,ensure_ascii=False),encoding='utf-8')

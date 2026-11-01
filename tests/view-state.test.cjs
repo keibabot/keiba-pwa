@@ -1,0 +1,17 @@
+const test=require('node:test'),assert=require('node:assert/strict');
+const V=require('../view-state.js');
+const now=Date.parse('2026-11-01T04:00:00Z');
+const data={schema_version:2,date:'2026-11-01',generated_at:new Date(now).toISOString(),health:{status:'ok',checked_at:new Date(now).toISOString(),source_at:new Date(now).toISOString()}};
+const row={track:'盛岡',date:'2026-11-01',paper_only:true,scheduled_start:'2026-11-01T13:30:00+09:00',fixed_at:'2026-11-01T12:59:00+09:00',source_at:'2026-11-01T12:58:00+09:00',result:{status:'pending'}};
+test('uses JST at UTC day boundary',()=>assert.equal(V.jstDate(Date.parse('2026-11-01T16:00:00Z')),'2026-11-02'));
+test('fresh data accepted',()=>assert.equal(V.freshness(data,now).ok,true));
+test('old date rejected',()=>assert.equal(V.freshness({...data,date:'2026-10-31'},now).ok,false));
+test('collection error rejected',()=>assert.equal(V.freshness({...data,health:{...data.health,status:'error'}},now).ok,false));
+test('35 minute stale data rejected',()=>assert.equal(V.freshness(data,now+36*60000).ok,false));
+test('unknown schema rejected',()=>assert.equal(V.freshness({races:[]},now).ok,false));
+test('future valid frozen forecast displayed',()=>assert.equal(V.eligible(row,now),true));
+test('past race never a current forecast',()=>assert.equal(V.eligible(row,now+31*60000),false));
+test('Monbetsu never displayed',()=>assert.equal(V.eligible({...row,track:'門別'},now),false));
+test('postrace forecast rejected',()=>assert.equal(V.eligible({...row,fixed_at:'2026-11-01T13:31:00+09:00'},now),false));
+test('unknown timestamps rejected',()=>assert.equal(V.eligible({...row,source_at:null},now),false));
+test('settled record kept out of upcoming list',()=>assert.equal(V.eligible({...row,result:{status:'settled'}},now),false));
