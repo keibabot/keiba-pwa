@@ -184,7 +184,7 @@ def public_data(state, now, health):
          'summary': summary, 'paper_only': True})
 
 def backfill(state, now):
-    """Reconcile older pending days using a single current-month download per day.
+    """Reconcile unresolved days and recheck settled records for 7 days, one download/month/day.
 
     Monthly raw data stays private. Last month's final file is fetched after rollover.
     """
@@ -192,7 +192,8 @@ def backfill(state, now):
     results = ledger.latest('result')
     pending = {k: e for k, e in ledger.latest('prediction').items()
         if datetime.fromisoformat(e['payload']['scheduled_start']).date() < now.astimezone(JST).date()
-        and results.get(k, {}).get('payload', {}).get('status') != 'settled'}
+        and (results.get(k, {}).get('payload', {}).get('status') != 'settled'
+            or datetime.fromisoformat(e['payload']['scheduled_start']).date() >= now.astimezone(JST).date()-timedelta(days=7))}
     for month in sorted({k[:6] for k in pending}):
         path = state / 'monthly' / (month + '.zip')
         mp = path.with_suffix('.json')
@@ -215,6 +216,8 @@ def backfill(state, now):
         if not path.exists() or not info.get('ok'):
             raise ValueError('月次補完の取得失敗。次の取得可能日まで照合保留')
         raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != info['sha256']:
+            raise ValueError('月次原本のチェックサムが不一致')
         _, horses, paybacks = indexed(read_archive(raw))
         for k, event in pending.items():
             if not k.startswith(month) or k not in horses:
@@ -222,7 +225,8 @@ def backfill(state, now):
             result = settle(event['payload'], horses[k], paybacks.get(k, []))
             result.update(source_sha256=hashlib.sha256(raw).hexdigest(), source_at=info['source_at'], fetched_at=info['fetched_at'], source_kind='monthly_backfill')
             old = results.get(k, {}).get('payload', {})
-            if result.get('status') == 'settled' or old.get('status') != result['status'] or old.get('reason') != result.get('reason'):
+            core = lambda value: {a:b for a,b in value.items() if a not in ('source_sha256','source_at','fetched_at','source_kind')}
+            if core(old) != core(result):
                 ledger.append('result', k, result, now)
 
 def main():
