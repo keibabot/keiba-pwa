@@ -89,9 +89,27 @@ def main():
             _, rows = trio_model.evaluate(bundle['model'],groups,kind)
             full[kind] = metrics(rows)
     conditions = defaultdict(lambda: [0,0])
+    slices = defaultdict(list)
     for month in (9,10):
         path = root/('nar_202610.zip' if month==10 else f'model_data/nar_2026{month:02}.zip')
         gs,_ = trio_model.prepare(path)
+        with threadpool_limits(limits=1):
+            evaluations = {kind:trio_model.evaluate(bundle['model'],gs,kind)[1] for kind in ('axis6','box10')}
+            axis_indices=[]
+            for g in gs:
+                scores=bundle['model'].predict_proba(g['X'])[:,1]
+                axis_indices.append(max(range(len(scores)),key=lambda i:(scores[i],-int(g['horses'][i]['馬番']))))
+        for i,g in enumerate(gs):
+            axis_horse=g['horses'][axis_indices[i]]
+            cs=record_counts(axis_horse.get('全成績',''))
+            axis_band='軸の過去成績5走未満・欠損' if not cs or sum(cs)<5 else '軸の過去3着内率50%以上' if sum(cs[:3])/sum(cs)>=.5 else '軸の過去3着内率50%未満'
+            size=len(g['horses']); distance=int(g['race']['距離'])
+            bands=[('頭数','5〜7頭' if size<=7 else '8〜10頭' if size<=10 else '11頭以上'),
+                ('距離','1200m以下' if distance<=1200 else '1300〜1600m' if distance<=1600 else '1700m以上'),
+                ('軸の累積成績',axis_band)]
+            for kind,rows in evaluations.items():
+                for dimension,band in bands:
+                    slices[(month,kind,dimension,band)].append(rows[i])
         for g in gs:
             for h,y in zip(g['horses'],g['y']):
                 for field in ('全成績','当競馬場成績','うち当距離成績','騎手成績'):
@@ -110,6 +128,19 @@ def main():
     missing = {field:sum(not h.get(field,'').strip() for h in data['horselist']) for field in ['馬体重','馬体重増減',*trio_model.RECORDS,'着順']}
     unknown = Counter(h.get('着順','') for h in data['horselist'] if not h.get('着順','').isdigit())
     payout_duplicates=sum(len(v)-len({digest(p) for p in v}) for v in pay.values())
+    venue_uncertainty={}
+    for venue in old['venues']:
+        amounts=[]
+        for k,ps in pay.items():
+            if k.split('|')[1]!=venue['track']:
+                continue
+            vals=[]
+            for p in ps:
+                value=str(p.get('３連複払戻金（円）','')).replace(',','')
+                if value.isdigit() and int(value)>0:vals.append(int(value))
+            if vals:amounts.append(max(vals))
+        venue_uncertainty[venue['track']]={'races':len(amounts),'high_payout_races':sum(v>=10000 for v in amounts),
+            'high_payout_wilson95_pct':interval(sum(v>=10000 for v in amounts),len(amounts))}
     report = {'generated_at':datetime.now(timezone.utc).isoformat(), 'period':'2026-10-01..2026-10-31',
         'status':'既閲覧期間の事後監査。新規最終評価ではありません',
         'reproduced': {'legacy_matched':len(old_rows),'model_races':len(groups),'full_model':full},
@@ -124,6 +155,8 @@ def main():
                 '旧予想の事前保存を全件独立確認していません。新旧の優劣を確定できません。',
                 '日単位ブートストラップ95%区間はこの標本内の不確実性。将来の保証ではありません。']},
         'conditions':[{'month':m,'field':f,'condition':c,'n':n,'top3':t,'top3_rate_pct':t/n*100,'wilson95_pct':interval(t,n)} for (m,f,c),(n,t) in sorted(conditions.items())],
+        'strategy_conditions':[{'month':m,'strategy':s,'dimension':d,'condition':c,**metrics(rows)} for (m,s,d,c),rows in sorted(slices.items())],
+        'venue_uncertainty':venue_uncertainty,
         'condition_status':'9月・10月とも閲覧済みの探索的集計。穴馬採用・見送りの収益優位性は未検証。人気・確定オッズで選別しません。',
         'prospective':{'start':'研究パイプラインの初回配備後、発走5分より前に固定した予想のみ',
             'strategy':'軸6点と5頭BOX10点を各レース3,000円の同予算で記録。実購入なし。',

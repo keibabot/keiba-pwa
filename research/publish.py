@@ -6,7 +6,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-FILES = ('latest.json', 'history.json', 'health.json')
+FILES = ('latest.json', 'history.json', 'health.json', 'audit_report.json')
 
 def main():
     token = os.environ.get('PWA_REPO_TOKEN', '').strip()
@@ -28,7 +28,7 @@ def main():
     tree = []
     for name in FILES:
         data = json.loads(Path(name).read_text())
-        if name != 'health.json' and data.get('schema_version') != 2:
+        if name in ('latest.json','history.json') and data.get('schema_version') != 2:
             raise ValueError('refuse nonresearch public payload')
         data['private_state_commit'] = os.environ['RESEARCH_STATE_COMMIT']
         blob = request('POST','/git/blobs',{'content':json.dumps(data,ensure_ascii=False),'encoding':'utf-8'})
