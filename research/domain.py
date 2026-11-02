@@ -142,8 +142,26 @@ def settle(prediction, horses, paybacks):
         if len(ts) != len(bet['tickets']):
             raise ValueError('duplicate frozen tickets')
         payout = sum(paid.get(t, 0) for t in ts) * bet['unit'] // 100
-        strategies[name] = {'stake': len(ts) * bet['unit'], 'payout': payout, 'hit': any(t in paid for t in ts), 'refund': 0}
-    return {'status': 'settled', 'strategies': strategies, 'dead_heat': len(paid) > 1, 'reason': '公式着順・三連複払戻を照合'}
+        strategies[name] = {'stake': len(ts) * bet['unit'], 'payout': payout, 'hit': any(t in paid for t in ts), 'refund': 0,
+            'winning_tickets': sum(t in paid for t in ts), 'ticket_count': len(ts)}
+    result = {'status': 'settled', 'strategies': strategies, 'dead_heat': len(paid) > 1,
+        'finish': [{'number': int(h['馬番']), 'position': int(h['着順'])} for h in sorted(horses, key=lambda h: (int(h['着順']), int(h['馬番'])))],
+        'official_trio_paybacks': [{'numbers': list(t), 'payback_100': amount} for t, amount in sorted(paid.items())],
+        'reason': '公式着順・三連複払戻を照合'}
+    if 'research_baskets' in prediction:
+        result['research_baskets'] = {}
+        for name, bet in prediction['research_baskets'].items():
+            ts = {tuple(sorted(t)) for t in bet['tickets']}
+            if len(ts) != len(bet['tickets']) or (ts and (bet['unit'] <= 0 or bet['unit'] % 100)):
+                raise ValueError('invalid frozen research basket')
+            if any(len(t) != 3 or len(set(t)) != 3 or not set(t) <= expected for t in ts):
+                raise ValueError('invalid research ticket')
+            result['research_baskets'][name] = {'stake': len(ts) * bet['unit'],
+                'payout': sum(paid.get(t, 0) for t in ts) * bet['unit'] // 100,
+                'hit': any(t in paid for t in ts), 'refund': 0,
+                'winning_tickets': sum(t in paid for t in ts), 'ticket_count': len(ts),
+                'decision': bet['decision']}
+    return result
 
 class Ledger:
     def __init__(self, path):

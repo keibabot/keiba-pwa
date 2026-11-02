@@ -2,7 +2,7 @@ name: Verify published PWA
 on:
   push:
     branches: [main]
-    paths: ['tests/browser_smoke.py', '.github/workflows/browser-check.yml']
+    paths: ['tests/browser_smoke.py', 'tests/browser_study.py', '.github/workflows/browser-check.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,9 +21,13 @@ jobs:
         env:
           EXPECTED_COMMIT: ${{ github.sha }}
         run: python tests/browser_smoke.py
+      - name: Verify equal-budget study and mobile controls
+        run: python tests/browser_study.py
       - name: Preserve rendered screens and verification
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: published-pwa-browser-verification
-          path: browser-artifacts/
+          path: |
+            browser-artifacts/
+            browser-study-artifacts/

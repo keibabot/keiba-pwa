@@ -19,9 +19,11 @@ from threadpoolctl import threadpool_limits
 from research.domain import (EXCLUDED, JST, SCHEMA, Ledger, allowlisted, atomic_json,
     canonical, digest, evidence, indexed, read_archive, record_counts, settle, start_time)
 import trio_model
+from research.strategies import baskets, concerns, VERSION as BASKET_VERSION, RULE_SHA256, BUDGET
+from research.metrics import summarize
 
 DAILY_URL = 'https://www.keiba.go.jp/KeibaWeb/DataDownload/RaceDataDownload?type=daily'
-VERSION = 'trio-paper-v2-audited'
+VERSION = 'trio-paper-v3-independent-reconciliation'
 
 def fetch_daily(state, now):
     """Durable timestamp enforces >=120s across runners, including failed attempts."""
@@ -72,6 +74,7 @@ def snapshot_prediction(bundle, horses, race, meta, now):
     by_number = {int(h['馬番']): h for h in horses}
     for h in output['horses']:
         h['reasons'] = evidence(by_number[h['number']])
+        h['concerns'] = concerns(by_number[h['number']])
         pop = str(by_number[h['number']].get('人気', '')).strip()
         h['observed_popularity'] = int(pop) if pop.isdigit() and int(pop) > 0 else None
     # Popularity is an observation from the timestamped DAILY pre-race file only.
@@ -95,6 +98,11 @@ def snapshot_prediction(bundle, horses, race, meta, now):
         'source_at': meta['source_at'], 'fetched_at': meta['fetched_at'], 'fixed_at': now.isoformat(),
         'horses': output['horses'], 'strategies': strategies, 'probabilities_calibrated': False,
         'outsider_candidates': outsiders, 'outsider_status': '当日配信の人気を取得時点の観測として保存。穴条件は探索仮説。三連複オッズ・期待値は未検証',
+        'research_baskets': baskets(numbers, clean, {h['number']: h['observed_popularity'] for h in output['horses'] if h['observed_popularity']}),
+        'research_basket_version': BASKET_VERSION, 'research_rules_sha256': RULE_SHA256,
+        'research_budget': BUDGET, 'research_popularity_status': '公式当日配信を固定時に観測。確定人気の遡及利用なし',
+        'research_observation_sha256': digest({'popularity': {h['number']: h['observed_popularity'] for h in output['horses']}, 'source_sha256': meta['sha256']}),
+        'decision': '研究記録のみ。収益性未確認につき実購入は推奨しない',
         'paper_only': True}
 
 def skip_reason(horses, race, now, meta):
@@ -146,7 +154,7 @@ def process(state, raw, meta, bundle, model_meta, now):
         if now < datetime.fromisoformat(pred['scheduled_start']) + timedelta(minutes=3):
             continue
         result = settle(pred, hs, paybacks.get(k, []))
-        result.update(source_sha256=meta['sha256'], source_at=meta['source_at'])
+        result.update(source_sha256=meta['sha256'], source_at=meta['source_at'], source_url=DAILY_URL)
         old = results.get(k)
         # Append corrections as new events; never edit frozen tickets or earlier results.
         comparison = lambda value: {a: b for a, b in value.items() if a not in ('source_sha256', 'source_at')}
@@ -171,17 +179,31 @@ def public_data(state, now, health):
         stake, payout = sum(r['stake'] for r in eligible), sum(r['payout'] for r in eligible)
         summary[name] = {'races': len(eligible), 'hits': sum(r['hit'] for r in eligible), 'stake': stake, 'payout': payout,
             'roi_pct': payout / stake * 100 if stake else None, 'hit_rate': sum(r['hit'] for r in eligible) / len(eligible) if eligible else None}
+        summary[name]['risk'] = summarize([{'scheduled_start': p['scheduled_start'], 'track': p['track'], 'race': p['race'],
+            'stake': p['strategies'][name]['stake'], 'ticket_count': len(p['strategies'][name]['tickets']),
+            'decision': 'paper_buy', 'status': p['result']['status'],
+            **p['result'].get('strategies', {}).get(name, {})} for p in rows])
     today = now.astimezone(JST).date().isoformat()
+    basket_rows = []
+    for p in rows:
+        for name, bet in p.get('research_baskets', {}).items():
+            result = p['result'].get('research_baskets', {}).get(name, {})
+            basket_rows.append({'strategy': name, 'scheduled_start': p['scheduled_start'], 'track': p['track'], 'race': p['race'],
+                'stake': bet['stake'], 'ticket_count': len(bet['tickets']), 'decision': bet['decision'],
+                'status': p['result']['status'] if result else 'pending', **result})
+    research_summary = {name: summarize([r for r in basket_rows if r['strategy'] == name]) for name in sorted({r['strategy'] for r in basket_rows})}
     skips = [dict(e['payload'], recorded_at=e['recorded_at']) for k, e in observations.items() if k not in predictions and e['payload']['date'] == today]
     # Old-day unresolved forecasts are retained; no zero-pick fallback to yesterday.
     return ({'schema_version': 2, 'date': today, 'generated_at': now.isoformat(), 'health': health,
         'races': [r for r in rows if r['date'] == today], 'skips': skips, 'summary': summary,
         'ledger_head': ledger.events[-1]['hash'] if ledger.events else None, 'paper_only': True,
+        'research_summary': research_summary, 'research_basket_version': BASKET_VERSION,
         'jra_status': '中央は対象区分を維持。今回の接続・数値評価は地方のみ。中央の予想は未接続'},
         {'schema_version': 2, 'generated_at': now.isoformat(), 'races': rows,
          'changes': [dict({k: e[k] for k in ('seq', 'kind', 'race_key', 'recorded_at', 'hash', 'previous')},
              reason=e['payload'].get('reason'), result=e['payload'] if e['kind']=='result' else None) for e in ledger.events],
-         'summary': summary, 'paper_only': True})
+         'summary': summary, 'paper_only': True, 'research_summary': research_summary,
+         'research_basket_version': BASKET_VERSION})
 
 def backfill(state, now):
     """Reconcile unresolved days and recheck settled records for 7 days, one download/month/day.
@@ -223,7 +245,8 @@ def backfill(state, now):
             if not k.startswith(month) or k not in horses:
                 continue
             result = settle(event['payload'], horses[k], paybacks.get(k, []))
-            result.update(source_sha256=hashlib.sha256(raw).hexdigest(), source_at=info['source_at'], fetched_at=info['fetched_at'], source_kind='monthly_backfill')
+            result.update(source_sha256=hashlib.sha256(raw).hexdigest(), source_at=info['source_at'], fetched_at=info['fetched_at'], source_kind='monthly_backfill',
+                source_url=f'https://www.keiba.go.jp/KeibaWeb/DataDownload/RaceDataDownload?k_month={int(month[4:])}&k_year={month[:4]}&type=monthly')
             old = results.get(k, {}).get('payload', {})
             core = lambda value: {a:b for a,b in value.items() if a not in ('source_sha256','source_at','fetched_at','source_kind')}
             if core(old) != core(result):
@@ -236,17 +259,31 @@ def main():
     args = parser.parse_args()
     args.state.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc)
-    health = {'status': 'ok', 'checked_at': now.isoformat(), 'pipeline_version': VERSION, 'run_id': os.environ.get('GITHUB_RUN_ID')}
+    health = {'status': 'ok', 'checked_at': now.isoformat(), 'pipeline_version': VERSION, 'run_id': os.environ.get('GITHUB_RUN_ID'),
+        'engine_commit': os.environ.get('RESEARCH_ENGINE_COMMIT')}
+    health['stages'] = {}
     failed = False
     try:
         raw, meta = fetch_daily(args.state, now)
+        health.update(source_at=meta['source_at'], fetched_at=meta['fetched_at'], source_sha256=meta['sha256'])
         bundle, model_meta = load_model(args.state)
         process(args.state, raw, meta, bundle, model_meta, datetime.now(timezone.utc))
-        backfill(args.state, now)
-        health.update(source_at=meta['source_at'], fetched_at=meta['fetched_at'], source_sha256=meta['sha256'], model_version=bundle['version'])
+        health.update(model_version=bundle['version'])
+        health['stages']['daily'] = {'status': 'ok'}
     except Exception as e:
         failed = True
         health.update(status='error', error=type(e).__name__ + ': ' + str(e))
+        health['stages']['daily'] = {'status': 'error', 'error': health['error']}
+    # Past results must not depend on today's feed freshness or model readiness.
+    # This never generates new predictions and never changes their frozen payloads.
+    try:
+        backfill(args.state, now)
+        health['stages']['reconciliation'] = {'status': 'ok'}
+    except Exception as e:
+        failed = True
+        message = type(e).__name__ + ': ' + str(e)
+        health['stages']['reconciliation'] = {'status': 'error', 'error': message}
+        health.update(status='error', error=health.get('error', '') + ('; ' if health.get('error') else '') + message)
     # Integrity failure propagates instead of overwriting a valid public history.
     latest, history = public_data(args.state, now, health)
     atomic_json(args.out / 'latest.json', latest)
