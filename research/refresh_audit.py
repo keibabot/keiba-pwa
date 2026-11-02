@@ -11,7 +11,7 @@ from research.domain import atomic_json
 def main():
     state=Path(sys.argv[1]).resolve()
     repo=Path(sys.argv[2]).resolve()
-    files=['research/audit.py','research/audit_snapshots.py','trio_model.py','trio_engine.py']
+    files=['research/audit.py','research/audit_snapshots.py','research/domain.py','trio_model.py','trio_engine.py']
     version=hashlib.sha256(b''.join(Path(f).read_bytes() for f in files)).hexdigest()
     meta=state/'audit_meta.json'
     saved=state/'audit_report.json'
