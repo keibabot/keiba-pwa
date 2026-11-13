@@ -1,0 +1,17 @@
+{
+  "version": "trifecta-paper-v1",
+  "registered_on": "2026-11-13",
+  "status": "探索的比較。7〜10月は既閲覧。未使用最終評価は配備後の事前固定記録のみ",
+  "high_payout_yen_per_100": 50000,
+  "outsider_observed_popularity_min": 6,
+  "default_max_points": 12,
+  "default_unit": 100,
+  "default_max_stake": 1200,
+  "point_caps_tested": [6,12,18],
+  "selection": {"min_runners": 8,"max_top3_score_gap":0.10,"min_axis_record_starts":5},
+  "model_candidates": ["fixed_hist_gradient_4class_finish"],
+  "models_tuned_on_profit": 0,
+  "ticket_score": "1・2・3着用の順位スコアを加算。組合せ確率とは呼ばず、単純な確率積は使わない",
+  "odds_ev_status": "発走前の三連単全買い目オッズがなく、期待値の検証不能",
+  "adoption": "比較用・未採用・実購入なし"
+}
