@@ -1,0 +1,35 @@
+name: Trifecta desk verification
+on:
+  pull_request:
+  push:
+    branches: [research/trifecta-v1]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run build
+      - run: npm test
+      - run: pip install -r requirements-research.txt playwright
+      - run: python -m unittest discover -s tests -q
+      - run: python -m playwright install --with-deps chromium
+      - name: Verify manual editor with isolated UI-only inputs
+        run: |
+          python -m http.server 8020 --bind 127.0.0.1 > /tmp/desk-server.log 2>&1 &
+          python tests/browser_desk.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trifecta-desk-verification
+          path: desk-artifacts/

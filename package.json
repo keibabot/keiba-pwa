@@ -1,0 +1,12 @@
+{
+  "name": "keiba-trifecta-desk",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test tests/tickets.test.cjs tests/view-state.test.cjs"
+  },
+  "devDependencies": {
+    "twitter-text": "3.1.0",
+    "esbuild": "0.25.12"
+  }
+}

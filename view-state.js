@@ -10,6 +10,7 @@
    const age=now-Date.parse(value||'');
    if(!Number.isFinite(age)||age< -60000||age>35*60000)return {ok:false,label:'更新が止まっています',reason:'35分以上更新がないため、今日の候補表示を停止しています。固定済み記録は履歴に残っています。'};
   }
+  if(data.health?.publication?.automatic_status==='error')return {ok:true,label:'手動更新・自動公開停止',reason:'表示は手動で復旧したデータです。自動公開の認証設定に対応が必要です。'};
   return {ok:true,label:'研究データ更新中',reason:'約15分間隔の取得。GitHub Actionsの遅延があります。'};
  }
  function eligible(r,now){

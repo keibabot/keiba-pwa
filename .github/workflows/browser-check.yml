@@ -2,7 +2,7 @@ name: Verify published PWA
 on:
   push:
     branches: [main]
-    paths: ['tests/browser_smoke.py', 'tests/browser_study.py', '.github/workflows/browser-check.yml']
+    paths: ['tests/browser_smoke.py', 'tests/browser_study.py', 'tests/browser_desk.py', '.github/workflows/browser-check.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -23,6 +23,10 @@ jobs:
         run: python tests/browser_smoke.py
       - name: Verify equal-budget study and mobile controls
         run: python tests/browser_study.py
+      - name: Verify published trifecta desk and copy flow
+        env:
+          PWA_URL: https://keibabot.github.io/keiba-pwa/
+        run: python tests/browser_desk.py
       - name: Preserve rendered screens and verification
         if: always()
         uses: actions/upload-artifact@v4
@@ -31,3 +35,4 @@ jobs:
           path: |
             browser-artifacts/
             browser-study-artifacts/
+            desk-artifacts/

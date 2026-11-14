@@ -41,6 +41,7 @@ def summarize(rows):
             'hits': hits, 'hit_rate_pct': 100 * hits / len(settled) if settled else None,
             'hit_wilson95_pct': interval(hits, len(settled)),
             'ticket_count': tickets, 'winning_tickets': winning,
+            'average_points':sum(r.get('ticket_count',0) for r in bought)/len(bought) if bought else None,
             'ticket_hit_rate_pct': 100 * winning / tickets if tickets and winning is not None else None,
             'committed_stake': total_committed, 'settled_stake': stake, 'payout': payout, 'refund': refund,
             'roi_pct': 100 * (payout + refund) / stake if stake else None,

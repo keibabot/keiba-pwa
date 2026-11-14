@@ -25,14 +25,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run build
+      - run: npm test
+
       - name: Build versioned site
         shell: bash
         run: |
           set -euo pipefail
           rm -rf _site
-          mkdir -p _site
+          mkdir -p _site/vendor
           node --test tests/view-state.test.cjs
           cp index.html styles.css app.js study-view.js view-state.js icon.svg manifest.webmanifest sw.js research.json model_report.json audit_report.json latest.json history.json health.json strategy_report.json reference_report.json _site/
+          cp desk.css desk.js tickets.js trifecta_report.json _site/
+          cp vendor/xtext.js vendor/THIRD_PARTY_LICENSES.txt _site/vendor/
           BUILD_VERSION="${GITHUB_SHA::12}"
           sed -i "s/__BUILD_VERSION__/${BUILD_VERSION}/g" _site/index.html
           sed -i "s/__BUILD_VERSION__/${BUILD_VERSION}/g" _site/sw.js
