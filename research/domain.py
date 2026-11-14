@@ -118,7 +118,7 @@ def settle(prediction, horses, paybacks):
     finishes = [str(h.get('着順', '')).strip() for h in horses]
     if not paybacks:
         return {'status': 'pending', 'reason': '公式三連複払戻は未取得・未確定'}
-    if any(v!='中止' and (not re.fullmatch(r'\d+', v) or int(v) < 1) for v in finishes):
+    if any(v not in ('中止','除外') and (not re.fullmatch(r'\d+', v) or int(v) < 1) for v in finishes):
         return {'status': 'review_required', 'reason': '着順空欄・取消・除外・中止等。返還を推測せず照合待ち'}
     try:
         paid = winners(paybacks)
@@ -136,13 +136,14 @@ def settle(prediction, horses, paybacks):
         expected_winners = {tuple(sorted(t)) for t in combinations(top, 3) if lower <= set(t)}
         if set(paid) != expected_winners:
             return {'status': 'review_required', 'reason': '同着払戻行の完全性を確認できません'}
+    scratched={int(h['馬番']) for h in horses if h.get('着順')=='除外'}
     strategies = {}
     for name, bet in prediction['strategies'].items():
         ts = {tuple(sorted(t)) for t in bet['tickets']}
         if len(ts) != len(bet['tickets']):
             raise ValueError('duplicate frozen tickets')
-        payout = sum(paid.get(t, 0) for t in ts) * bet['unit'] // 100
-        strategies[name] = {'stake': len(ts) * bet['unit'], 'payout': payout, 'hit': any(t in paid for t in ts), 'refund': 0,
+        payout = sum(paid.get(t, 0) for t in ts if not set(t)&scratched) * bet['unit'] // 100
+        strategies[name] = {'stake': len(ts) * bet['unit'], 'payout': payout, 'hit': any(t in paid for t in ts), 'refund': sum(bool(set(t)&scratched) for t in ts)*bet['unit'],
             'winning_tickets': sum(t in paid for t in ts), 'ticket_count': len(ts)}
     result = {'status': 'settled', 'strategies': strategies, 'dead_heat': len(paid) > 1,
         'finish': [{'number': int(h['馬番']), 'position': int(h['着順']) if str(h['着順']).isdigit() else None,'status':h['着順']} for h in sorted(horses, key=lambda h: (int(h['着順']) if str(h['着順']).isdigit() else 999, int(h['馬番'])))],
@@ -162,8 +163,8 @@ def settle(prediction, horses, paybacks):
             if any(len(t) != 3 or len(set(t)) != 3 or not set(t) <= expected for t in ts):
                 raise ValueError('invalid research ticket')
             result['research_baskets'][name] = {'stake': len(ts) * bet['unit'],
-                'payout': sum(paid.get(t, 0) for t in ts) * bet['unit'] // 100,
-                'hit': any(t in paid for t in ts), 'refund': 0,
+                'payout': sum(paid.get(t, 0) for t in ts if not set(t)&scratched) * bet['unit'] // 100,
+                'hit': any(t in paid for t in ts), 'refund': sum(bool(set(t)&scratched) for t in ts)*bet['unit'],
                 'winning_tickets': sum(t in paid for t in ts), 'ticket_count': len(ts),
                 'decision': bet['decision']}
     return result
@@ -186,6 +187,8 @@ class Ledger:
     def append(self, kind, key, payload, at):
         event = {'seq': len(self.events) + 1, 'previous': self.events[-1]['hash'] if self.events else '0' * 64,
                  'kind': kind, 'race_key': key, 'recorded_at': at.isoformat(), 'payload': payload}
+        # Freeze nested values and normalize JSON object keys before computing the commitment.
+        event = json.loads(canonical(event))
         event['hash'] = digest(event)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.path.open('a', encoding='utf-8') as f:

@@ -183,8 +183,9 @@ def public_data(state, now, health):
     for name in ('axis6', 'box10'):
         eligible = [r['result']['strategies'][name] for r in rows if r['result']['status'] == 'settled']
         stake, payout = sum(r['stake'] for r in eligible), sum(r['payout'] for r in eligible)
+        refund=sum(r.get('refund',0) for r in eligible)
         summary[name] = {'races': len(eligible), 'hits': sum(r['hit'] for r in eligible), 'stake': stake, 'payout': payout,
-            'roi_pct': payout / stake * 100 if stake else None, 'hit_rate': sum(r['hit'] for r in eligible) / len(eligible) if eligible else None}
+            'refund':refund,'roi_pct': (payout+refund) / stake * 100 if stake else None, 'hit_rate': sum(r['hit'] for r in eligible) / len(eligible) if eligible else None}
         summary[name]['risk'] = summarize([{'scheduled_start': p['scheduled_start'], 'track': p['track'], 'race': p['race'],
             'stake': p['strategies'][name]['stake'], 'ticket_count': len(p['strategies'][name]['tickets']),
             'decision': 'paper_buy', 'status': p['result']['status'],

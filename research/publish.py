@@ -40,6 +40,9 @@ def main():
         if name in ('latest.json','history.json') and data.get('schema_version') != 2:
             raise ValueError('refuse nonresearch public payload')
         data['private_state_commit'] = os.environ['RESEARCH_STATE_COMMIT']
+        publication={'mode':'automatic','automatic_status':'ok','published_at':datetime.now(timezone.utc).isoformat()}
+        if name=='health.json':data['publication']=publication
+        if name=='latest.json':data['health']['publication']=publication
         blob = request('POST','/git/blobs',{'content':json.dumps(data,ensure_ascii=False),'encoding':'utf-8'})
         tree.append({'path':name,'mode':'100644','type':'blob','sha':blob['sha']})
     result = request('POST','/git/trees',{'base_tree':commit['tree']['sha'],'tree':tree})

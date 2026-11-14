@@ -25,6 +25,8 @@ def freeze(state,ledger,key,hs,race,meta,now):
             fixed_at=now.isoformat(),source_at=meta['source_at'],fetched_at=meta['fetched_at'],model_sha256=info['sha256'],input_sha256=digest({'horses':clean,'race':context}),limits=limits,paper_only=True,
             horses=[{'number':int(h['馬番']),'name':h['馬名'],'position_ranks':p['position_ranks'][int(h['馬番'])],'reasons':evidence(h),'concerns':concerns(h),'observed_popularity':pop.get(int(h['馬番']))} for h in clean])
         p['horses'].sort(key=lambda h:(sum(h['position_ranks']),h['number']))
+        # JSON decodes object keys as strings. Normalize before hashing, especially 10+ runners.
+        p['position_ranks']={str(n):v for n,v in p['position_ranks'].items()}
         ledger.append('trifecta_prediction',key,p,now)
     except (ValueError,KeyError,TypeError,OSError) as e:
         payload={'reason':str(e),'strategy_version':VERSION};old=ledger.latest('trifecta_observation').get(key)
@@ -32,7 +34,7 @@ def freeze(state,ledger,key,hs,race,meta,now):
 
 def settle_ordered(p,hs,ps):
     if {int(h['馬番']) for h in hs}!={h['number'] for h in p['horses']}:return {'status':'review_required','reason':'出走馬増減・返還要照合'}
-    if any((not str(h.get('着順','')).isdigit() and h.get('着順')!='中止') or str(h.get('着順','')).isdigit() and int(h['着順'])<1 for h in hs):return {'status':'review_required','reason':'着順空欄・取消・除外・返還要照合'}
+    if any((not str(h.get('着順','')).isdigit() and h.get('着順') not in ('中止','除外')) or str(h.get('着順','')).isdigit() and int(h['着順'])<1 for h in hs):return {'status':'review_required','reason':'着順空欄・取消・返還要照合'}
     try:paid=payouts(ps)
     except ValueError as e:return {'status':'review_required','reason':str(e)}
     if not paid:return {'status':'pending','reason':'公式三連単払戻未取得'}
@@ -42,11 +44,11 @@ def settle_ordered(p,hs,ps):
         rr=[finish[n] for n in t];lower={n for n,r in finish.items() if r<max(rr)}
         if rr==sorted(rr) and lower<=set(t):expected.add(t)
     if set(paid)!=expected:return {'status':'review_required','reason':'三連単着順・同着払戻行の完全性未確認'}
-    out={}
+    out={};scratched={int(h['馬番']) for h in hs if h.get('着順')=='除外'}
     for name,ts in [('selected',p['tickets']),('all_races',p['all_races_tickets'])]:
         if len(ts)!=len(set(tuple(t) for t in ts)) or any(len(set(t))!=3 or len(t)!=3 for t in ts) or p['unit']%100 or p['unit']<100:return {'status':'review_required','reason':'保存買い目・購入単位が不正'}
         ts={tuple(t) for t in ts};hits=[t for t in ts if t in paid]
-        out[name]={'stake':len(ts)*p['unit'],'payout':sum(paid[t] for t in hits)*p['unit']//100,'refund':0,'hit':bool(hits),'winning_tickets':len(hits),'ticket_count':len(ts),'decision':'paper_buy' if ts else 'skip'}
+        out[name]={'stake':len(ts)*p['unit'],'payout':sum(paid[t] for t in hits)*p['unit']//100,'refund':sum(bool(set(t)&scratched) for t in ts)*p['unit'],'hit':bool(hits),'winning_tickets':len(hits),'ticket_count':len(ts),'decision':'paper_buy' if ts else 'skip'}
     return {'status':'settled','strategies':out,'finish':[{'number':int(h['馬番']),'position':int(h['着順']) if str(h['着順']).isdigit() else None,'status':h['着順']} for h in hs],'official_trifecta_paybacks':[{'numbers':list(t),'payback_100':v} for t,v in paid.items()],'reason':'公式三連単全払戻行と照合'}
 
 def reconcile(ledger,horses,paybacks,meta,now):
