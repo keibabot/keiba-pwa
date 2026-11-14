@@ -19,6 +19,8 @@ from threadpoolctl import threadpool_limits
 from research.domain import (EXCLUDED, JST, SCHEMA, Ledger, allowlisted, atomic_json,
     canonical, digest, evidence, indexed, read_archive, record_counts, settle, start_time)
 import trio_model
+from research import trifecta_live
+from research.official_status import enrich
 from research.strategies import baskets, concerns, VERSION as BASKET_VERSION, RULE_SHA256, BUDGET
 from research.metrics import summarize
 
@@ -132,6 +134,7 @@ def process(state, raw, meta, bundle, model_meta, now):
     age = (now - datetime.fromisoformat(meta['source_at'])).total_seconds()
     if not -60 <= age <= 600:
         raise ValueError('公式データが10分以上古いか未来時刻です')
+    atomic_json(state/'racecards.json', {'date':now.astimezone(JST).date().isoformat(),'races':[{'date':now.astimezone(JST).date().isoformat(),'track':r['競馬場'],'race':int(r['レース番号']),'race_name':r.get('レース名',''),'time':start_time(r).strftime('%H:%M'),'scheduled_start':start_time(r).isoformat(),'source_at':meta['source_at']} for r in races.values() if r['競馬場'] not in EXCLUDED]})
     ledger = Ledger(state / 'ledger.jsonl')
     fixed = ledger.latest('prediction')
     observations = ledger.latest('observation')
@@ -150,6 +153,8 @@ def process(state, raw, meta, bundle, model_meta, now):
                 continue
             prediction = snapshot_prediction(bundle, hs, race, {**meta, 'model_sha256': model_meta['sha256']}, now)
             fixed[k] = ledger.append('prediction', k, prediction, now)
+        if skip_reason(hs,race,now,meta) is None:
+            trifecta_live.freeze(state,ledger,k,hs,race,meta,now)
         pred = fixed[k]['payload']
         if now < datetime.fromisoformat(pred['scheduled_start']) + timedelta(minutes=3):
             continue
@@ -160,6 +165,7 @@ def process(state, raw, meta, bundle, model_meta, now):
         comparison = lambda value: {a: b for a, b in value.items() if a not in ('source_sha256', 'source_at')}
         if not old or comparison(old['payload']) != comparison(result):
             results[k] = ledger.append('result', k, result, now)
+    trifecta_live.reconcile(ledger,horses,paybacks,meta,now)
     return ledger
 
 def public_data(state, now, health):
@@ -184,6 +190,9 @@ def public_data(state, now, health):
             'decision': 'paper_buy', 'status': p['result']['status'],
             **p['result'].get('strategies', {}).get(name, {})} for p in rows])
     today = now.astimezone(JST).date().isoformat()
+    tri=trifecta_live.public(ledger)
+    cards=json.loads((state/'racecards.json').read_text()) if (state/'racecards.json').exists() else {}
+    cards=cards.get('races',[]) if cards.get('date')==today else []
     basket_rows = []
     for p in rows:
         for name, bet in p.get('research_baskets', {}).items():
@@ -194,12 +203,12 @@ def public_data(state, now, health):
     research_summary = {name: summarize([r for r in basket_rows if r['strategy'] == name]) for name in sorted({r['strategy'] for r in basket_rows})}
     skips = [dict(e['payload'], recorded_at=e['recorded_at']) for k, e in observations.items() if k not in predictions and e['payload']['date'] == today]
     # Old-day unresolved forecasts are retained; no zero-pick fallback to yesterday.
-    return ({'schema_version': 2, 'date': today, 'generated_at': now.isoformat(), 'health': health,
+    return ({'schema_version': 2, 'date': today, 'trifecta':tri, 'racecards':cards, 'generated_at': now.isoformat(), 'health': health,
         'races': [r for r in rows if r['date'] == today], 'skips': skips, 'summary': summary,
         'ledger_head': ledger.events[-1]['hash'] if ledger.events else None, 'paper_only': True,
         'research_summary': research_summary, 'research_basket_version': BASKET_VERSION,
         'jra_status': '中央は対象区分を維持。今回の接続・数値評価は地方のみ。中央の予想は未接続'},
-        {'schema_version': 2, 'generated_at': now.isoformat(), 'races': rows,
+        {'schema_version': 2, 'generated_at': now.isoformat(), 'races': rows, 'trifecta':tri,
          'changes': [dict({k: e[k] for k in ('seq', 'kind', 'race_key', 'recorded_at', 'hash', 'previous')},
              reason=e['payload'].get('reason'), result=e['payload'] if e['kind']=='result' else None) for e in ledger.events],
          'summary': summary, 'paper_only': True, 'research_summary': research_summary,
@@ -216,7 +225,8 @@ def backfill(state, now):
         if datetime.fromisoformat(e['payload']['scheduled_start']).date() < now.astimezone(JST).date()
         and (results.get(k, {}).get('payload', {}).get('status') != 'settled'
             or datetime.fromisoformat(e['payload']['scheduled_start']).date() >= now.astimezone(JST).date()-timedelta(days=7))}
-    for month in sorted({k[:6] for k in pending}):
+    tri_pending={k:e for k,e in ledger.latest('trifecta_prediction').items() if datetime.fromisoformat(e['payload']['scheduled_start']).date()<now.astimezone(JST).date() and ledger.latest('trifecta_result').get(k,{}).get('payload',{}).get('status')!='settled'}
+    for month in sorted({k[:6] for k in pending}|{k[:6] for k in tri_pending}):
         path = state / 'monthly' / (month + '.zip')
         mp = path.with_suffix('.json')
         info = json.loads(mp.read_text()) if mp.exists() else {}
@@ -241,10 +251,13 @@ def backfill(state, now):
         if hashlib.sha256(raw).hexdigest() != info['sha256']:
             raise ValueError('月次原本のチェックサムが不一致')
         _, horses, paybacks = indexed(read_archive(raw))
+        horses={k:enrich(state,k,hs) for k,hs in horses.items()}
+        trifecta_live.reconcile(ledger,horses,paybacks,info,now)
         for k, event in pending.items():
             if not k.startswith(month) or k not in horses:
                 continue
             result = settle(event['payload'], horses[k], paybacks.get(k, []))
+            result['finish_status_sources']=[h['status_source'] for h in horses[k] if 'status_source' in h]
             result.update(source_sha256=hashlib.sha256(raw).hexdigest(), source_at=info['source_at'], fetched_at=info['fetched_at'], source_kind='monthly_backfill',
                 source_url=f'https://www.keiba.go.jp/KeibaWeb/DataDownload/RaceDataDownload?k_month={int(month[4:])}&k_year={month[:4]}&type=monthly')
             old = results.get(k, {}).get('payload', {})

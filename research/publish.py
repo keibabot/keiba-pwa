@@ -3,8 +3,10 @@ import base64
 import json
 import os
 import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
+from research.domain import atomic_json
 
 FILES = ('latest.json', 'history.json', 'health.json', 'audit_report.json')
 
@@ -23,7 +25,14 @@ def main():
             'Content-Type': 'application/json', 'X-GitHub-Api-Version':'2022-11-28'})
         with urllib.request.urlopen(req, timeout=40) as r:
             return json.load(r)
-    head = request('GET','/git/ref/heads/main')['object']['sha']
+    try:
+        head = request('GET','/git/ref/heads/main')['object']['sha']
+    except urllib.error.HTTPError as e:
+        code='authentication_failed' if e.code==401 else 'permission_or_policy_failed' if e.code==403 else 'publication_http_failed'
+        atomic_json('publication_status.json', {'status':'error','code':code,'http_status':e.code,
+            'checked_at':datetime.now(timezone.utc).isoformat(),
+            'reason':'GitHub設定でPWA_REPO_TOKENの有効性とkeiba-pwa書込権限を確認。値は出力しない。前回の公開データは変更していません。'})
+        raise RuntimeError(f'Publication {code} HTTP {e.code}; private state and previous public data preserved') from None
     commit = request('GET','/git/commits/'+head)
     tree = []
     for name in FILES:

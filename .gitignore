@@ -6,3 +6,6 @@ _site/
 runtime/
 node_modules/
 test-results/
+vendor/xtext.js
+vendor/xtext.js.LEGAL.txt
+desk-artifacts/
