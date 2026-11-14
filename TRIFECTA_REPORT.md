@@ -97,4 +97,18 @@ python tests/browser_desk.py
 
 非公開stateのtrainingに公式7〜10月ZIP、旧model.pklとmodel_meta.jsonが必要。新モデルとmetaは非公開stateに配置済み。状態を触る前にLedgerで全hashを検査し、再実行後の予想prefix・重複・固定時刻を比較する。Gitのforce pushはしない。
 Python40件、JS新規8件＋既存12件、UI専用入力を使った390px／PC・コピー・保存・オフラインのブラウザ検証を実施。合成入力を予想・成績へ配信しない。
-公開確認とActions実行へのリンクは公開後に追記する。
+
+## 公開確認（2026年11月14日）
+
+- PWA変更: https://github.com/keibabot/keiba-pwa/pull/2 （マージ済み、524e59c）
+- Bot変更: https://github.com/keibabot/keiba-auto-bot/pull/5 （マージ済み、bf88db4）
+- Pages公開成功: https://github.com/keibabot/keiba-pwa/actions/runs/43592060336
+- 実際の公開URLでのブラウザ検証成功: https://github.com/keibabot/keiba-pwa/actions/runs/43592060318
+- 公開URL: https://keibabot.github.io/keiba-pwa/
+
+公開URL上で390pxの横はみ出しなし、三連複5頭BOX10点／三連単60点、既定1,200円の上限、投稿プレビューとコピーの一致、コピー済みと投稿済みの区別、保存・再読込・オフライン編集を確認。ページエラーなし。ブラウザ検証用の入力はテスト内だけで使用し、公開予想へ配信していない。Python40件、Bot側62件、JavaScript20件が成功した。
+
+Botの再実行 https://github.com/keibabot/keiba-auto-bot/actions/runs/43592063767 は公開処理のみHTTP401で失敗。非公開stateへの保存と復旧用artifactの保存は成功。自動更新全体が成功したとは扱わない。GitHub SettingsのActions Secret `PWA_REPO_TOKEN` の認証設定更新が必要。接続中のGitHub認証とActions用Secretは別であり、秘密値は報告・成果物に含めない。公開画面は手動復旧分で、自動公開停止を明示している。
+
+オッズ自動配信は未接続で手入力・貼付に対応。研究条件の改善は確認できず、実購入・自動投稿・通知は開始していない。
+
