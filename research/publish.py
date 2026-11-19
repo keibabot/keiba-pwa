@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from research.domain import atomic_json
 
-FILES = ('latest.json', 'history.json', 'health.json', 'audit_report.json')
+FILES = ('latest.json', 'history.json', 'health.json', 'audit_report.json', 'diagnosis.json')
 
 def main():
     token = os.environ.get('PWA_REPO_TOKEN', '').strip()

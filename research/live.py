@@ -302,6 +302,8 @@ def main():
     latest, history = public_data(args.state, now, health)
     atomic_json(args.out / 'latest.json', latest)
     atomic_json(args.out / 'history.json', history)
+    from research.diagnose import run as diagnose
+    atomic_json(args.out / 'diagnosis.json', diagnose(Ledger(args.state / 'ledger.jsonl')))
     atomic_json(args.out / 'health.json', health)
     print(canonical({'status': health['status'], 'date': latest['date'], 'predictions_today': len(latest['races']), 'skips': len(latest['skips'])}))
     return 1 if failed else 0
