@@ -86,7 +86,9 @@ def run(ledger):
               if supported(h) and (h.get('observed_popularity') or 0)>=6:outside['eligible_'+label]+=1
           if r.get('status')=='settled' and r.get('official_trifecta_paybacks') and not any(h.get('status')=='除外' for h in finish):
             plans,_=counterfactual(p)
-            for name,ts in plans.items():cf[name].append(row(p,r,ts,100))
+            for name,ts in plans.items():
+              cf[name].append(row(p,r,ts,100))
+              cf[name+'_cap6'].append(row(p,r,ts[:6],100))
       for name,g in groups.items():
         g['metrics']=summarize(g.pop('rows'));report['diagnosis'][kind+'/'+name]=g
     for name,rs in cf.items():
@@ -95,9 +97,13 @@ def run(ledger):
     # Strict paired equal-stake comparison: same race, both exactly 1,200 yen.
     base={(r['date'],r['track'],r['race']):r for r in cf['baseline_first12']}
     for name,rs in cf.items():
-      if name=='baseline_first12':continue
+      if name=='baseline_first12' or name.endswith('_cap6'):continue
       paired=[r for r in rs if r['stake']==1200 and base[(r['date'],r['track'],r['race'])]['stake']==1200]
       report['counterfactual'][name]['paired_1200']={'variant':summarize(paired),'baseline':summarize([base[(r['date'],r['track'],r['race'])] for r in paired])}
+    report['point_reduction']={}
+    for name in ['baseline_first12','replace_lowest12','outsider_second_third12','outside_only12']:
+      full=cf[name];small=cf[name+'_cap6']
+      report['point_reduction'][name]={'races':len(full),'saved_stake':sum(r['stake'] for r in full)-sum(r['stake'] for r in small),'lost_hits':sum(r['hit'] for r in full)-sum(r['hit'] for r in small),'lost_payout':sum(r['payout'] for r in full)-sum(r['payout'] for r in small),'status':'事後比較・未採用'}
     report['missed_horses']=outside
     return report
 
