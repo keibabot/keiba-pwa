@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-11-19T03:03:28.684496+00:00",
+  "sources": [
+    {
+      "url": "https://note.com/t_umauma/n/n259cbb415469",
+      "http_status": 200,
+      "bytes": 219295,
+      "finding": "取得成功は全買い目・外れ・事前性の確認を意味しない。既存の本人説明と解釈の記録はreference_report.json参照"
+    },
+    {
+      "url": "https://x.com/1nuO1EtvJlqlhyl",
+      "http_status": 200,
+      "bytes": 160305,
+      "finding": "取得成功は全買い目・外れ・事前性の確認を意味しない。既存の本人説明と解釈の記録はreference_report.json参照"
+    },
+    {
+      "url": "https://bookers.tech/author/534645/",
+      "http_status": 200,
+      "bytes": 91314,
+      "finding": "取得成功は全買い目・外れ・事前性の確認を意味しない。既存の本人説明と解釈の記録はreference_report.json参照"
+    }
+  ]
+}
